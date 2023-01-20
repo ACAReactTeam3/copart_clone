@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { v4 as uuid } from 'uuid'
 import Box from "@mui/material/Box";
-import { Paper, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { createUseStyles } from "react-jss";
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,50 +12,33 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
 
 const useStyle = createUseStyles({
-    '@global': {
-        body: {
-            backgroundColor: 'brown', 
-        }
-    },
   box: {
     position: "relative",
   },
-  contentTitle: {
-    height: 'auto',
-    backgroundColor: "black",
-    color: "white",
-    textAlign: "center",
-  },
-  select: {
+  input: {
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    margin: 15,
+    flexWrap: 'wrap',
+    justifyContent: "center",
   },
   button: {
     position: "relative",
-    left: "40%",
+    margin: 'auto'
   },
 });
 
-export default function CreatePost(props) {
-  
-  const { addedPost } = props;
+export default function PostTool() {
   let classes = useStyle();
   let carName = ['Mercedes', 'BMW', 'Volvo', 'Audi', 'Mazda']
   let [model, setModel] = useState('')
   let [color, setColor] = useState("#000");
   let [price, setPrice] = useState("");
   let [mileage, setMileage] = useState("");
-  let [horsepower, setHorsepower] = useState("");
 
   let [moneyType, setMoneyType] = useState('USD $');
   let bodyType = ['SEDAN', 'COUPE', 'SPORTS','STATION WAGON','HATCHBACK', 'CONVERTIBLE', 'SPORT-UTILITY VEHICLE (SUV)', 'MINIVAN', 'PICKUP TRUCK'];
   let [body, setBody] = useState('')
   let [gearbox, setGearbox ] = useState('')
-  let [handDrive, setHandDrive] = useState('')
   let [engine, setEngine] = useState('')
-  let [additionalInfo, setAdditionalInfo] = useState('')
 
   const handleChangeMoneyType = (event) => {
     setMoneyType(event.target.value) ;
@@ -66,13 +49,10 @@ export default function CreatePost(props) {
   const handleChangeGearboxType = (event) => {
     setGearbox(event.target.value) ;
   };
-  const handleChangeHandDriveType = (event) => {
-    setHandDrive(event.target.value) ;
-  };
+
   const handleChangeEngineType = (event) => {
     setEngine(event.target.value) ;
   };
-  let disabledButton = model && price && mileage
 
   return (
     <div className={classes.box}>
@@ -88,8 +68,6 @@ export default function CreatePost(props) {
           },
         }}
       >
-        <Paper elevation={3}>
-          <h2 className={classes.contentTitle}> Create Post </h2>
           <Box
             component="form"
             sx={{
@@ -98,11 +76,10 @@ export default function CreatePost(props) {
             noValidate
             autoComplete="off"
           >
-            <div>
+            <div className={classes.input}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label" required> Մակնիշը </InputLabel>
+              <InputLabel id="demo-dialog-select-label"> Մակնիշը </InputLabel>
               <Select
-                
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
                 value={model}
@@ -125,12 +102,8 @@ export default function CreatePost(props) {
                 onChange={(e) => {
                   setColor(e.target.value);
                 }}
-              />
-            </div>
-
-            <div>
+              />           
               <TextField
-                required
                 label="Արժեքը"
                 value={price}
                 onChange={(e) => {
@@ -151,27 +124,14 @@ export default function CreatePost(props) {
                 <MenuItem value='USD $' >USD $</MenuItem>
                 <MenuItem value='EUR €' >EUR €</MenuItem>
               </Select>
-            </FormControl>
-           
-            </div>
-            <div>
+            </FormControl>           
               <TextField
-                required
                 label="Վազքը"
                 value={mileage}
                 onChange={(e) => {
                   setMileage(e.target.value.replace(/[^0-9,]/g,''));
                 }}
               />
-              <TextField
-                label="Ձիաուժը"
-                value={horsepower}
-                onChange={(e) => {
-                  setHorsepower(e.target.value.replace(/[^0-9,]/g,''));
-                }}
-              />
-            </div>
-            <div className={classes.select}>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label"> Թափքը </InputLabel>
               <Select
@@ -206,22 +166,6 @@ export default function CreatePost(props) {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Ղեկը </InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={handDrive}
-                onChange={handleChangeHandDriveType}
-                input={<OutlinedInput label="Hand Drive" />}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value='Left' >Left</MenuItem>
-                <MenuItem value='Right' >Right</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label"> Շարժիչը </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
@@ -241,23 +185,15 @@ export default function CreatePost(props) {
               </Select>
             </FormControl>
             </div>
-            <Box
-              sx={{ "& .MuiTextField-root": { m: 1, width: 450 },}}
-            >
-              <div>
-                <TextField id="fullWidth" label="Լրացուցիչ" multiline value={additionalInfo} onChange={(e) => {setAdditionalInfo(e.target.value)}} />
-              </div>
-            </Box>
             <Stack direction="row" spacing={2}>
-              <Button className={classes.button} disabled={!disabledButton} variant="primary" endIcon={<SendIcon />}
-               onClick={() => {
-                 return addedPost(model, color, price, moneyType, mileage, horsepower, body, gearbox, handDrive, engine, additionalInfo)
-               }}>
-                Send 
+              <Button className={classes.button} variant="primary" endIcon={<ManageSearchIcon />}
+              /*  onClick={() => {
+                 return onFilter(model, color, price, moneyType, mileage, body, gearbox, handDrive, engine)
+               }} */>
+                Փնտրել 
               </Button>
             </Stack>
           </Box>
-        </Paper>
       </Box>
     </div>
   );
