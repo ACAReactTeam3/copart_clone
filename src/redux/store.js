@@ -38,11 +38,13 @@ export let store = createStore(function(state, action) {
           ...item,
           posts: [
             {
+              brand: action.payload.brand,
               model: action.payload.model,
               color: action.payload.color,
               price: action.payload.price,
               moneyType: action.payload.moneyType,
               mileage: action.payload.mileage,
+              distanceType: action.payload.distanceType,
               horsepower: action.payload.horsepower,
               body: action.payload.body,
               gearbox: action.payload.gearbox,

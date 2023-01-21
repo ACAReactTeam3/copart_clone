@@ -78,16 +78,17 @@ function App() {
     window.location.reload(),
     localStorage.clear()
   }
-
-  const addedPost = (model, color, price, moneyType, mileage, horsepower, body, gearbox, handDrive, engine, additionalInfo) => {
+  const addedPost = (brand, model, color, price, moneyType, mileage, distanceType, horsepower, body, gearbox, handDrive, engine, additionalInfo) => {
     return dispatch({
       type: 'added-user-post',
       payload: {
+        brand: brand,
         model: model,
         color: color,
         price: price,
         moneyType: moneyType,
         mileage: mileage,
+        distanceType: distanceType,
         horsepower: horsepower,
         body: body,
         gearbox: gearbox,
