@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
+import { useEffect } from "react";
 
 const useStyle = createUseStyles({
   box: {
@@ -26,13 +27,16 @@ const useStyle = createUseStyles({
   },
 });
 
-export default function PostTool() {
+export default function Filter() {
   let classes = useStyle();
-  let carName = ['Mercedes', 'BMW', 'Volvo', 'Audi', 'Mazda']
+  let [carName, setCarName] = useState([])
+  let [brand, setBrand] = useState('')
+  let [modelName, setModelName] = useState([])
   let [model, setModel] = useState('')
   let [color, setColor] = useState("#000");
   let [price, setPrice] = useState("");
   let [mileage, setMileage] = useState("");
+  let [distanceType, setDistanceType] = useState('ԿՄ')
 
   let [moneyType, setMoneyType] = useState('USD $');
   let bodyType = ['SEDAN', 'COUPE', 'SPORTS','STATION WAGON','HATCHBACK', 'CONVERTIBLE', 'SPORT-UTILITY VEHICLE (SUV)', 'MINIVAN', 'PICKUP TRUCK'];
@@ -42,6 +46,9 @@ export default function PostTool() {
 
   const handleChangeMoneyType = (event) => {
     setMoneyType(event.target.value) ;
+  };
+  const handleChangeDistanceType = (event) => {
+    setDistanceType(event.target.value) ;
   };
   const handleChangeBodyType = (event) => {
     setBody(event.target.value) ;
@@ -53,6 +60,21 @@ export default function PostTool() {
   const handleChangeEngineType = (event) => {
     setEngine(event.target.value) ;
   };
+
+  useEffect(() => {
+    fetch('https://raw.githubusercontent.com/matthlavacka/car-list/master/car-list.json')
+        .then(function(response) {
+            return response.json()
+        }).then(function(result) {
+            setCarName(result)
+        })
+  }, [])
+
+  useEffect(() => {
+    if(brand) {
+      setModelName(carName.find(obj => obj.brand == brand).models)
+    }
+}, [brand])
 
   return (
     <div className={classes.box}>
@@ -82,17 +104,35 @@ export default function PostTool() {
               <Select
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
+                value={brand}
+                onChange={(e) => {
+                    setBrand(e.target.value)
+                }}
+                input={<OutlinedInput label="Brand" />}
+              >
+                {
+                  carName.map(item => {
+                   return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-dialog-select-label"> Մոդելը </InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
                 value={model}
                 onChange={(e) => {
                   setModel(e.target.value)
                 }}
-                input={<OutlinedInput label="Gearbox" />}
+                input={<OutlinedInput label="Model" />}
               >
                 {
-                  carName.map(item => {
-                   return <MenuItem value={item} key={uuid()}> {item} </MenuItem>
-                  })
-                }
+                    modelName.map(item => {
+                        return <MenuItem value={item} key={uuid()}> {item} </MenuItem>
+                    })
+                } 
               </Select>
             </FormControl>
               <TextField
@@ -132,13 +172,25 @@ export default function PostTool() {
                   setMileage(e.target.value.replace(/[^0-9,]/g,''));
                 }}
               />
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-dialog-select-label"> Միավորը </InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={distanceType}
+                onChange={handleChangeDistanceType}
+                input={<OutlinedInput label="Միավորը" />}
+              >
+                <MenuItem value='ԿՄ' >ԿՄ</MenuItem>
+                <MenuItem value='ՄՂՈՆ' >ՄՂՈՆ</MenuItem>
+              </Select>
+            </FormControl>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label"> Թափքը </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
                 value={body}
-                
                 onChange={handleChangeBodyType}
                 input={<OutlinedInput label="Body" />}
               >
@@ -188,7 +240,7 @@ export default function PostTool() {
             <Stack direction="row" spacing={2}>
               <Button className={classes.button} variant="primary" endIcon={<ManageSearchIcon />}
               /*  onClick={() => {
-                 return onFilter(model, color, price, moneyType, mileage, body, gearbox, handDrive, engine)
+                 return onFilter(brand, color, price, moneyType, mileage, body, gearbox, handDrive, engine)
                }} */>
                 Փնտրել 
               </Button>

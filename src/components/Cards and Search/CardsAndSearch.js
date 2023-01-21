@@ -1,6 +1,7 @@
 import styles from "./CardsAndSearch.module.css";
 import React from "react";
 import { useEffect, useState } from "react";
+import {v4 as uuid} from 'uuid'
 
 function CardsAndSearch() {
   const [error, setError] = useState(null);
@@ -85,7 +86,7 @@ function CardsAndSearch() {
         </div>
         <ul className={styles.cardGrid}>
           {search(data).map((item) => (
-            <li>
+            <li key={uuid()}>
               <article className={styles.card} key={item.alpha3Code}>
                 <div className={styles.cardImage}>
                   <img src={item.flag.large} alt={item.name} />
