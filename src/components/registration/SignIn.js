@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createUseStyles } from 'react-jss';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 let useStyles = createUseStyles({  
     '@global': {
@@ -28,17 +29,19 @@ let useStyles = createUseStyles({
 
 export default function SignIn(props) {
     const classes = useStyles()
+    const auth = getAuth();
     let { signIn } = props
-    let [nickname, setNickname] = useState('')
+    let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
     let navigate = useNavigate()
-
-
     useEffect(() => {
-        if(localStorage.length) {
-            navigate('/',)
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          navigate('/home', {replace: true})
         }
-    }, [localStorage.length])
+      })
+    }, [auth])
 
   return (
     <div>
@@ -53,10 +56,10 @@ export default function SignIn(props) {
                     <TextField
                     required
                     id="outlined-required"
-                    label="Nickname"
-                    value={nickname}
+                    label="Email"
+                    value={email}
                     onChange={(e) => {
-                        setNickname(e.target.value)
+                        setEmail(e.target.value)
                     }}
                     />  
                     <TextField
@@ -71,8 +74,8 @@ export default function SignIn(props) {
                 />
                 <Stack spacing={2} direction="row">
                 <Button variant="contained" onClick={() => {
-                    signIn(nickname, password)
-                    setNickname('')
+                    signIn(email, password)
+                    setEmail('')
                     setPassword('')
                 }}> Sign In </Button>
                 </Stack>

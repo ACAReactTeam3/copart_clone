@@ -4,19 +4,6 @@ import { actionType } from "../constants/constants";
 
 export let store = createStore(function(state, action) {
   
-    if(action.type == actionType.userSignIn) {
-       return state.map(item => {
-        if(item.nickname == action.payload.nickname && item.password == action.payload.password ) {
-          return {
-            ...item,
-            loggedIn: action.payload.loggedIn,
-            save: localStorage.setItem('userLoggedIn', true )
-          }
-          
-        } else {return item }
-      })
-    }
-
     if(action.type == actionType.userSignUp) {
         return [
             ...state,

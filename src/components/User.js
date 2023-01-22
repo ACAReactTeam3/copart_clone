@@ -1,3 +1,4 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import React, { useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -33,20 +34,22 @@ let useStyles = createUseStyles({
 })
 
 export default function User() {
+  const auth = getAuth();
   let classes = useStyles()
   let navigate = useNavigate()
   let location = useLocation()
 
-    useEffect(() => {
-        if(!localStorage.length) {
-           navigate('/signin')
-        }
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/signin')
+      }
+  });
 
-        if(location.pathname == '/user') {
-          navigate('/')
-        }
-        
-      }, [localStorage.length, location.pathname])
+    if(location.pathname == '/user') {
+      navigate('/')
+    }
+  }, [auth, location.pathname])
     
 
   return (
