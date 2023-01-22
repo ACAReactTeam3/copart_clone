@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 import { createUseStyles } from 'react-jss';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 let useStyles = createUseStyles({  
   '@global': {
@@ -26,21 +27,25 @@ let useStyles = createUseStyles({
 })
 
 export default function SignUp(props) {
-  const classes = useStyles()
+  const classes = useStyles() 
   let {username, signUp} = props;
-  let [nickname, setNickname] = useState('')
+  let [email, setEmail] = useState('')
   let [name, setName] = useState('')
   let [surname, setSurname] = useState('')
   let [password, setPassword] = useState('')
   let [confirmPassword, setConfirmPassword] = useState('')
-  let checkExistUserNickname = username.find(oldUserNickname => oldUserNickname.nickname == nickname)
-  let disabledButton =  password.length < 3 || !!checkExistUserNickname || nickname.length < 3 || password !==  confirmPassword
+  let checkExistUserEmail = username.find(oldUserEmail => oldUserEmail.email == email)
+  let disabledButton =  password.length < 6 || !!checkExistUserEmail || email.length < 3 || password !==  confirmPassword
   let navigate = useNavigate()
+  const auth = getAuth();
   useEffect(() => {
-    if(localStorage.length) {
-      navigate('/')
-    }
-  }, [localStorage.length])
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        navigate('/home', {replace: true})
+      }
+    })
+  }, [auth])
 
   return (
     <div>
@@ -56,14 +61,13 @@ export default function SignUp(props) {
           <TextField
             required
             id="outlined-required"
-            label="Nickname"
-            value={nickname}
+            label="Email"
+            value={email}
             onChange={(e) => {
-              setNickname(e.target.value)
+              setEmail(e.target.value)
             }}
           />  
           <TextField
-            required
             id="outlined-required"
             label="Name"
             value={name}
@@ -102,11 +106,7 @@ export default function SignUp(props) {
       <Stack spacing={2} direction="row">
         <Button variant="contained" disabled={disabledButton}
         onClick={() => {
-          signUp(nickname, name, surname, password)
-          setNickname('')
-          setName('')
-          setSurname('')
-          setPassword('')
+          signUp(email, password)
           }}> Sign Up </Button>
       </Stack>
       <h4>

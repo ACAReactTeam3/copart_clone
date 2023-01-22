@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuid } from 'uuid'
 import Box from "@mui/material/Box";
 import { Stack, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from '@mui/material/Button';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { createUseStyles } from "react-jss";
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
-import { useEffect } from "react";
+import SearchIcon from '@mui/icons-material/Search';
 
 const useStyle = createUseStyles({
   box: {
@@ -238,7 +237,7 @@ export default function Filter() {
             </FormControl>
             </div>
             <Stack direction="row" spacing={2}>
-              <Button className={classes.button} variant="primary" endIcon={<ManageSearchIcon />}
+              <Button className={classes.button} variant="primary" endIcon={<SearchIcon />}
               /*  onClick={() => {
                  return onFilter(brand, color, price, moneyType, mileage, body, gearbox, handDrive, engine)
                }} */>
