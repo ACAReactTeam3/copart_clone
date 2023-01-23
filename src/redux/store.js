@@ -14,7 +14,7 @@ export let store = createStore(function(state, action) {
               password: action.payload.password,
               loggedIn: false,
               id: uuid(),
-              posts: '',
+              posts: [],
               favorite: []
             }
           ]

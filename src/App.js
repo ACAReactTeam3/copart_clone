@@ -9,7 +9,7 @@ import About from './components/About'
 import Profile from './components/Profile'
 import CreatePost from './components/CreatePost'
 
-import { getDatabase} from "firebase/database";
+import { getDatabase, ref, set} from "firebase/database";
 import User from './components/User'
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
@@ -36,28 +36,16 @@ function App() {
     });
 }
 
-  /* const signUp = (newNickname, newUserName, newSurname, newUserPassword) => {
-    dispatch({
-      type: 'user-signUp',
-      payload: { 
-          nickname: newNickname,
-          name: newUserName,
-          surname: newSurname,
-          password: newUserPassword
-        }
-    })
-     db = set(ref(db, 'users/ ' + 'all-users'), {
-      username: newNickname,
-      password: newUserName,
-      surname: newSurname,
-      userPassword: newUserPassword
-    });
-    navigate('/signin')
-  } */
-  const signUp = async (email, password) => {   
+  const signUp = async (email, password, name, surname) => {   
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
           const user = userCredential.user;
+          db = set(ref(db, 'users/ ' + user.uid), {
+            name: name,
+            surname: surname,
+            posts: [],
+            favorite: []
+          });
       })
       .catch((error) => {
           const errorCode = error.code;

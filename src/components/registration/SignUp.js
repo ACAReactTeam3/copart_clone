@@ -106,7 +106,7 @@ export default function SignUp(props) {
       <Stack spacing={2} direction="row">
         <Button variant="contained" disabled={disabledButton}
         onClick={() => {
-          signUp(email, password)
+          signUp(email, password, name, surname)
           }}> Sign Up </Button>
       </Stack>
       <h4>
