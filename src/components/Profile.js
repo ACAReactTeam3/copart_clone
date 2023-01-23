@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import { getAuth } from "firebase/auth";
-
 export default function Profile(props) {
   const auth = getAuth();
   const user = auth.currentUser;
