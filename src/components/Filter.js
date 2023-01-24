@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from 'uuid'
 import Box from "@mui/material/Box";
-import { Stack, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from '@mui/material/Button';
 import { createUseStyles } from "react-jss";
@@ -9,87 +8,87 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
-import SearchIcon from '@mui/icons-material/Search';
 
 const useStyle = createUseStyles({
-  box: {
-    position: "relative",
-  },
-  input: {
-    display: "flex",
-    flexWrap: 'wrap',
-    justifyContent: "center",
-  },
-  button: {
-    position: "relative",
-    margin: 'auto'
-  },
-});
-
-export default function Filter() {
-  let classes = useStyle();
-  let [carName, setCarName] = useState([])
-  let [brand, setBrand] = useState('')
-  let [modelName, setModelName] = useState([])
-  let [model, setModel] = useState('')
-  let [color, setColor] = useState("#000");
-  let [price, setPrice] = useState("");
-  let [mileage, setMileage] = useState("");
-  let [distanceType, setDistanceType] = useState('ԿՄ')
-
-  let [moneyType, setMoneyType] = useState('USD $');
-  let bodyType = ['SEDAN', 'COUPE', 'SPORTS','STATION WAGON','HATCHBACK', 'CONVERTIBLE', 'SPORT-UTILITY VEHICLE (SUV)', 'MINIVAN', 'PICKUP TRUCK'];
-  let [body, setBody] = useState('')
-  let [gearbox, setGearbox ] = useState('')
-  let [engine, setEngine] = useState('')
-
-  const handleChangeMoneyType = (event) => {
-    setMoneyType(event.target.value) ;
-  };
-  const handleChangeDistanceType = (event) => {
-    setDistanceType(event.target.value) ;
-  };
-  const handleChangeBodyType = (event) => {
-    setBody(event.target.value) ;
-  };
-  const handleChangeGearboxType = (event) => {
-    setGearbox(event.target.value) ;
-  };
-
-  const handleChangeEngineType = (event) => {
-    setEngine(event.target.value) ;
-  };
-
-  useEffect(() => {
-    fetch('https://raw.githubusercontent.com/matthlavacka/car-list/master/car-list.json')
-        .then(function(response) {
-            return response.json()
-        }).then(function(result) {
-            setCarName(result)
-        })
-  }, [])
-
-  useEffect(() => {
-    if(brand) {
-      setModelName(carName.find(obj => obj.brand == brand).models)
+    box: {
+      position: "relative",
+    },
+    inputSearch: {
+      width: '80%',
+      display: "flex",
+      flexWrap: 'wrap',
+      margin: [0, 'auto']
+    },
+    button: {
+      position: "relative",
+      margin: 'auto'
+    },
+    advancedSearch: {
+        display: 'none'
+    },
+    checkSearch: {
+        width: '100%',
+        padding: 10,
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    allOffers: {
+        margin: [0, 'auto']
     }
-}, [brand])
+  });
+
+  
+export default function Filter() {
+    let classes = useStyle();
+    let [carName, setCarName] = useState([])
+    let [brand, setBrand] = useState('')
+    let [modelName, setModelName] = useState([])
+    let [model, setModel] = useState('')
+ // let [selectMinYear, setSelectMinYear] = useState([])
+ // let [selectMaxYear, setSelectMaxYear] = useState([])
+    let [minYear, setMinYear] = useState('')
+    let [maxYear, setMaxYear] = useState('')
+    let [minPrice, setMinPrice] = useState('')
+    let [maxPrice, setMaxPrice] = useState('')
+    let bodyType = ['Սեդան', 'Հետչբեք', 'ՈՒնիվերսալ','Կուպե','Կաբրիոլետ / Ռոդսթեր', 'Ամենագնաց', 'Պիկապ', 'Մինիվեն / Միկրոավտոբուս', 'Ֆուրգոն', 'Լիմուզին'];
+    let [body, setBody] = useState('')
+    let [steeringWheel, setSteeringWheel] = useState('')
+    let [gearbox, setGearbox ] = useState('')
+    let [engine, setEngine] = useState('')
+    const [isShow, setIsShow] = useState(false)
+
+    const handleChangeBodyType = (event) => {
+        setBody(event.target.value) ;
+      };
+    const handleChangeSteeringWheelType = (event) => {
+        setSteeringWheel(event.target.value)
+    }
+    const handleChangeGearboxType = (event) => {
+    setGearbox(event.target.value) ;
+    };
+
+    const handleChangeEngineType = (event) => {
+    setEngine(event.target.value) ;
+    };
+
+    useEffect(() => {
+        fetch('https://raw.githubusercontent.com/matthlavacka/car-list/master/car-list.json')
+            .then(function(response) {
+                return response.json()
+            }).then(function(result) {
+                setCarName(result)
+            })
+      }, [])
+    
+      useEffect(() => {
+        if(brand) {
+          setModelName(carName.find(obj => obj.brand == brand).models)
+        }
+    }, [brand])
 
   return (
-    <div className={classes.box}>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: 'center',
-          "& > :not(style)": {
-            m: 1,
-            minWidth: 400,
-            height: 'auto'
-          },
-        }}
-      >
-          <Box
+    <>
+        <Box
             component="form"
             sx={{
               "& .MuiTextField-root": { m: 1, width: "20ch" },
@@ -97,7 +96,7 @@ export default function Filter() {
             noValidate
             autoComplete="off"
           >
-            <div className={classes.input}>
+            <div className={classes.inputSearch}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label"> Մակնիշը </InputLabel>
               <Select
@@ -134,118 +133,163 @@ export default function Filter() {
                 } 
               </Select>
             </FormControl>
-              <TextField
-                label="Գույնը"
-                value={color}
-                type='color'                
-                onChange={(e) => {
-                  setColor(e.target.value);
-                }}
-              />           
-              <TextField
-                label="Արժեքը"
-                value={price}
-                onChange={(e) => {
-                  setPrice(e.target.value.replace(/[^0-9,]/g,''));
-                }}
-              />
-       
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Value </InputLabel>
+              <InputLabel id="demo-dialog-select-label"> Տարին, սկս. </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
-                value={moneyType}
-                onChange={handleChangeMoneyType}
-                input={<OutlinedInput label="Value" />}
-              >
-                <MenuItem value='AMD ֏' >AMD ֏</MenuItem>
-                <MenuItem value='USD $' >USD $</MenuItem>
-                <MenuItem value='EUR €' >EUR €</MenuItem>
-              </Select>
-            </FormControl>           
-              <TextField
-                label="Վազքը"
-                value={mileage}
+                value={minYear}
                 onChange={(e) => {
-                  setMileage(e.target.value.replace(/[^0-9,]/g,''));
+                    setMinYear(e.target.value)
                 }}
-              />
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Միավորը </InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={distanceType}
-                onChange={handleChangeDistanceType}
-                input={<OutlinedInput label="Միավորը" />}
-              >
-                <MenuItem value='ԿՄ' >ԿՄ</MenuItem>
-                <MenuItem value='ՄՂՈՆ' >ՄՂՈՆ</MenuItem>
-              </Select>
-            </FormControl>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Թափքը </InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={body}
-                onChange={handleChangeBodyType}
-                input={<OutlinedInput label="Body" />}
+                input={<OutlinedInput label="minYear" />}
               >
                 {
-                  bodyType.map(item => {
-                    return <MenuItem value={item} key={uuid()}> {item} </MenuItem>
-                  })
+                  // carName.map(item => {
+                  // return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
+                 // }) 
                 }
               </Select>
             </FormControl>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Փոխանցման տուփը  </InputLabel>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-dialog-select-label"> Մինչև </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
-                value={gearbox}
-                onChange={handleChangeGearboxType}
-                input={<OutlinedInput label="Gearbox" />}
+                value={maxYear}
+                onChange={(e) => {
+                    setMaxYear(e.target.value)
+                }}
+                input={<OutlinedInput label="maxYear" />}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value='Automatic' >Automatic</MenuItem>
-                <MenuItem value='Manual' >Manual</MenuItem>
+                {
+                 //  carName.map(item => {
+                 //  return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
+                 // })
+                }
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label"> Շարժիչը </InputLabel>
+              <InputLabel id="demo-dialog-select-label"> Գինը, սկս. </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
-                value={engine}
-                onChange={handleChangeEngineType}
-                input={<OutlinedInput label="Engine" />}
+                value={minPrice}
+                onChange={(e) => {
+                    setMinPrice(e.target.value)
+                }}
+                input={<OutlinedInput label="minPrice" />}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value='Diesel' >Diesel</MenuItem>
-                <MenuItem value='Petrol' >Petrol</MenuItem>
-                <MenuItem value='Electric' >Electric</MenuItem>
-                <MenuItem value='Hybrid' >Hybrid</MenuItem>
-                <MenuItem value='Gas' >Gas</MenuItem>
+                {
+                  // carName.map(item => {
+                  // return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
+                  // })
+                }
               </Select>
             </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-dialog-select-label"> Մինչև </InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={maxPrice}
+                onChange={(e) => {
+                    setMaxPrice(e.target.value)
+                }}
+                input={<OutlinedInput label="maxPrice" />}
+              >
+                {
+                 // carName.map(item => {
+                 //  return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
+                 // })
+                }
+              </Select>
+            </FormControl>
+            <div className={ !isShow ?  classes.advancedSearch : null}>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-dialog-select-label"> Թափքը </InputLabel>
+                <Select
+                    labelId="demo-dialog-select-label"
+                    id="demo-dialog-select"
+                    value={body}
+                    onChange={handleChangeBodyType}
+                    input={<OutlinedInput label="Body" />}
+                >
+                    {
+                    bodyType.map(item => {
+                        return <MenuItem value={item} key={uuid()}> {item} </MenuItem>
+                    })
+                    }
+                </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-dialog-select-label"> Ղեկը  </InputLabel>
+                <Select
+                    labelId="demo-dialog-select-label"
+                    id="demo-dialog-select"
+                    value={steeringWheel}
+                    onChange={handleChangeSteeringWheelType}
+                    input={<OutlinedInput label="Ղեկը" />}
+                >
+                    <MenuItem value='Ձախ' >Ձախ</MenuItem>
+                    <MenuItem value='Աջ' >Աջ</MenuItem>
+                </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-dialog-select-label"> Փոխանցման տուփը  </InputLabel>
+                <Select
+                    labelId="demo-dialog-select-label"
+                    id="demo-dialog-select"
+                    value={gearbox}
+                    onChange={handleChangeGearboxType}
+                    input={<OutlinedInput label="Gearbox" />}
+                >
+                    <MenuItem value='Մեխանիկական' >Մեխանիկական</MenuItem>
+                    <MenuItem value='Ավտոմատ' >Ավտոմատ</MenuItem>
+                    <MenuItem value='Manual' >Կիսաավտոմատ</MenuItem>
+                    <MenuItem value='Manual' >Վարիատոր</MenuItem>
+                </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-dialog-select-label"> Շարժիչը </InputLabel>
+                <Select
+                    labelId="demo-dialog-select-label"
+                    id="demo-dialog-select"
+                    value={engine}
+                    onChange={handleChangeEngineType}
+                    input={<OutlinedInput label="Engine" />}
+                >
+                    <MenuItem value='Բենզին' >Բենզին</MenuItem>
+                    <MenuItem value='Գազ' >Գազ</MenuItem>
+                    <MenuItem value='Դիզել' >Դիզել</MenuItem>
+                    <MenuItem value='Հիբրիդ' >Հիբրիդ</MenuItem>
+                    <MenuItem value='Էլեկտրական' >Էլեկտրական</MenuItem>
+                    <MenuItem value='Ջրածին' >Ջրածին</MenuItem>
+                </Select>
+                </FormControl>
+                </div>
+                <div className={classes.checkSearch}>
+                    <label>
+                        <input type="checkbox" />
+                        Մաքսազերծված
+                    </label>
+                    <label>
+                        <input type="checkbox" />
+                        Մաս-մաս վճարում
+                    </label> 
+                     <label>
+                        <input type="checkbox" />
+                        Փոխանակում
+                    </label>  
+                    <label>
+                        <input type="checkbox" />
+                        Դիլերներ
+                    </label>
+                <Button onClick={() => {setIsShow(!isShow)}}> {isShow ? 'հասարակ որոնում' : 'Ընդլայնված որոնում'} </Button>
+                </div>
+                <Button variant="contained" className={classes.allOffers} > Բոլոր առաջարկները </Button>
             </div>
-            <Stack direction="row" spacing={2}>
-              <Button className={classes.button} variant="primary" endIcon={<SearchIcon />}
-              /*  onClick={() => {
-                 return onFilter(brand, color, price, moneyType, mileage, body, gearbox, handDrive, engine)
-               }} */>
-                Փնտրել 
-              </Button>
-            </Stack>
-          </Box>
-      </Box>
-    </div>
-  );
+        </Box>
+    </>
+  )
 }
