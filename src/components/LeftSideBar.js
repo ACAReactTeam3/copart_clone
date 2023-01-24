@@ -8,32 +8,61 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HouseIcon from '@mui/icons-material/House';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import InfoIcon from '@mui/icons-material/Info';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { createUseStyles } from 'react-jss';
+import MessageIcon from '@mui/icons-material/Message';
+
+const useStyles = createUseStyles({
+    ListItem : {
+        '& :hover': {
+            backgroundColor: 'red'
+        }
+    },
+    language: {
+      padding: 10,
+    }
+})
 
 export default function LeftSideBar() {
+    const classes = useStyles()
     let navigate = useNavigate()
   let menuList = [
     {
-      name: 'Home',
-      icon:  <HouseIcon />
+      link: '',
+      name: 'Մուտք',
+      icon:  <AccountCircleIcon />,
     },
     {
-      name: 'Profile',
-      icon:  <AccountCircleIcon />
+      link: '',
+      name: 'Հաղորդագրություններ',
+      icon:  <MessageIcon />
     },
     {
-      name: 'CreatePost',
-      icon:  <AddCircleIcon />
+      link: '',
+      name: 'Դիլերներ',
     }, 
     {
-      name: 'About',
-      icon:  <InfoIcon />
+      link: '',
+      name: 'Դառնալ ավտոդիլեր',
+    },
+    {
+      link: '',
+      name: 'Գովազդ կայքում',
+    },
+    {
+      link: '',
+      name: 'Օգտագործման կանոնները',
+    },
+    {
+      link: '',
+      name: 'Օգնություն',
+    }, 
+    {
+      link: '',
+      name: 'Կապ',
     },
   ]
   const [state, setState] = useState({left: false});
@@ -49,24 +78,29 @@ export default function LeftSideBar() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 280 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
         {menuList.map((item) => (
-          <ListItem key={uuid()} disablePadding>
-            <ListItemButton onClick={() => {return navigate(`user/${item.name}`)}}>
+          <ListItem key={uuid()} disablePadding className={classes.ListItem}>
+            <ListItemButton onClick={() => {return navigate(`user/${item?.link}`)}}>
               <ListItemIcon>
                 {item.icon} 
               </ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemText primary={item.name}/>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
+      {['հայերեն','Русский', 'English'].map((item) => {
+          return <a key={uuid()} className={classes.language}> 
+            <span> {item} </span>
+           </a>
+      })}
     </Box>
   );
   return (

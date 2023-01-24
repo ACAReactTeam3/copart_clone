@@ -1,11 +1,10 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import SignIn from './components/registration/SignIn'
 import SignUp from './components/registration/SignUp'
 import Home from './components/Home'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import About from './components/About'
 import Profile from './components/Profile'
 import CreatePost from './components/CreatePost'
 
@@ -14,6 +13,7 @@ import User from './components/User'
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from "./firebase/firebase";
+import Nav from "./components/nav/Nav";
 
 function App() {    
   let db = getDatabase();
@@ -83,13 +83,13 @@ function App() {
   }
   return (
     <>
+    <Nav />
       <Routes>
           <Route path='/*' element={<Home />} > Home </Route>
-          <Route path='/user' element={<User />}> User
-            <Route path='about' element={<About />}> about </Route>
+         {/*  <Route path='/user' element={<User />}> User
             <Route path='createpost' element={<CreatePost addedPost={addedPost} />} > createPost </Route>
             <Route path='profile' element={<Profile logout={logout} />} > profile </Route>
-          </Route>
+          </Route> */}
           <Route path='signin'  element={<SignIn signIn={signIn} />}>  Sign In</Route> 
           <Route path='signup' element={<SignUp username={user} signUp={signUp} /> }> Sign Up</Route>
         </Routes>
