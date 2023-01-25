@@ -5,10 +5,13 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { createUseStyles } from "react-jss";
-import Dealers from "./DealersButton";
 import Messages from "./Messages";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import DealersButton from "./dealers/DealersButton";
+import DealersPage from "./dealers/DealersPage";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../images/logo.png";
 
 let useStyles = createUseStyles({
   parentDiv: {
@@ -19,7 +22,7 @@ let useStyles = createUseStyles({
     margin: [0, "auto"],
   },
   img: {
-    width: 70,
+    width: 210,
   },
   button: {
     height: 30,
@@ -60,10 +63,7 @@ export default function Nav(props) {
         <LeftSideBar />
         <Link to="/">
           {" "}
-          <img
-            src="https://auto.am/assets/ico/200x200.png"
-            className={classes.img}
-          />{" "}
+          <img src={logo} className={classes.img} />{" "}
         </Link>
         <Box
           component="form"
@@ -79,9 +79,8 @@ export default function Nav(props) {
             variant="outlined"
           />
         </Box>
-        <Link to="">
-          {" "}
-          <Dealers />{" "}
+        <Link to="dealer">
+          <DealersButton />
         </Link>
         <Link to="">
           {" "}
@@ -128,6 +127,9 @@ export default function Nav(props) {
           <Button variant="contained"> Վաճառել </Button>{" "}
         </Link>
       </div>
+      <Routes>
+        <Route path="dealer" element={<DealersPage />}></Route>
+      </Routes>
     </>
   );
 }
