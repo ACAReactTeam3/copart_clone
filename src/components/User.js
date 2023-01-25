@@ -58,7 +58,6 @@ export default function User() {
               <div className={classes.div}>
                  <Link to='/' className={classes.link}> Home </Link> 
                  <Link to='createpost' className={classes.link}> Create Post </Link> 
-                 <Link to='profile' className={classes.link}>  My Profile </Link>
               </div>
         </nav>
        <Outlet />

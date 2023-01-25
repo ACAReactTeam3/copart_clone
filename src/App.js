@@ -4,8 +4,7 @@ import SignIn from './components/registration/SignIn'
 import SignUp from './components/registration/SignUp'
 import Home from './components/Home'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import Profile from './components/Profile'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import CreatePost from './components/CreatePost'
 
 import { getDatabase, ref, set} from "firebase/database";
@@ -14,6 +13,7 @@ import User from './components/User'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from "./firebase/firebase";
 import Nav from "./components/nav/Nav";
+import Account from "./components/account/Account";
 
 function App() {    
   let db = getDatabase();
@@ -27,7 +27,7 @@ function App() {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/home")
+        navigate("/")
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -44,7 +44,7 @@ function App() {
             name: name,
             surname: surname,
             posts: [],
-            favorite: []
+            saved: []
           });
       })
       .catch((error) => {
@@ -83,13 +83,9 @@ function App() {
   }
   return (
     <>
-    <Nav />
+    <Nav logout={logout} />
       <Routes>
           <Route path='/*' element={<Home />} > Home </Route>
-         {/*  <Route path='/user' element={<User />}> User
-            <Route path='createpost' element={<CreatePost addedPost={addedPost} />} > createPost </Route>
-            <Route path='profile' element={<Profile logout={logout} />} > profile </Route>
-          </Route> */}
           <Route path='signin'  element={<SignIn signIn={signIn} />}>  Sign In</Route> 
           <Route path='signup' element={<SignUp username={user} signUp={signUp} /> }> Sign Up</Route>
         </Routes>
