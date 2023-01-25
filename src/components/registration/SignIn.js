@@ -38,7 +38,7 @@ export default function SignIn(props) {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           const uid = user.uid;
-          navigate('/home', {replace: true})
+          navigate('/', {replace: true})
         }
       })
     }, [auth])

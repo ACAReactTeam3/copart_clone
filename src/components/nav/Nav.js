@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LeftSideBar from '../LeftSideBar'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -7,6 +7,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createUseStyles } from 'react-jss';
 import Dealers from './Dealers';
 import Messages from './Messages';
+import { Link } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 let useStyles = createUseStyles({
     parentDiv: {
@@ -24,26 +26,31 @@ let useStyles = createUseStyles({
         margin: ['auto', 0]
     },
     buttonMyPage: {
-        position: 'relative'
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column'
     },
     ul: {
         position: 'absolute',
-        top: 70,
+        top: 50,
         left: 0,
         backgroundColor: 'white',
         border: [1, 'black', 'solid'],
+        padding: 5,
         textAlign: 'center',
-        display: 'none',
-
+        zIndex: 100,
         '& :hover': {
-            backgroundColor: 'red'
+            backgroundColor: 'red',
         },
     }
 
 })
 
-export default function Nav() {
+export default function Nav(props) {
+    const {logout} = props;
     const classes = useStyles()
+    const auth = getAuth();
+    const user = auth.currentUser;
     let [show, setShow] = useState(false)
     const isShow = () => {
         setShow(!show)
@@ -52,7 +59,7 @@ export default function Nav() {
       <>
     <div className={classes.parentDiv} >
         <LeftSideBar />
-        <img src='https://auto.am/assets/ico/200x200.png' className={classes.img} />
+       <Link to='/'> <img src='https://auto.am/assets/ico/200x200.png' className={classes.img} />  </Link> 
         <Box
         component="form"
         sx={{
@@ -63,17 +70,24 @@ export default function Nav() {
         >
          <TextField id="outlined-basic" label={'Մակնիշ, մոդել, տարեթիվ'} variant="outlined" />
         </Box>
-         <Dealers />
-         <Messages />
-        <Button className={classes.buttonMyPage} onClick={isShow}>
-            <AccountCircleIcon fontSize='large' color='action' />
+        <Link to=''> <Dealers /> </Link> 
+        <Link to=''> <Messages /> </Link> 
+        {user ? 
+       <div className={classes.buttonMyPage} onClick={isShow}>
+            <AccountCircleIcon fontSize='large' color='action'  />
             <span> Իմ էջը </span>
-            <ul className={classes.ul}>
-                <li> Մուտք </li>
-                <li> Գրանցվել </li>
-            </ul>
-        </Button>
-        <Button variant="contained" className={classes.button}> Վաճառել </Button>
+           { show ?  <nav className={classes.ul}>
+                <div>  <Link to='personalinfo/myOffers'> Անձնական տվյալներ </Link> </div>
+                <div>  <Link to='personalinfo/saved'> <Button> Հիշվածները </Button> </Link> </div>
+                <div>  <Link to='/'> <Button onClick={logout}> Ելք </Button>  </Link> </div>
+            </nav> : null }
+        </div>
+        : <div>
+        <Link to='signin'> Մուտք </Link>
+        <Link to='signup'> Գրանցվել </Link>
+        </div>
+}
+          <Link> <Button variant='contained'> Վաճառել </Button>  </Link> 
     </div>
     </>
   )
