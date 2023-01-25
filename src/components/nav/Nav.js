@@ -14,12 +14,18 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 
 let useStyles = createUseStyles({
+  div: {
+    width: "100%",
+    backgroundColor: "rgba(255,255,255,.95)",
+    boxShadow: "0 2px 6px 0 rgb(0 0 0 / 7%) !important",
+  },
   parentDiv: {
     width: "80%",
     height: 70,
     display: "flex",
     justifyContent: "space-around",
     margin: [0, "auto"],
+    backgroundColor: "rgba(255,255,255,.95)",
   },
   img: {
     width: 210,
@@ -58,7 +64,7 @@ export default function Nav(props) {
     setShow(!show);
   };
   return (
-    <>
+    <div className={classes.div}>
       <div className={classes.parentDiv}>
         <LeftSideBar />
         <Link to="/">
@@ -130,6 +136,6 @@ export default function Nav(props) {
       <Routes>
         <Route path="dealer" element={<DealersPage />}></Route>
       </Routes>
-    </>
+    </div>
   );
 }
