@@ -41,7 +41,7 @@ export default function LeftSideBar() {
       icon: <MessageIcon />,
     },
     {
-      link: "",
+      link: "dealer",
       name: "Դիլերներ",
     },
     {
@@ -90,7 +90,7 @@ export default function LeftSideBar() {
           <ListItem key={uuid()} disablePadding className={classes.ListItem}>
             <ListItemButton
               onClick={() => {
-                return navigate(`user/${item?.link}`);
+                return navigate(`${item?.link}`);
               }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
