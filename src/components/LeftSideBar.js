@@ -1,75 +1,77 @@
-import React, { useState } from 'react'
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { v4 as uuid } from 'uuid';
-import { useNavigate } from 'react-router-dom';
-import { createUseStyles } from 'react-jss';
-import MessageIcon from '@mui/icons-material/Message';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { createUseStyles } from "react-jss";
+import MessageIcon from "@mui/icons-material/Message";
 
 const useStyles = createUseStyles({
-    ListItem : {
-        '& :hover': {
-            backgroundColor: 'red'
-        }
+  ListItem: {
+    "& :hover": {
+      backgroundColor: "#ff5252",
     },
-    language: {
-      padding: 10,
-    }
-})
+  },
+  language: {
+    padding: 10,
+  },
+});
 
 export default function LeftSideBar() {
-    const classes = useStyles()
-    let navigate = useNavigate()
+  const classes = useStyles();
+  let navigate = useNavigate();
   let menuList = [
     {
-      link: '',
-      name: 'Մուտք',
-      icon:  <AccountCircleIcon />,
+      link: "",
+      name: "Մուտք",
+      icon: <AccountCircleIcon />,
     },
     {
-      link: '',
-      name: 'Հաղորդագրություններ',
-      icon:  <MessageIcon />
+      link: "",
+      name: "Հաղորդագրություններ",
+      icon: <MessageIcon />,
     },
     {
-      link: '',
-      name: 'Դիլերներ',
-    }, 
-    {
-      link: '',
-      name: 'Դառնալ ավտոդիլեր',
+      link: "",
+      name: "Դիլերներ",
     },
     {
-      link: '',
-      name: 'Գովազդ կայքում',
+      link: "",
+      name: "Դառնալ ավտոդիլեր",
     },
     {
-      link: '',
-      name: 'Օգտագործման կանոնները',
+      link: "",
+      name: "Գովազդ կայքում",
     },
     {
-      link: '',
-      name: 'Օգնություն',
-    }, 
-    {
-      link: '',
-      name: 'Կապ',
+      link: "",
+      name: "Օգտագործման կանոնները",
     },
-  ]
-  const [state, setState] = useState({left: false});
-  
+    {
+      link: "",
+      name: "Օգնություն",
+    },
+    {
+      link: "",
+      name: "Կապ",
+    },
+  ];
+  const [state, setState] = useState({ left: false });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
@@ -86,35 +88,39 @@ export default function LeftSideBar() {
       <List>
         {menuList.map((item) => (
           <ListItem key={uuid()} disablePadding className={classes.ListItem}>
-            <ListItemButton onClick={() => {return navigate(`user/${item?.link}`)}}>
-              <ListItemIcon>
-                {item.icon} 
-              </ListItemIcon>
-              <ListItemText primary={item.name}/>
+            <ListItemButton
+              onClick={() => {
+                return navigate(`user/${item?.link}`);
+              }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
-      {['հայերեն','Русский', 'English'].map((item) => {
-          return <a key={uuid()} className={classes.language}> 
+      {["հայերեն", "Русский", "English"].map((item) => {
+        return (
+          <a key={uuid()} className={classes.language}>
             <span> {item} </span>
-           </a>
+          </a>
+        );
       })}
     </Box>
   );
   return (
     <>
-        <Button onClick={toggleDrawer('left', true)} > 
-            <MenuRoundedIcon fontSize='large' color='action' /> 
-          </Button>
-          <Drawer
-            anchor={'left'}
-            open={state['left']}
-            onClose={toggleDrawer('left', false)}
-          >
-            {list('left')}
-          </Drawer>
+      <Button onClick={toggleDrawer("left", true)}>
+        <MenuRoundedIcon fontSize="large" color="action" />
+      </Button>
+      <Drawer
+        anchor={"left"}
+        open={state["left"]}
+        onClose={toggleDrawer("left", false)}
+      >
+        {list("left")}
+      </Drawer>
     </>
-  )
+  );
 }
