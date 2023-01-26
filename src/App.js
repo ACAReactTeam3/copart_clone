@@ -7,11 +7,12 @@ import { getDatabase, ref, set } from "firebase/database";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import Nav from "./components/nav/Nav";
+import SellPage from "./components/sell/SellPage";
 
 function App() {
   let db = getDatabase();
-  let navigate = useNavigate()
-  let dispatch = useDispatch()
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
   let user = useSelector(function (store) {
     return store.map((item) => {
       return item;
@@ -67,6 +68,7 @@ function App() {
         <Route path="/*" element={<Home />}>
           Home
         </Route>
+        <Route path="sell" element={<SellPage />} />
       </Routes>
     </>
   );
