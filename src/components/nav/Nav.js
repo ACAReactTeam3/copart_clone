@@ -5,23 +5,33 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { createUseStyles } from "react-jss";
-import Dealers from "./DealersButton";
 import Messages from "./Messages";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+
 import SignIn from "../registration/SignIn";
 import SignUp from "../registration/SignUp";
+import DealersButton from "./dealers/DealersButton";
+import DealersPage from "./dealers/DealersPage";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../images/logo.png";
 
 let useStyles = createUseStyles({
+  div: {
+    width: "100%",
+    backgroundColor: "rgba(255,255,255,.95)",
+    boxShadow: "0 2px 6px 0 rgb(0 0 0 / 7%) !important",
+  },
   parentDiv: {
     width: "80%",
     height: 70,
     display: "flex",
     justifyContent: "space-around",
     margin: [0, "auto"],
+    backgroundColor: "rgba(255,255,255,.95)",
   },
   img: {
-    width: 70,
+    width: 210,
   },
   button: {
     height: 30,
@@ -75,14 +85,11 @@ export default function Nav(props) {
     setOpenSignUp(false);
   };
   return (
-    <>
+    <div className={classes.div}>
       <div className={classes.parentDiv}>
         <LeftSideBar />
         <Link to="/">
-          <img
-            src="https://auto.am/assets/ico/200x200.png"
-            className={classes.img}
-          />
+          <img src={logo} className={classes.img} />
         </Link>
         <Box
           component="form"
@@ -98,8 +105,8 @@ export default function Nav(props) {
             variant="outlined"
           />
         </Box>
-        <Link to="">
-          <Dealers />
+        <Link to="dealer">
+          <DealersButton />
         </Link>
         <Link to="">
           <Messages />
@@ -138,6 +145,9 @@ export default function Nav(props) {
       </div>
       <SignIn open={open} handleClose={handleClose} />
       <SignUp openSignUp={openSignUp} handleCloseSignUp={handleCloseSignUp} />
-    </>
+      <Routes>
+        <Route path="dealer" element={<DealersPage />}></Route>
+      </Routes>
+    </div>
   );
 }

@@ -10,55 +10,66 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import PersonalInfoData from './PersonalInfoData';
 import Home from '../Home';
-import { child, get, getDatabase, onValue, ref } from 'firebase/database';
+import { getDatabase } from 'firebase/database';
 
 let useStyle = createUseStyles({
     parentDiv: {
         backgroundColor: '#D0D0D0',
     },
     columnDiv: {
+        height: 200,
          display: 'flex',
-         justifyContent: 'space-around'
+         justifyContent: 'space-around',
+         alignItems: 'center',
     },
     link: {
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
+        padding: 10
     }
 })
     
 export default function Account(props) {
-let routes = useRoutes([
-    {
-        path: '/',
-        element: <Home />
-    },
-    {
-        path: 'myoffers',
-        element: <MyOffers />
-    },
-    {
-        path: 'saved',
-        element: <Saved />
-    }
-])
+    let routes = useRoutes([
+        {
+            path: 'myoffers',
+            element: <MyOffers />
+        },
+        {
+            path: 'saved',
+            element: <Saved />
+        },
+        {
+            path: 'personalinfo/*',
+            element: <PersonalInfo />,
+            children: [
+            ],
+        },
+    ])
 let navigate = useNavigate()
 
 let classes = useStyle()
 const db = getDatabase()
 const auth = getAuth();
 const user = auth.currentUser;
-const { logout } = props
 let email = user?.email
+let location = useLocation()
 
 useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        const uid = user.uid;
+        const uid = user?.uid;
         navigate('/', {replace: true})
       }
     })
-  }, [auth])
+  }, [auth, user, ])
   
+useEffect(() => {
+    if(location.pathname == '/personalinfo') {
+        navigate('/')
+    }
+}, [location.pathname])
+
 return (
     <div className={classes.parentDiv}>
     <div className={classes.columnDiv}>
@@ -75,15 +86,12 @@ return (
         <Button variant="contained" color='success'> <GoogleIcon /> oogle </Button>
       </div>
     </div>
-            <nav className={classes.link}>
+        <nav className={classes.link}>
             <Link to='myOffers'> <h2> Իմ հայտարարությունները </h2></Link>
             <Link to='saved'> <h2> Հիշվածները </h2></Link>
             <Link to='personalinfo'> <h2> Անձնական տվյալներ </h2> </Link>
-            </nav>
-                {routes}
-            <Routes>
-                <Route path='personalinfo/*' element={<PersonalInfo />}> </Route>
-            </Routes>
+        </nav>
+        {routes}
       <Outlet />
   </div>
   )

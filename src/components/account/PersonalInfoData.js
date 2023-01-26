@@ -2,7 +2,6 @@ import React, { useState} from 'react'
 import { getAuth } from 'firebase/auth';
 import { Button, TextField } from '@mui/material';
 import { createUseStyles } from 'react-jss';
-import { useParams } from 'react-router-dom';
 
 let useStyle = createUseStyles({
     parent: {
@@ -18,8 +17,6 @@ let useStyle = createUseStyles({
 })
 
 export default function PersonalInfoData() {
-    /* let id = useParams()
-    console.log(id) */
     let classes = useStyle()
     const auth = getAuth();
     const user = auth.currentUser;

@@ -1,4 +1,4 @@
-/* *, */
+*,
 *:after,
 *:before {
   margin: 0;
@@ -17,6 +17,17 @@
   width: 1px !important;
   white-space: nowrap !important;
 }
+
+.parentDiv {
+  width: 80%;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  position: relative;
+  flex-direction: column;
+}
+
 img {
   width: 100%;
 }
@@ -44,14 +55,14 @@ h2 {
 }
 .wrapper {
   width: 96%;
-  max-width: 1140px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 .cardGrid {
   margin: 2em 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 48px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-gap: 5px;
 }
 .card {
   background-color: var(--bg-offset);
@@ -81,7 +92,7 @@ h2 {
   object-position: center;
 }
 .cardContent {
-  padding: 32px 15px;
+  padding: 32px 10px;
 }
 .cardContent h2 {
   display: -webkit-box;
@@ -109,9 +120,13 @@ h2 {
 
 /* search input */
 .searchWrapper {
-  margin: 48px 0;
+  margin: 20px 0;
   display: flex;
   justify-content: space-between;
+}
+.text {
+  font-family: Noto Sans Armenian, Noto Sans, sans-serif;
+  font-size: 25px;
 }
 
 @media (max-width: 375px) {

@@ -11,7 +11,6 @@ export const signIn = ( email, password) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        /* navigate("/") */
     })
     .catch((error) => {
         const errorCode = error.code;
