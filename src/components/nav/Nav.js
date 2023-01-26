@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LeftSideBar from "../LeftSideBar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,8 @@ import Dealers from "./DealersButton";
 import Messages from "./Messages";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import SignIn from "../registration/SignIn";
+import SignUp from "../registration/SignUp";
 
 let useStyles = createUseStyles({
   parentDiv: {
@@ -54,16 +56,33 @@ export default function Nav(props) {
   const isShow = () => {
     setShow(!show);
   };
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [openSignUp, setOpenSignUp] = React.useState(false);
+
+  const handleClickOpenSignUp = () => {
+    setOpenSignUp(true);
+  };
+
+  const handleCloseSignUp = () => {
+    setOpenSignUp(false);
+  };
   return (
     <>
       <div className={classes.parentDiv}>
         <LeftSideBar />
         <Link to="/">
-          {" "}
           <img
             src="https://auto.am/assets/ico/200x200.png"
             className={classes.img}
-          />{" "}
+          />
         </Link>
         <Box
           component="form"
@@ -80,54 +99,45 @@ export default function Nav(props) {
           />
         </Box>
         <Link to="">
-          {" "}
-          <Dealers />{" "}
+          <Dealers />
         </Link>
         <Link to="">
-          {" "}
-          <Messages />{" "}
+          <Messages />
         </Link>
-        {user ? (
           <div className={classes.buttonMyPage} onClick={isShow}>
             <AccountCircleIcon fontSize="large" color="action" />
             <span> Իմ էջը </span>
-            {show ? (
-              <nav className={classes.ul}>
+        {user ? (
+              <nav className={classes.ul} style={show ? { display: 'block'} : {display: 'none'}}>
                 <div>
-                  {" "}
                   <Link to="personalinfo/myOffers">
-                    {" "}
-                    Անձնական տվյալներ{" "}
-                  </Link>{" "}
+                    Անձնական տվյալներ
+                  </Link>
                 </div>
                 <div>
-                  {" "}
                   <Link to="personalinfo/saved">
-                    {" "}
-                    <Button> Հիշվածները </Button>{" "}
-                  </Link>{" "}
+                    <Button> Հիշվածները </Button>
+                  </Link>
                 </div>
                 <div>
-                  {" "}
                   <Link to="/">
-                    {" "}
-                    <Button onClick={logout}> Ելք </Button>{" "}
-                  </Link>{" "}
+                    <Button onClick={logout}> Ելք </Button>
+                  </Link>
                 </div>
               </nav>
-            ) : null}
+            ) : (
+              <div className={classes.ul} style={show ? { display: 'block'} : {display: 'none'}} >
+                <Button onClick={handleClickOpen}> Մուտք </Button>
+                <Button onClick={handleClickOpenSignUp}> Գրանցվել </Button>
+              </div>
+            )}
           </div>
-        ) : (
-          <div>
-            <Link to="signin"> Մուտք </Link>
-            <Link to="signup"> Գրանցվել </Link>
-          </div>
-        )}
         <Link>
-          {" "}
-          <Button variant="contained"> Վաճառել </Button>{" "}
+          <Button variant="contained"> Վաճառել </Button>
         </Link>
       </div>
+      <SignIn open={open} handleClose={handleClose} />
+      <SignUp openSignUp={openSignUp} handleCloseSignUp={handleCloseSignUp} />
     </>
   );
 }

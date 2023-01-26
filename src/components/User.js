@@ -42,7 +42,7 @@ export default function User() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        navigate('/signin')
+        navigate('/')
       }
   });
 
