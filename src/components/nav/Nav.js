@@ -70,7 +70,7 @@ export default function Nav(props) {
 
   const handleClickOpen = () => {
     setOpen(true);
-  };  
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -111,35 +111,39 @@ export default function Nav(props) {
         <Link to="">
           <Messages />
         </Link>
-          <div className={classes.buttonMyPage} onClick={isShow}>
-            <AccountCircleIcon fontSize="large" color="action" />
-            <span> Իմ էջը </span>
-        {user ? (
-              <nav className={classes.ul} style={show ? { display: 'block'} : {display: 'none'}}>
-                <div>
-                  <Link to="personalinfo/myOffers">
-                    Անձնական տվյալներ
-                  </Link>
-                </div>
-                <div>
-                  <Link to="personalinfo/saved">
-                    <Button> Հիշվածները </Button>
-                  </Link>
-                </div>
-                <div>
-                  <Link to="/">
-                    <Button onClick={logout}> Ելք </Button>
-                  </Link>
-                </div>
-              </nav>
-            ) : (
-              <div className={classes.ul} style={show ? { display: 'block'} : {display: 'none'}} >
-                <Button onClick={handleClickOpen}> Մուտք </Button>
-                <Button onClick={handleClickOpenSignUp}> Գրանցվել </Button>
+        <div className={classes.buttonMyPage} onClick={isShow}>
+          <AccountCircleIcon fontSize="large" color="action" />
+          <span> Իմ էջը </span>
+          {user ? (
+            <nav
+              className={classes.ul}
+              style={show ? { display: "block" } : { display: "none" }}
+            >
+              <div>
+                <Link to="personalinfo/myOffers">Անձնական տվյալներ</Link>
               </div>
-            )}
-          </div>
-        <Link>
+              <div>
+                <Link to="personalinfo/saved">
+                  <Button> Հիշվածները </Button>
+                </Link>
+              </div>
+              <div>
+                <Link to="/">
+                  <Button onClick={logout}> Ելք </Button>
+                </Link>
+              </div>
+            </nav>
+          ) : (
+            <div
+              className={classes.ul}
+              style={show ? { display: "block" } : { display: "none" }}
+            >
+              <Button onClick={handleClickOpen}> Մուտք </Button>
+              <Button onClick={handleClickOpenSignUp}> Գրանցվել </Button>
+            </div>
+          )}
+        </div>
+        <Link to="sell">
           <Button variant="contained"> Վաճառել </Button>
         </Link>
       </div>
