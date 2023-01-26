@@ -28,7 +28,7 @@ export default function PersonalInfo() {
             <Route path='personalinfodata' element={<PersonalInfoData />}> personalinfodata </Route>
             <Route path='changepassword' element={<PersonalInfoPassword />}> personalinfodata </Route>
         </Routes>
-        <Outlet />
+       {/*  <Outlet /> */}
     </div>
   )
 }

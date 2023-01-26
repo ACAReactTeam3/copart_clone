@@ -29,16 +29,11 @@ export default function Home() {
       path: "saved",
       element: <Saved />,
     },
-    /*  {
-    path: 'personalinfo/*',
-    element: <Account> <PersonalInfo /> </Account> 
-  } */
     {
       path: "personalinfo/*",
       element: (
         <Account>
-          {" "}
-          <PersonalInfo />{" "}
+          <PersonalInfo />
         </Account>
       ),
       children: [
@@ -55,14 +50,7 @@ export default function Home() {
   ]);
   return (
     <div>
-      {/*   <CarTypes /> */}
-      {/*  <CardsAndSearch /> */}
-      {/*  <Account /> */}
       {routes}
-      {/*  <Routes>
-        <Route path='personalinfodata' element={<PersonalInfoData />}> personalinfodata </Route>
-        <Route path='changepassword' element={<PersonalInfoPassword />}> personalinfodata </Route>
-    </Routes> */}
     </div>
   );
 }
