@@ -8,9 +8,7 @@ import PersonalInfo from './PersonalInfo';
 import { createUseStyles } from 'react-jss';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
-import PersonalInfoData from './PersonalInfoData';
-import Home from '../Home';
-import { getDatabase } from 'firebase/database';
+import { signInWithGoogle } from '../../constants/constants';
 
 let useStyle = createUseStyles({
     parentDiv: {
@@ -42,14 +40,11 @@ export default function Account(props) {
         {
             path: 'personalinfo/*',
             element: <PersonalInfo />,
-            children: [
-            ],
         },
     ])
 let navigate = useNavigate()
 
 let classes = useStyle()
-const db = getDatabase()
 const auth = getAuth();
 const user = auth.currentUser;
 let email = user?.email
@@ -58,14 +53,13 @@ let location = useLocation()
 useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        const uid = user?.uid;
         navigate('/', {replace: true})
       }
     })
   }, [auth, user, ])
   
 useEffect(() => {
-    if(location.pathname == '/personalinfo') {
+    if(location.pathname === '/personalinfo') {
         navigate('/')
     }
 }, [location.pathname])
@@ -83,7 +77,7 @@ return (
       <div>
         <p> Հաշվի կապը սոց. հաշիվների հետ</p>
         <Button variant="contained" sx={{m:1}}> <FacebookOutlinedIcon /> Facebook </Button>
-        <Button variant="contained" color='success'> <GoogleIcon /> oogle </Button>
+        <Button variant="contained" color='success'  onClick={signInWithGoogle}> <GoogleIcon /> oogle </Button>
       </div>
     </div>
         <nav className={classes.link}>

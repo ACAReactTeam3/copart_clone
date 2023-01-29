@@ -7,14 +7,25 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { createUseStyles } from 'react-jss';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { signIn } from '../../constants/constants';
+import { signIn, signInWithGoogle } from '../../constants/constants';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
+import { currentuser } from '../../firebase/firebase'
+import HouseIcon from '@mui/icons-material/House';
 
 let useStyles = createUseStyles({  
+    house: {
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        right: 20,
+        top: 20,
+        border: [1, 'black', 'solid'],
+        borderRadius: '50%',
+      },
     title: {
         textAlign: 'center',
         margin: 5
@@ -31,6 +42,10 @@ div: {
         justifyContent: 'space-between',
         margin: [ 5, 'auto']
     },
+    link: {
+        textAlign: 'center',
+        padding: 5,
+    }
 })
 
 export default function SignIn(props) {
@@ -40,25 +55,26 @@ export default function SignIn(props) {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
     let navigate = useNavigate()
+    let location = useLocation()
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const uid = user.uid;
+        if (auth.currentUser) {
           navigate('/', {replace: true})
         }
       })
-    }, [auth])
-
+    }, [auth, currentuser])
 
   return (
+      currentuser ? null :
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={ location.pathname === '/signin' ? true : open} onClose={handleClose}>
+        { location.pathname === '/signin' ? <Link to='/' onClick={handleClose}>  <HouseIcon className={classes.house} /> </Link> : null }
         <DialogTitle  className={classes.title}> Մուտք </DialogTitle>
         <DialogContentText className={classes.title}>
            Սոց. հաշիվներով 
         </DialogContentText>
         <Button variant="contained" sx={{m:1}} className={classes.button}> Facebook <FacebookOutlinedIcon /> </Button>
-        <Button variant="contained" sx={{m:1}} color='success' className={classes.button} > Google <GoogleIcon  /> </Button>
+        <Button variant="contained" sx={{m:1}} color='success' className={classes.button} onClick={() => {return signInWithGoogle(), handleClose()}} > Google <GoogleIcon  /> </Button>
         <DialogContent>
         <hr/>
         <DialogContentText className={classes.title}> Կամ </DialogContentText>
@@ -94,7 +110,12 @@ export default function SignIn(props) {
                     setPassword('')
                 }}> Մուտք </Button>
         </DialogActions>
+        {location.pathname === '/signin' ? 
+        <h3 className={classes.link}>
+            Դեռ հաշիվ չկա՞
+            <Link to='/signup'> Sign Up </Link>
+        </h3> : null }
       </Dialog>
-    </div>
+    </div> 
   );
 }
