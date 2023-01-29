@@ -14,6 +14,7 @@ import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import MessageIcon from "@mui/icons-material/Message";
+import { auth } from "../firebase/firebase";
 
 const useStyles = createUseStyles({
   ListItem: {
@@ -31,8 +32,8 @@ export default function LeftSideBar() {
   let navigate = useNavigate();
   let menuList = [
     {
-      link: "",
-      name: "Մուտք",
+      link: "signin",
+      name: auth.currentUser ? auth.currentUser.email :  "Մուտք",
       icon: <AccountCircleIcon />,
     },
     {
@@ -100,13 +101,6 @@ export default function LeftSideBar() {
         ))}
       </List>
       <Divider />
-      {["հայերեն", "Русский", "English"].map((item) => {
-        return (
-          <a key={uuid()} className={classes.language}>
-            <span> {item} </span>
-          </a>
-        );
-      })}
     </Box>
   );
   return (

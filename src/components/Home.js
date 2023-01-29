@@ -8,6 +8,8 @@ import PersonalInfoPassword from "./account/PersonalInfoPassword";
 import Saved from "./account/Saved";
 
 import CarTypes from "./CarTypes";
+import SignIn from "./registration/SignIn";
+import SignUp from "./registration/SignUp";
 
 export default function Home() {
   let routes = useRoutes([
@@ -16,11 +18,20 @@ export default function Home() {
       children: [
         {
           path: "",
-          element: <CarTypes />,
+          element: <> 
+            <CarTypes /> 
+          </>,
         },
       ],
     },
-
+    {
+      path: 'signin',
+      element: <SignIn />
+    },
+    {
+      path: 'signup',
+      element: <SignUp />
+    },
     {
       path: "myoffers",
       element: <MyOffers />,

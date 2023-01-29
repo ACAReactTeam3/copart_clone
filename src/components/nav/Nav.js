@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LeftSideBar from "../LeftSideBar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { createUseStyles } from "react-jss";
 import Messages from "./Messages";
@@ -38,17 +38,21 @@ let useStyles = createUseStyles({
     margin: ["auto", 0],
   },
   buttonMyPage: {
-    position: "relative",
+    position: "absolute",
     display: "flex",
     flexDirection: "column",
+    alignItems: 'stretch',
+    alignContent: 'start',
   },
-  ul: {
-    position: "absolute",
-    top: 50,
-    left: 0,
+  dialogTitle: {
+      textAlign: 'center',
+  },
+  ul: { 
     backgroundColor: "white",
     border: [1, "black", "solid"],
     padding: 5,
+    display: 'flex',
+    flexDirection: 'column',
     textAlign: "center",
     zIndex: 100,
     "& :hover": {
@@ -84,6 +88,13 @@ export default function Nav(props) {
   const handleCloseSignUp = () => {
     setOpenSignUp(false);
   };
+  const [dialogMyPage, setDialogMyPage ] = useState(false)
+  const handleClickOpenMyPage = () => {
+    setDialogMyPage(true)
+  }
+  const handleCloseMyPage = () => {
+    setDialogMyPage(false)
+  }
   return (
     <div className={classes.div}>
       <div className={classes.parentDiv}>
@@ -111,38 +122,36 @@ export default function Nav(props) {
         <Link to="">
           <Messages />
         </Link>
-        <div className={classes.buttonMyPage} onClick={isShow}>
-          <AccountCircleIcon fontSize="large" color="action" />
-          <span> Իմ էջը </span>
-          {user ? (
+          <AccountCircleIcon fontSize="large" color="action" onClick={handleClickOpenMyPage} />
+       <Dialog className={classes.buttonMyPage} fullWidth={true} open={dialogMyPage} onClose={handleCloseMyPage} >
+          <DialogTitle className={classes.dialogTitle}> Իմ էջը </DialogTitle>
+          {user ? 
             <nav
               className={classes.ul}
-              style={show ? { display: "block" } : { display: "none" }}
             >
               <div>
-                <Link to="personalinfo/myOffers">Անձնական տվյալներ</Link>
+                <Link to="personalinfo/myOffers" onClick={handleCloseMyPage}>Անձնական տվյալներ</Link>
               </div>
               <div>
-                <Link to="personalinfo/saved">
+                <Link to="personalinfo/saved" onClick={handleCloseMyPage}>
                   <Button> Հիշվածները </Button>
                 </Link>
               </div>
               <div>
-                <Link to="/">
+                <Link to="/" onClick={handleCloseMyPage}>
                   <Button onClick={logout}> Ելք </Button>
                 </Link>
               </div>
             </nav>
-          ) : (
+           : 
             <div
               className={classes.ul}
-              style={show ? { display: "block" } : { display: "none" }}
             >
-              <Button onClick={handleClickOpen}> Մուտք </Button>
-              <Button onClick={handleClickOpenSignUp}> Գրանցվել </Button>
+              <Button onClick={() => {return handleClickOpen(), handleCloseMyPage()}}> Մուտք </Button>
+              <Button onClick={() => {return handleClickOpenSignUp(), handleCloseMyPage()}}> Գրանցվել </Button>
             </div>
-          )}
-        </div>
+          }
+          </Dialog>
         <Link to="sell">
           <Button variant="contained"> Վաճառել </Button>
         </Link>
