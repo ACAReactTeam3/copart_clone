@@ -1,46 +1,27 @@
-import {
-  Autocomplete,
-  Box,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { carsType, carsTypeSort } from "../forSellCar&Filter";
 
 const Category = () => {
-  const [carName, setCarName] = useState([]);
-  const [brand, setBrand] = useState("");
-  const [modelName, setModelName] = useState([]);
+  const [catValue, setCatValue] = useState("Մարդատար");
+  const [categryType, setCategryType] = useState("");
 
-  const [value, setValue] = useState("");
-  const [sortHid, setSortHid] = useState(true);
-
-  const handleSortHid = (cat) => {
-    if (["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(cat)) {
-      setSortHid(true);
-      console.log(cat);
-    } else {
-      setSortHid(false);
-    }
-  };
-
-  const handleSortLabel = (value) => {
-    if (value.label === "Բեռնատար") {
+  const catHandleSort = ((value) => {
+    if (value === "Բեռնատար") {
       return carsTypeSort.truckSort;
     }
-    if (value.label === "Մոտոտեխնիկա") {
+    if (value === "Մոտոտեխնիկա") {
       return carsTypeSort.motoTechSort;
     }
-    if (value.label === "Հատուկ տեխնիկա") {
+    if (value === "Հատուկ տեխնիկա") {
       return carsTypeSort.specTechSort;
     }
-    if (value.label === "Ջրային տեխնիկա") {
+    if (value === "Ջրային տեխնիկա") {
       return carsTypeSort.hidroTechSort;
     }
     return [];
-  };
+  })(catValue);
+  //console.log(categryType, "categryType");
 
   return (
     <>
@@ -61,8 +42,8 @@ const Category = () => {
               //value={brand}
               //id="combo-box-demo"
               onChange={(e, newValue) => {
-                setValue(newValue);
-                handleSortHid(newValue.label);
+                setCategryType("");
+                setCatValue(newValue);
               }}
               disablePortal
               options={carsType}
@@ -74,10 +55,18 @@ const Category = () => {
           </Grid>
           <Grid item xs={6}>
             <Autocomplete
-              hidden={sortHid}
+              hidden={
+                ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(catValue)
+                  ? true
+                  : false
+              }
               disablePortal
+              value={categryType}
+              onChange={(e, newValue) => {
+                setCategryType(newValue);
+              }}
               id="combo-box-demo"
-              options={handleSortLabel(value)}
+              options={catHandleSort}
               sx={{ width: 300, mt: 5 }}
               renderInput={(params) => (
                 <TextField {...params} label="Տեսակը*" />
