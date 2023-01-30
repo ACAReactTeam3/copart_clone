@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import LeftSideBar from "../LeftSideBar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogTitle } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { createUseStyles } from "react-jss";
-import Messages from "./Messages";
+import MessagesIcon from "./messages/MessagesIcon";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-
+import UsageRules from "../UsageRules";
 import SignIn from "../registration/SignIn";
 import SignUp from "../registration/SignUp";
 import DealersButton from "./dealers/DealersButton";
@@ -41,22 +41,22 @@ let useStyles = createUseStyles({
     position: "absolute",
     display: "flex",
     flexDirection: "column",
-    alignItems: 'stretch',
-    alignContent: 'start',
+    alignItems: "stretch",
+    alignContent: "start",
   },
   dialogTitle: {
-      textAlign: 'center',
+    textAlign: "center",
   },
-  ul: { 
+  ul: {
     backgroundColor: "white",
     border: [1, "black", "solid"],
     padding: 5,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     textAlign: "center",
     zIndex: 100,
     "& :hover": {
-      backgroundColor: "red",
+      backgroundColor: "#ff5252",
     },
   },
 });
@@ -88,13 +88,13 @@ export default function Nav(props) {
   const handleCloseSignUp = () => {
     setOpenSignUp(false);
   };
-  const [dialogMyPage, setDialogMyPage ] = useState(false)
+  const [dialogMyPage, setDialogMyPage] = useState(false);
   const handleClickOpenMyPage = () => {
-    setDialogMyPage(true)
-  }
+    setDialogMyPage(true);
+  };
   const handleCloseMyPage = () => {
-    setDialogMyPage(false)
-  }
+    setDialogMyPage(false);
+  };
   return (
     <div className={classes.div}>
       <div className={classes.parentDiv}>
@@ -119,18 +119,27 @@ export default function Nav(props) {
         <Link to="dealer">
           <DealersButton />
         </Link>
-        <Link to="">
-          <Messages />
+        <Link to="messages">
+          <MessagesIcon />
         </Link>
-          <AccountCircleIcon fontSize="large" color="action" onClick={handleClickOpenMyPage} />
-       <Dialog className={classes.buttonMyPage} fullWidth={true} open={dialogMyPage} onClose={handleCloseMyPage} >
+        <AccountCircleIcon
+          fontSize="large"
+          color="action"
+          onClick={handleClickOpenMyPage}
+        />
+        <Dialog
+          className={classes.buttonMyPage}
+          fullWidth={true}
+          open={dialogMyPage}
+          onClose={handleCloseMyPage}
+        >
           <DialogTitle className={classes.dialogTitle}> Իմ էջը </DialogTitle>
-          {user ? 
-            <nav
-              className={classes.ul}
-            >
+          {user ? (
+            <nav className={classes.ul}>
               <div>
-                <Link to="personalinfo/myOffers" onClick={handleCloseMyPage}>Անձնական տվյալներ</Link>
+                <Link to="personalinfo/myOffers" onClick={handleCloseMyPage}>
+                  Անձնական տվյալներ
+                </Link>
               </div>
               <div>
                 <Link to="personalinfo/saved" onClick={handleCloseMyPage}>
@@ -143,15 +152,27 @@ export default function Nav(props) {
                 </Link>
               </div>
             </nav>
-           : 
-            <div
-              className={classes.ul}
-            >
-              <Button onClick={() => {return handleClickOpen(), handleCloseMyPage()}}> Մուտք </Button>
-              <Button onClick={() => {return handleClickOpenSignUp(), handleCloseMyPage()}}> Գրանցվել </Button>
+          ) : (
+            <div className={classes.ul}>
+              <Button
+                onClick={() => {
+                  return handleClickOpen(), handleCloseMyPage();
+                }}
+              >
+                {" "}
+                Մուտք{" "}
+              </Button>
+              <Button
+                onClick={() => {
+                  return handleClickOpenSignUp(), handleCloseMyPage();
+                }}
+              >
+                {" "}
+                Գրանցվել{" "}
+              </Button>
             </div>
-          }
-          </Dialog>
+          )}
+        </Dialog>
         <Link to="sell">
           <Button variant="contained"> Վաճառել </Button>
         </Link>
@@ -160,6 +181,7 @@ export default function Nav(props) {
       <SignUp openSignUp={openSignUp} handleCloseSignUp={handleCloseSignUp} />
       <Routes>
         <Route path="dealer" element={<DealersPage />}></Route>
+        <Route path="usageRules" element={<UsageRules />}></Route>
       </Routes>
     </div>
   );
