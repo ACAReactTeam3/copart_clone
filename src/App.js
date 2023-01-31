@@ -8,6 +8,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import Nav from "./components/nav/Nav";
 import SellPage from "./components/sell/SellPage";
+import Post from "./components/Post";
 
 function App() {
   let db = getDatabase();
@@ -70,6 +71,7 @@ function App() {
         </Route>
         <Route path="sell" element={<SellPage />} />
       </Routes>
+    {/*   <Post /> */}
     </>
   );
 }
