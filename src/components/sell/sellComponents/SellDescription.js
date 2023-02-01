@@ -28,6 +28,7 @@ import {
 import thunk from "redux-thunk";
 import { red } from "@mui/material/colors";
 import { PiceList } from "./PiceList";
+import { AdditionalOptions } from "./AdditionalOptions ";
 
 const SellDescription = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -106,14 +107,14 @@ const SellDescription = () => {
         sx={{
           mt: 5,
           bgcolor: "Window",
-          height: "260vh",
+          height: btnMore === "- Ավելին" ? "250vh" : "165vh",
           border: "ButtonFace",
         }}
       >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, brand) => {
                 setModel("");
@@ -126,7 +127,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               disabled={selectedBrand ? false : true}
               value={model}
@@ -138,7 +139,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, year) => setYear(year)}
               id={"combo-box-demo"}
@@ -149,7 +150,7 @@ const SellDescription = () => {
             />
             <Autocomplete
               type="number"
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, carBodyType) => setCarBodyType(carBodyType)}
               id={"combo-box-demo"}
@@ -164,7 +165,7 @@ const SellDescription = () => {
               columnSpacing={{ xs: 1, sm: 2, md: 0 }}
             >
               <TextField
-                sx={{ width: 199, mt: 5, ml: 5 }}
+                sx={{ width: 204, mt: 5, ml: 5 }}
                 type="number"
                 label={description[4]}
                 variant="outlined"
@@ -172,7 +173,7 @@ const SellDescription = () => {
               />
 
               <Autocomplete
-                sx={{ width: 99, mt: 5 }}
+                sx={{ width: 104, mt: 5 }}
                 disablePortal
                 onChange={(e, mileageType) => setMileageType(mileageType)}
                 id={"combo-box-demo"}
@@ -183,7 +184,7 @@ const SellDescription = () => {
               />
             </Grid>
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, selGearbox) => setSelGearbox(selGearbox)}
               id={"combo-box-demo"}
@@ -193,7 +194,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, selSteeringWheel) =>
                 setSelSteeringWheel(selSteeringWheel)
@@ -205,7 +206,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, selFuel) => setSelFuel(selFuel)}
               id={"combo-box-demo"}
@@ -215,7 +216,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               onChange={(e, selColor) => setSelColor(selColor)}
               id={"combo-box-demo"}
@@ -225,7 +226,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selSalonColor) => setSelSalonColor(selSalonColor)}
@@ -236,7 +237,7 @@ const SellDescription = () => {
               )}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selEngineType) => setSelEngineType(selEngineType)}
@@ -247,14 +248,14 @@ const SellDescription = () => {
               )}
             />{" "}
             <TextField
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               type="text"
               label={description[12]}
               variant="outlined"
               onChange={(e) => setPower(e.target.value)}
             />
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selCylinders) => setSelCylinders(selCylinders)}
@@ -265,7 +266,7 @@ const SellDescription = () => {
               )}
             />{" "}
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selDrive) => setSelDrive(selDrive)}
@@ -276,7 +277,7 @@ const SellDescription = () => {
               )}
             />{" "}
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selDoօrs) => setSelDoօrs(selDoօrs)}
@@ -287,7 +288,7 @@ const SellDescription = () => {
               )}
             />{" "}
             <Autocomplete
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               hidden={btnMoreHide(btnMore)}
               disablePortal
               onChange={(e, selTires) => setSelTires(selTires)}
@@ -307,9 +308,6 @@ const SellDescription = () => {
               variant="contained"
             >
               {btnMore}
-            </Button>
-            <Button sx={{ width: 350, mt: 5, ml: 5 }} variant="contained">
-              Տեղադրել հայտարարությունը
             </Button>
           </Grid>
           <PiceList pice={pice} setPice={setPice} />

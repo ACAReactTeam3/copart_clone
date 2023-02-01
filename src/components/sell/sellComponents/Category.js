@@ -47,7 +47,7 @@ const Category = () => {
               }}
               disablePortal
               options={carsType}
-              sx={{ width: 300, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 5, ml: 5 }}
               renderInput={(params) => (
                 <TextField {...params} label="Կատեգորիա*" />
               )}
@@ -67,7 +67,7 @@ const Category = () => {
               }}
               id="combo-box-demo"
               options={catHandleSort}
-              sx={{ width: 300, mt: 5 }}
+              sx={{ width: 310, mt: 5 }}
               renderInput={(params) => (
                 <TextField {...params} label="Տեսակը*" />
               )}
