@@ -25,7 +25,7 @@ import {
   doօrs,
   tires,
 } from "../forSellCar&Filter";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
 import { red } from "@mui/material/colors";
 import { PiceList } from "./PiceList";
 import { AdditionalOptions } from "./AdditionalOptions ";
