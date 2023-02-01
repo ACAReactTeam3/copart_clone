@@ -1,11 +1,12 @@
 import React from "react";
-import { Route, Routes, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Account from "./account/Account";
 import MyOffers from "./account/MyOffers";
 import PersonalInfo from "./account/PersonalInfo";
 import PersonalInfoData from "./account/PersonalInfoData";
 import PersonalInfoPassword from "./account/PersonalInfoPassword";
 import Saved from "./account/Saved";
+import AllOffers from "./AllOffers";
 
 import CarTypes from "./CarTypes";
 import SignIn from "./registration/SignIn";
@@ -20,6 +21,7 @@ export default function Home() {
           path: "",
           element: <> 
             <CarTypes /> 
+            <AllOffers />
           </>,
         },
       ],

@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import MessageIcon from "@mui/icons-material/Message";
 import { auth } from "../firebase/firebase";
+import { Route, Routes } from "react-router-dom";
+import UsageRules from "./UsageRules";
 
 const useStyles = createUseStyles({
   ListItem: {
@@ -32,8 +34,8 @@ export default function LeftSideBar() {
   let navigate = useNavigate();
   let menuList = [
     {
-      link: "signin",
-      name: auth.currentUser ? auth.currentUser.email :  "Մուտք",
+      link: auth.currentUser ? "personalinfo/*" : "signin",
+      name: auth.currentUser ? auth.currentUser.email : "Մուտք",
       icon: <AccountCircleIcon />,
     },
     {
@@ -54,7 +56,7 @@ export default function LeftSideBar() {
       name: "Գովազդ կայքում",
     },
     {
-      link: "",
+      link: "usageRules",
       name: "Օգտագործման կանոնները",
     },
     {
@@ -115,6 +117,9 @@ export default function LeftSideBar() {
       >
         {list("left")}
       </Drawer>
+      {/* <Routes>
+        <Route path="usageRules" element={<UsageRules />}></Route>
+      </Routes> */}
     </>
   );
 }

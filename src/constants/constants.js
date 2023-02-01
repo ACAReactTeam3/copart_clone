@@ -46,11 +46,11 @@ export const signInWithGoogle = () => {
         signInWithPopup(auth, provider)
         .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        setDoc(doc(dbStore, 'user', auth.currentUser.email), {
-            posts: [],
-            saved: [],
-            messages: []
-            })
+             setDoc(doc(dbStore, 'user', auth.currentUser.email), {
+                    posts: [],
+                    saved: [],
+                    messages: []
+                    })
         }).catch((error) => {
         console.log(error)
         });
