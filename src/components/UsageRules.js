@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 const useStyles = createUseStyles({
   "@global": {
     body: {
-      backgroundColor: "brown",
+      // backgroundColor: "brown",
       lineHeight: 2.5,
     },
   },

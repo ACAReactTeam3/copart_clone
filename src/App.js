@@ -9,6 +9,8 @@ import { auth } from "./firebase/firebase";
 import Nav from "./components/nav/Nav";
 import SellPage from "./components/sell/SellPage";
 import Post from "./components/Post";
+import DealersPage from "./components/nav/dealers/DealersPage";
+import UsageRules from "./components/UsageRules";
 
 function App() {
   let db = getDatabase();
@@ -70,8 +72,11 @@ function App() {
           Home
         </Route>
         <Route path="sell" element={<SellPage />} />
+        <Route path="hi" element={<Post />}></Route>
+        <Route path="dealer" element={<DealersPage />}></Route>
+        <Route path="usageRules" element={<UsageRules />}></Route>
       </Routes>
-    {/*   <Post /> */}
+      {/*   <Post /> */}
     </>
   );
 }
