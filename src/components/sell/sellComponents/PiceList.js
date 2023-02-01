@@ -49,7 +49,7 @@ export const PiceList = ({ pice, setPice }) => {
     <Box
       sx={{
         mt: 6,
-        width: 300,
+        width: 310,
         height: 535,
         backgroundColor: "lightskyblue",
       }}
@@ -179,7 +179,7 @@ export const PiceList = ({ pice, setPice }) => {
         Վիճակը*
       </Typography>
       <Autocomplete
-        sx={{ width: 300, mt: 1, backgroundColor: "white" }}
+        sx={{ width: 310, mt: 1, backgroundColor: "white" }}
         disablePortal
         //onChange={(e, mileageType) => setMileageType(mileageType)}
         id={"combo-box-demo"}
@@ -190,7 +190,7 @@ export const PiceList = ({ pice, setPice }) => {
         VIN / Թափքի համարը
       </Typography>
       <TextField
-        sx={{ width: 300, mt: 1 }}
+        sx={{ width: 310, mt: 1 }}
         type="text"
         label={"JTHCK262665001465"}
         variant="outlined"

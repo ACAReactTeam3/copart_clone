@@ -1,6 +1,7 @@
 import {
   Autocomplete,
   Box,
+  Button,
   Container,
   Grid,
   TextField,
@@ -8,57 +9,31 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { carsType } from "./forSellCar&Filter";
+import { Location } from "./sellComponents/Location";
+import { AdditionalOptions } from "./sellComponents/AdditionalOptions ";
 import Category from "./sellComponents/Category";
 import SellDescription from "./sellComponents/SellDescription";
+import { AdditionalInformation } from "./sellComponents/AdditionalInformation";
+import { Photos } from "./sellComponents/Photos";
 
 const SellPage = () => {
   const [carName, setCarName] = useState([]);
   const [brand, setBrand] = useState("");
   const [modelName, setModelName] = useState([]);
-  // [model, setModel] = useState(""),
-  // let [selectMinYear, setSelectMinYear] = useState([])
-  // let [selectMaxYear, setSelectMaxYear] = useState([])
-  //   [minYear, setMinYear] = useState(""),
-  //   [maxYear, setMaxYear] = useState(""),
-  //   [minPrice, setMinPrice] = useState(""),
-  //   [maxPrice, setMaxPrice] = useState(""),
-  //   bodyType = [
-  //     "Սեդան",
-  //     "Հետչբեք",
-  //     "ՈՒնիվերսալ",
-  //     "Կուպե",
-  //     "Կաբրիոլետ / Ռոդսթեր",
-  //     "Ամենագնաց",
-  //     "Պիկապ",
-  //     "Մինիվեն / Միկրոավտոբուս",
-  //     "Ֆուրգոն",
-  //     "Լիմուզին",
-  //   ],
-  //   [body, setBody] = useState(""),
-  //   [steeringWheel, setSteeringWheel] = useState(""),
-  //   [gearbox, setGearbox] = useState(""),
-  //   [engine, setEngine] = useState("");
-  // const [isShow, setIsShow] = useState(false);
+
   const [value, setValue] = useState(false);
-
-  // const handleChangeBodyType = (event) => {
-  //   setBody(event.target.value);
-  // };
-  // const handleChangeSteeringWheelType = (event) => {
-  //   setSteeringWheel(event.target.value);
-  // };
-  // const handleChangeGearboxType = (event) => {
-  //   setGearbox(event.target.value);
-  // };
-
-  // const handleChangeEngineType = (event) => {
-  //   setEngine(event.target.value);
-  // };
 
   return (
     <Container maxWidth="md" sx={{ ml: 16 }}>
       <Category />
       <SellDescription />
+      <AdditionalOptions />
+      <Location />
+      <AdditionalInformation />
+      <Photos />
+      <Button sx={{ width: 350, mt: 5, ml: 5 }} variant="contained">
+        Տեղադրել հայտարարությունը
+      </Button>
     </Container>
   );
 };
