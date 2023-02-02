@@ -123,7 +123,7 @@ export const initialSellDescription = {
   selFuel: "",
   selColor: "",
   selTires: "",
-  selDoօrs: "",
+  selDoors: "",
   selDrive: "",
   selCylinders: "",
   power: "",
@@ -131,3 +131,208 @@ export const initialSellDescription = {
   selSalonColor: "",
   price: "",
 };
+export function selectSellDescription(state) {
+  return state.sellDescription;
+}
+
+export function addSelSalonColor(newValue) {
+  return {
+    type: "add-sell-selSalonColor",
+    payload: {
+      selSalonColor: newValue,
+    },
+  };
+}
+export function addSelEngineType(newValue) {
+  return {
+    type: "add-sell-selEngineType",
+    payload: {
+      selEngineType: newValue,
+    },
+  };
+}
+export function addPower(newValue) {
+  return {
+    type: "add-sell-power",
+    payload: {
+      power: newValue,
+    },
+  };
+}
+export function addSelCylinders(newValue) {
+  return {
+    type: "add-sell-selCylinders",
+    payload: {
+      selCylinders: newValue,
+    },
+  };
+}
+export function addSelDrive(newValue) {
+  return {
+    type: "add-sell-selDrive",
+    payload: {
+      selDrive: newValue,
+    },
+  };
+}
+export function addSelDoors(newValue) {
+  return {
+    type: "add-sell-selDoors",
+    payload: {
+      selDoors: newValue,
+    },
+  };
+}
+export function addSelTires(newValue) {
+  return {
+    type: "add-sell-selTires",
+    payload: {
+      selTires: newValue,
+    },
+  };
+}
+export function addSelColor(newValue) {
+  return {
+    type: "add-sell-selColor",
+    payload: {
+      selColor: newValue,
+    },
+  };
+}
+export function addSelFuel(newValue) {
+  return {
+    type: "add-sell-selFuel",
+    payload: {
+      selFuel: newValue,
+    },
+  };
+}
+export function addSelSteeringWheel(newValue) {
+  return {
+    type: "add-sell-selSteeringWheel",
+    payload: {
+      selSteeringWheel: newValue,
+    },
+  };
+}
+export function addSelGearbox(newValue) {
+  return {
+    type: "add-sell-selGearbox",
+    payload: {
+      selGearbox: newValue,
+    },
+  };
+}
+export function addMileageType(newValue) {
+  return {
+    type: "add-sell-mileageType",
+    payload: {
+      mileageType: newValue,
+    },
+  };
+}
+export function addCarMileage(newValue) {
+  return {
+    type: "add-sell-carMileage",
+    payload: {
+      carMileage: newValue,
+    },
+  };
+}
+export function addCarBodyType(newValue) {
+  return {
+    type: "add-sell-carBodyType",
+    payload: {
+      carBodyType: newValue,
+    },
+  };
+}
+
+export function addYear(newValue) {
+  return {
+    type: "add-sell-year",
+    payload: {
+      year: newValue,
+    },
+  };
+}
+
+export function addModel(newValue) {
+  return {
+    type: "add-sell-model",
+    payload: {
+      model: newValue,
+    },
+  };
+}
+
+export function addSelectedBrand(newCategory) {
+  return {
+    type: "add-sell-selectedBrand",
+    payload: {
+      selectedBrand: newCategory,
+    },
+  };
+}
+
+// export function sellDescriptionReducer(state = {}, action) {
+//   if (action.type === "add-sell-sellDescription") {
+//     return {
+//       ...state,
+//       sellDescription: {
+//         selectedBrand: action.payload.selectedBrand,
+//         model: action.payload.model,
+//         year: action.payload.year,
+//         carBodyType: action.payload.carBodyType,
+//         carMileage: action.payload.carMileage,
+//         mileageType: action.payload.mileageType,
+//         selGearbox: action.payload.selGearbox,
+//         selSteeringWheel: action.payload.selSteeringWheel,
+//         selFuel: action.payload.selFuel,
+//         selColor: action.payload.selColor,
+//         selTires: action.payload.selTires,
+//         selDoors: action.payload.selDoors,
+//         selDrive: action.payload.selDrive,
+//         selCylinders: action.payload.selCylinders,
+//         power: action.payload.power,
+//         selEngineType: action.payload.selEngineType,
+//         selSalonColor: action.payload.selSalonColor,
+//         price: action.payload.price,
+//       },
+//     };
+//   }
+//   return state;
+// }
+
+// export const initialSellDescription = {
+//   selectedBrand: "",
+//   model: "",
+//   year: "",
+//   carBodyType: "",
+//   carMileage: "",
+//   mileageType: "",
+//   selGearbox: "",
+//   selSteeringWheel: "",
+//   selFuel: "",
+//   selColor: "",
+//   selTires: "",
+//   selDoors: "",
+//   selDrive: "",
+//   selCylinders: "",
+//   power: "",
+//   selEngineType: "",
+//   selSalonColor: "",
+//   price: "",
+// };
+
+// export function selectSellDescription(state) {
+//   return state.sellDescription;
+// }
+// export function addSellDescription(sellDescription) {
+//   return {
+//     type: "add-sell-sellDescription",
+//     payload: {
+//       sellDescription,
+//     },
+//   };
+// }

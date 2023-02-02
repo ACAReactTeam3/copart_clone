@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Post from "./Post";
 import SellPage from "./sell/SellPage";
-
+import { v4 as uuidv4 } from "uuid";
 let useStyles = createUseStyles({
   //   mapParent: {
   //     display: "inline",
@@ -120,15 +120,16 @@ export default function AllOffers() {
       >
         {post.map((item) => {
           return (
-            <div key={Math.random()} className={classes.parentDiv}>
+            <div key={uuidv4()} className={classes.parentDiv}>
               {item.posts.map((post) => {
                 return (
-                  <div className={classes.parentDiv}>
-                    <SwiperSlide
-                      key={Math.random()}
-                      className={classes.swiperSlide}
-                    >
-                      <Link style={{ textDecoration: "none" }} to="hi">
+                  <div key={uuidv4()} className={classes.parentDiv}>
+                    <SwiperSlide key={uuidv4()} className={classes.swiperSlide}>
+                      <Link
+                        key={uuidv4()}
+                        style={{ textDecoration: "none" }}
+                        to="hi"
+                      >
                         <div className={classes.childDiv}>
                           <div>
                             <img

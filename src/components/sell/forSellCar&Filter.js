@@ -28,7 +28,7 @@ export const cylinders = (() => {
   return x;
 })();
 
-export const doօrs = (() => {
+export const doors = (() => {
   const x = [];
   let i = 1;
   while (i <= 5) {
