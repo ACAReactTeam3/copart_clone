@@ -17,6 +17,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import { auth } from "../firebase/firebase";
 import { Route, Routes } from "react-router-dom";
 import UsageRules from "./UsageRules";
+import Post from "./Post";
 
 const useStyles = createUseStyles({
   ListItem: {

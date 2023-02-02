@@ -1,7 +1,9 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
+import { Route, Routes } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Filter from "./Filter";
+import Post from "./Post";
 
 let useStyles = createUseStyles({
   ul: {

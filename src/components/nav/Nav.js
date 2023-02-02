@@ -15,6 +15,8 @@ import DealersButton from "./dealers/DealersButton";
 import DealersPage from "./dealers/DealersPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+import SellPage from "../sell/SellPage";
+import Post from "../Post";
 
 let useStyles = createUseStyles({
   div: {
@@ -179,10 +181,6 @@ export default function Nav(props) {
       </div>
       <SignIn open={open} handleClose={handleClose} />
       <SignUp openSignUp={openSignUp} handleCloseSignUp={handleCloseSignUp} />
-      <Routes>
-        <Route path="dealer" element={<DealersPage />}></Route>
-        <Route path="usageRules" element={<UsageRules />}></Route>
-      </Routes>
     </div>
   );
 }
