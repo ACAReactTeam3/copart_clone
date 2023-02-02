@@ -11,7 +11,7 @@ import {
 export const store = createStore(
   combineReducers({
     selCategory: selCategoryReducer,
-    initialSellDescription: sellDescriptionReducer,
+    sellDescription: sellDescriptionReducer,
   }),
   {
     selCategory: initialSelCategory,

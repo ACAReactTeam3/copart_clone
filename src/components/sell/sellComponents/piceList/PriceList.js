@@ -18,17 +18,17 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
 import CurrencyYuanIcon from "@mui/icons-material/CurrencyYuan";
-import React from "react";
+import React, { useState } from "react";
 import { condition, customsCleared } from "../../forSellCar&Filter";
 
-export const PriceList = ({ price, setPrice }) => {
+export const PriceList = () => {
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+  const [price, setPrice] = useState("");
+  const [alignment, setAlignment] = useState("left");
 
-  const [alignment, setAlignment] = React.useState("left");
-
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     gilad: false,
     jason: false,
     antoine: false,
