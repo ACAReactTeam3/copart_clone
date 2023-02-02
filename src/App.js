@@ -14,11 +14,11 @@ function App() {
   let db = getDatabase();
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  let user = useSelector(function (store) {
-    return store.map((item) => {
-      return item;
-    });
-  });
+  // let user = useSelector(function (store) {
+  //   return store.map((item) => {
+  //     return item;
+  //   });
+  // });
   const logout = async () => {
     signOut(auth)
       .then(() => {
@@ -71,7 +71,7 @@ function App() {
         </Route>
         <Route path="sell" element={<SellPage />} />
       </Routes>
-    {/*   <Post /> */}
+      {/*   <Post /> */}
     </>
   );
 }

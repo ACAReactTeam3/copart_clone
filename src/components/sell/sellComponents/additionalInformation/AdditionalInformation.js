@@ -7,14 +7,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { carsType, carsTypeSort } from "../forSellCar&Filter";
+import { carsType, carsTypeSort } from "../../forSellCar&Filter";
 
 export const AdditionalInformation = () => {
   const [additPhoneNum, setAdditPhoneNum] = useState("");
   const [addInfo, setAddInfo] = useState("");
   const [phoneNum374, setPhoneNum374] = useState("");
 
-  console.log(additPhoneNum, "additPhoneNum");
+  //console.log(additPhoneNum, "additPhoneNum");
 
   return (
     <>

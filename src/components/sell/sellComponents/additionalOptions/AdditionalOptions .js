@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { additOpt } from "../forSellCar&Filter";
+import { additOpt } from "../../forSellCar&Filter";
 
 export const AdditionalOptions = () => {
   const [btnMore, setBtnMore] = useState("+ Ավելին");
@@ -30,7 +30,7 @@ export const AdditionalOptions = () => {
       [event.target.name]: event.target.checked,
     });
   };
-  console.log(state);
+  //console.log(state);
   return (
     <Grid>
       <Typography variant="h5" component="h2" sx={{ mt: 2, mb: 1 }}>

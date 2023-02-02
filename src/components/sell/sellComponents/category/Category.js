@@ -1,10 +1,19 @@
 import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { carsType, carsTypeSort } from "../forSellCar&Filter";
+import { useDispatch, useSelector } from "react-redux";
+import { carsType, carsTypeSort } from "../../forSellCar&Filter";
+import {
+  addCategory,
+  addCategoryType,
+  selectSelCategory,
+} from "./categorySlice";
 
 const Category = () => {
-  const [catValue, setCatValue] = useState("Մարդատար");
-  const [categryType, setCategryType] = useState("");
+  // const [category, setCategory] = useState("Մարդատար");
+  // const [categoryType, setCategoryType] = useState("");
+
+  const { category, categoryType } = useSelector(selectSelCategory);
+  const dispatch = useDispatch();
 
   const catHandleSort = ((value) => {
     if (value === "Բեռնատար") {
@@ -20,8 +29,9 @@ const Category = () => {
       return carsTypeSort.hidroTechSort;
     }
     return [];
-  })(catValue);
-  //console.log(categryType, "categryType");
+  })(category);
+  console.log(category, "category");
+  console.log(categoryType, "categoryType");
 
   return (
     <>
@@ -42,8 +52,8 @@ const Category = () => {
               //value={brand}
               //id="combo-box-demo"
               onChange={(e, newValue) => {
-                setCategryType("");
-                setCatValue(newValue);
+                dispatch(addCategoryType(""));
+                dispatch(addCategory(newValue));
               }}
               disablePortal
               options={carsType}
@@ -56,14 +66,14 @@ const Category = () => {
           <Grid item xs={6}>
             <Autocomplete
               hidden={
-                ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(catValue)
+                ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(category)
                   ? true
                   : false
               }
               disablePortal
-              value={categryType}
+              value={categoryType}
               onChange={(e, newValue) => {
-                setCategryType(newValue);
+                dispatch(addCategoryType(newValue));
               }}
               id="combo-box-demo"
               options={catHandleSort}

@@ -9,12 +9,12 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { carsType } from "./forSellCar&Filter";
-import { Location } from "./sellComponents/Location";
-import { AdditionalOptions } from "./sellComponents/AdditionalOptions ";
-import Category from "./sellComponents/Category";
-import SellDescription from "./sellComponents/SellDescription";
-import { AdditionalInformation } from "./sellComponents/AdditionalInformation";
-import { Photos } from "./sellComponents/Photos";
+import { Location } from "./sellComponents/location/Location";
+import { AdditionalOptions } from "./sellComponents/additionalOptions/AdditionalOptions ";
+import SellDescription from "./sellComponents/sellDescription/SellDescription";
+import { Photos } from "./sellComponents/photos/Photos";
+import { AdditionalInformation } from "./sellComponents/additionalInformation/AdditionalInformation";
+import Category from "./sellComponents/category/Category";
 
 const SellPage = () => {
   const [carName, setCarName] = useState([]);
@@ -39,27 +39,3 @@ const SellPage = () => {
 };
 
 export default SellPage;
-
-const sellCarsType = carsType.map((item) => ({
-  label: item.name,
-  selected: false,
-}));
-
-const description = [
-  "Մակնիշը*",
-  "Մոդիֆիկացիան",
-  "Տարեթիվը*",
-  "Թափքը*",
-  "Վազքը*",
-  "Փոխանցման տուփը*",
-  "Ղեկը*",
-  "Շարժիչը*",
-  "Գույնը*",
-  "Սրահի գույնը",
-  "Շարժիչի ծավալը",
-  "Ձիաուժը",
-  "Մխոցների քանակը",
-  "Քարշակը",
-  "Դռների քանակը",
-  "Անվահեծերը",
-];
