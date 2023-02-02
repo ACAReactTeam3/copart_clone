@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { countries, provincesOfArmenia } from "../forSellCar&Filter";
+import { countries, provincesOfArmenia } from "../../forSellCar&Filter";
 
 export const Location = () => {
   const [catValue, setCatValue] = useState("Մարդատար");

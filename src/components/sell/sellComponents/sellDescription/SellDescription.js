@@ -24,11 +24,11 @@ import {
   engineType,
   doօrs,
   tires,
-} from "../forSellCar&Filter";
-// import thunk from "redux-thunk";
+} from "../../forSellCar&Filter";
+import thunk from "redux-thunk";
 import { red } from "@mui/material/colors";
-import { PiceList } from "./PiceList";
-import { AdditionalOptions } from "./AdditionalOptions ";
+import { PriceList } from "../piceList/PriceList";
+import { AdditionalOptions } from "../additionalOptions/AdditionalOptions ";
 
 const SellDescription = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -48,13 +48,13 @@ const SellDescription = () => {
   const [power, setPower] = useState("");
   const [selEngineType, setSelEngineType] = useState("");
   const [selSalonColor, setSelSalonColor] = useState("");
-  const [pice, setPice] = useState("");
+  const [price, setPrice] = useState("");
 
-  console.log(pice, "pice");
+  // console.log(pice, "pice");
 
   // console.log(handleOptions(null), "handleOptions");
   // console.log(selectedBrand, "selectedBrand");
-  console.log(model, "model");
+  //console.log(model, "model");
   // console.log(modelList, "modelList");
   // console.log(prodTYear, "prodTYear");
   // console.log(brands, "brands");
@@ -310,7 +310,7 @@ const SellDescription = () => {
               {btnMore}
             </Button>
           </Grid>
-          <PiceList pice={pice} setPice={setPice} />
+          <PriceList price={price} setPrice={setPrice} />
         </Grid>
       </Box>
     </>

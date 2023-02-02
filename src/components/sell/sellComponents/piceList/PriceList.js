@@ -19,15 +19,14 @@ import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
 import CurrencyYuanIcon from "@mui/icons-material/CurrencyYuan";
 import React from "react";
-import { condition, customsCleared } from "../forSellCar&Filter";
+import { condition, customsCleared } from "../../forSellCar&Filter";
 
-export const PiceList = ({ pice, setPice }) => {
+export const PriceList = ({ price, setPrice }) => {
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
 
   const [alignment, setAlignment] = React.useState("left");
-  console.log(alignment);
 
   const [state, setState] = React.useState({
     gilad: false,
@@ -43,7 +42,6 @@ export const PiceList = ({ pice, setPice }) => {
   };
 
   const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
 
   return (
     <Box
@@ -67,7 +65,7 @@ export const PiceList = ({ pice, setPice }) => {
           }}
           type="number"
           variant="outlined"
-          onChange={(e) => setPice(e.target.value)}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <ToggleButtonGroup
           value={alignment}

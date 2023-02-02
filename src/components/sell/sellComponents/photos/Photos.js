@@ -16,7 +16,7 @@ export const Photos = () => {
     }
   };
 
-  console.log(selectedFile);
+  // console.log(selectedFile);
 
   return (
     <>
