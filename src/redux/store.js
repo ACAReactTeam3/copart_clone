@@ -1,8 +1,27 @@
 import { combineReducers, legacy_createStore as createStore } from "redux";
 import { v4 as uuid } from "uuid";
+import {
+  initialSellAdditionalInfo,
+  sellAdditionalInfoReducer,
+} from "../components/sell/sellComponents/additionalInformation/additionalInformationSlice";
+import sellAdditionalOptionsReducer, {
+  initialSellAditionalOptions,
+} from "../components/sell/sellComponents/additionalOptions/additionalOptionsSlice";
+import addAitionalOptionsReducer from "../components/sell/sellComponents/additionalOptions/additionalOptionsSlice";
 import selCategoryReducer, {
   initialSelCategory,
 } from "../components/sell/sellComponents/category/categorySlice";
+import {
+  initialSellLocation,
+  sellLocationReducer,
+} from "../components/sell/sellComponents/location/locationSlice";
+import {
+  initialSellPhotos,
+  sellPhotosReducer,
+} from "../components/sell/sellComponents/photos/photosSlice";
+import sellPriceListReducer, {
+  initialSellPriceList,
+} from "../components/sell/sellComponents/piceList/priceListSlice";
 import {
   initialSellDescription,
   sellDescriptionReducer,
@@ -12,10 +31,20 @@ export const store = createStore(
   combineReducers({
     selCategory: selCategoryReducer,
     sellDescription: sellDescriptionReducer,
+    sellPriceList: sellPriceListReducer,
+    sellAdditionalOptions: sellAdditionalOptionsReducer,
+    sellLocation: sellLocationReducer,
+    sellAdditionalInfo: sellAdditionalInfoReducer,
+    sellPhotos: sellPhotosReducer,
   }),
   {
     selCategory: initialSelCategory,
     sellDescription: initialSellDescription,
+    sellPriceList: initialSellPriceList,
+    sellAdditionalOptions: initialSellAditionalOptions,
+    sellLocation: initialSellLocation,
+    sellAdditionalInfo: initialSellAdditionalInfo,
+    sellPhotos: initialSellPhotos,
   }
 );
 

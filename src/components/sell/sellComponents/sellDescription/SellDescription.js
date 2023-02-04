@@ -73,14 +73,14 @@ const SellDescription = () => {
     selSalonColor,
   } = useSelector(selectSellDescription);
 
-  console.log(useSelector((state) => state));
+  //console.log(useSelector((state) => state));
 
   // console.log(handleOptions(null), "handleOptions");
-  console.log(selectedBrand, "selectedBrand");
+  //console.log(selectedBrand, "selectedBrand");
   //console.log(model, "model");
   // console.log(modelList, "modelList");
   // console.log(prodTYear, "prodTYear");
-  console.log(power, "power");
+  //console.log(power, "power");
   // console.log(carBodyType, "carBodyType");
   // console.log(carMileage, "carMileage");
 
