@@ -1,19 +1,40 @@
 import React from "react";
 
-export function additionalInfoReducer(state = {}, action) {
-  if (action.type === "add-additional-Info") {
+export function sellAdditionalInfoReducer(state = {}, action) {
+  if (action.type === "add-additional-addInfo") {
     return {
       ...state,
-      additionalInfo: {
-        addInfo: action.payload.addInfo,
-        phoneNum374: action.payload.phoneNum374,
-      },
+      addInfo: action.payload,
+    };
+  }
+  if (action.type === "add-additional-phoneNum") {
+    return {
+      ...state,
+      phoneNum: action.payload,
     };
   }
   return state;
 }
 
-export const initialAdditionalInfo = {
+export const initialSellAdditionalInfo = {
   addInfo: "",
-  phoneNum374: "",
+  phoneNum: "",
 };
+
+export function selectAdditionalInfo(state) {
+  return state.sellAdditionalInfo;
+}
+
+export function AddAddInfo(newValue) {
+  return {
+    type: "add-additional-addInfo",
+    payload: newValue,
+  };
+}
+
+export function AddPhoneNum(newValue) {
+  return {
+    type: "add-additional-phoneNum",
+    payload: newValue,
+  };
+}

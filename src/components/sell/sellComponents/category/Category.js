@@ -30,8 +30,8 @@ const Category = () => {
     }
     return [];
   })(category);
-  console.log(category, "category");
-  console.log(categoryType, "categoryType");
+  // console.log(category, "category");
+  // console.log(categoryType, "categoryType");
 
   return (
     <>

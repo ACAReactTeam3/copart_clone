@@ -11,26 +11,32 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { countries, provincesOfArmenia } from "../../forSellCar&Filter";
+import {
+  addCitySettlement,
+  addCountry,
+  addOnWayAtAuction,
+  addRegion,
+  selectSellLocation,
+} from "./locationSlice";
 
 export const Location = () => {
-  const [catValue, setCatValue] = useState("Մարդատար");
-  const [categryType, setCategryType] = useState("");
-
-  //console.log(categryType, "categryType");
-
-  const [state, setState] = useState({
-    Ճանապարհին: false,
-    Աճուրդում: false,
-  });
+  const dispatch = useDispatch();
+  const { country, citySettlement, region, onWayAtAuction } =
+    useSelector(selectSellLocation);
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    dispatch(
+      addOnWayAtAuction({
+        ...onWayAtAuction,
+        [event.target.name]: event.target.checked,
+      })
+    );
   };
-  const { Ճանապարհին, Աճուրդում } = state;
+  const { Ճանապարհին, Աճուրդում } = onWayAtAuction;
+
+  //console.log(useSelector(selectSellLocation));
 
   return (
     <>
@@ -56,6 +62,7 @@ export const Location = () => {
               options={countries}
               autoHighlight
               getOptionLabel={(option) => option.label}
+              onChange={(e, newValue) => dispatch(addCountry(newValue))}
               renderOption={(props, option) => (
                 <Box
                   component="li"
@@ -94,11 +101,8 @@ export const Location = () => {
             </Typography>
             <Autocomplete
               disablePortal
-              // value={categryType}
-              //   onChange={(e, newValue) => {
-              //     setCategryType(newValue);
-              //   }}
               id="combo-box-demo"
+              onChange={(e, newValue) => dispatch(addRegion(newValue))}
               options={provincesOfArmenia}
               sx={{ width: 310, mt: 1 }}
               renderInput={(params) => <TextField {...params} label="Ընտրել" />}
@@ -114,7 +118,7 @@ export const Location = () => {
               type="text"
               label={"Շիջան, քաղաք, բնակավայր"}
               variant="outlined"
-              //onChange={(e) => setPower(e.target.value)}
+              onChange={(e) => dispatch(addCitySettlement(e.target.value))}
             />
           </Grid>
           <Grid item xs={6}>

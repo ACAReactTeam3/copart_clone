@@ -7,14 +7,23 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { carsType, carsTypeSort } from "../../forSellCar&Filter";
+import {
+  AddAddInfo,
+  AddPhoneNum,
+  selectAdditionalInfo,
+} from "./additionalInformationSlice";
 
 export const AdditionalInformation = () => {
+  const dispatch = useDispatch();
+  const { addInfo, phoneNum } = useSelector(selectAdditionalInfo);
   const [additPhoneNum, setAdditPhoneNum] = useState("");
-  const [addInfo, setAddInfo] = useState("");
-  const [phoneNum374, setPhoneNum374] = useState("");
+  // const [addInfo, setAddInfo] = useState("");
+  // const [phoneNum, setPhoneNum] = useState("");
 
-  //console.log(additPhoneNum, "additPhoneNum");
+  // console.log(addInfo, "addInfo");
+  // console.log(phoneNum, "phoneNum");
 
   return (
     <>
@@ -39,7 +48,7 @@ export const AdditionalInformation = () => {
               //label="Multiline"
               multiline
               rows={5}
-              onChange={(e) => setAddInfo(e.target.value)}
+              onChange={(e) => dispatch(AddAddInfo(e.target.value))}
             />
           </Grid>
           <Grid item xs={6}>
@@ -57,7 +66,7 @@ export const AdditionalInformation = () => {
                   ? setAdditPhoneNum(e.target.value)
                   : setAdditPhoneNum(e.target.value.slice(0, 8));
 
-                setPhoneNum374("(+374) " + additPhoneNum);
+                dispatch(AddPhoneNum("(+374) " + additPhoneNum));
               }}
               placeholder="91 123456"
               InputProps={{

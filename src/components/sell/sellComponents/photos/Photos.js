@@ -1,13 +1,17 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, Input, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPhotos, selectSellPhotos } from "./photosSlice";
 
 export const Photos = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const dispatch = useDispatch();
+  const selectedFile = useSelector(selectSellPhotos);
+  //const [selectedFile, setSelectedFile] = useState({});
   const [uploaded, setUploaded] = useState();
 
   const handleChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    dispatch(addPhotos(e.target.files[0]));
   };
 
   const handleUpload = async () => {
@@ -16,7 +20,7 @@ export const Photos = () => {
     }
   };
 
-  // console.log(selectedFile);
+  //console.log(selectedFile, "selectedFile");
 
   return (
     <>
@@ -33,16 +37,16 @@ export const Photos = () => {
       >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
-            <input
-              multiple
+            <Input
+              multiple={true}
               type="file"
               accept="image/*, .png, .jpg, .gif, .web"
               onChange={handleChange}
             />
-            <Button sx={{ mt: 2, ml: 1, width: 150 }} onClick={handleUpload}>
+            {/* <Button sx={{ mt: 2, ml: 1, width: 150 }} onClick={handleUpload}>
               Upload now!
-            </Button>
-            {selectedFile && (
+            </Button> */}
+            {/* {selectedFile && (
               <ul>
                 <li>Name: {selectedFile.name}</li>
                 <li>Type: {selectedFile.name}</li>
@@ -58,7 +62,7 @@ export const Photos = () => {
                 <h2>{uploaded.fileName}</h2>
                 <img alt="" src={uploaded.filePath} width="200" />
               </div>
-            )}
+            )} */}
           </Grid>
         </Grid>
       </Box>

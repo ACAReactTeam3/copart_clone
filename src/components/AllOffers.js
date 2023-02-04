@@ -115,8 +115,8 @@ export default function AllOffers() {
         slidesPerView={4}
         navigation
         speed={500}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log("slide change")}
       >
         {post.map((item) => {
           return (
