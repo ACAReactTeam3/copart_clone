@@ -8,8 +8,8 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
-import { Route, Routes } from "react-router-dom";
-import Post from "./Post";
+import { prodTYear } from "./sell/forSellCar&Filter";
+import { price } from "../constants/constants";
 
 const useStyle = createUseStyles({
   box: {
@@ -45,8 +45,7 @@ export default function Filter() {
   let [brand, setBrand] = useState("");
   let [modelName, setModelName] = useState([]);
   let [model, setModel] = useState("");
-  // let [selectMinYear, setSelectMinYear] = useState([])
-  // let [selectMaxYear, setSelectMaxYear] = useState([])
+
   let [minYear, setMinYear] = useState("");
   let [maxYear, setMaxYear] = useState("");
   let [minPrice, setMinPrice] = useState("");
@@ -68,6 +67,7 @@ export default function Filter() {
   let [gearbox, setGearbox] = useState("");
   let [engine, setEngine] = useState("");
   const [isShow, setIsShow] = useState(false);
+  let year = prodTYear.reverse();
 
   const handleChangeBodyType = (event) => {
     setBody(event.target.value);
@@ -126,8 +126,7 @@ export default function Filter() {
               {carName.map((item) => {
                 return (
                   <MenuItem value={item.brand} key={uuid()}>
-                    {" "}
-                    {item.brand}{" "}
+                    {item.brand}
                   </MenuItem>
                 );
               })}
@@ -147,8 +146,7 @@ export default function Filter() {
               {modelName.map((item) => {
                 return (
                   <MenuItem value={item} key={uuid()}>
-                    {" "}
-                    {item}{" "}
+                    {item}
                   </MenuItem>
                 );
               })}
@@ -165,11 +163,14 @@ export default function Filter() {
               }}
               input={<OutlinedInput label="minYear" />}
             >
-              {
-                // carName.map(item => {
-                // return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
-                // })
-              }
+              {year.reverse().map((item) => {
+                return (
+                  <MenuItem key={uuid()} value={item}>
+                    {" "}
+                    {item}{" "}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -183,11 +184,13 @@ export default function Filter() {
               }}
               input={<OutlinedInput label="maxYear" />}
             >
-              {
-                //  carName.map(item => {
-                //  return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
-                // })
-              }
+              {year.map((item) => {
+                return (
+                  <MenuItem key={uuid()} value={item}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -201,11 +204,13 @@ export default function Filter() {
               }}
               input={<OutlinedInput label="minPrice" />}
             >
-              {
-                // carName.map(item => {
-                // return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
-                // })
-              }
+              {price.map((item) => {
+                return (
+                  <MenuItem key={uuid()} value={item}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -219,11 +224,13 @@ export default function Filter() {
               }}
               input={<OutlinedInput label="maxPrice" />}
             >
-              {
-                // carName.map(item => {
-                //  return <MenuItem value={item.brand} key={uuid()}> {item.brand} </MenuItem>
-                // })
-              }
+              {price.map((item) => {
+                return (
+                  <MenuItem key={uuid()} value={item}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <div className={!isShow ? classes.advancedSearch : null}>
@@ -239,8 +246,7 @@ export default function Filter() {
                 {bodyType.map((item) => {
                   return (
                     <MenuItem value={item} key={uuid()}>
-                      {" "}
-                      {item}{" "}
+                      {item}
                     </MenuItem>
                   );
                 })}
@@ -261,8 +267,7 @@ export default function Filter() {
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label">
-                {" "}
-                Փոխանցման տուփը{" "}
+                Փոխանցման տուփը
               </InputLabel>
               <Select
                 labelId="demo-dialog-select-label"
@@ -317,13 +322,11 @@ export default function Filter() {
                 setIsShow(!isShow);
               }}
             >
-              {" "}
-              {isShow ? "հասարակ որոնում" : "Ընդլայնված որոնում"}{" "}
+              {isShow ? "հասարակ որոնում" : "Ընդլայնված որոնում"}
             </Button>
           </div>
           <Button variant="contained" className={classes.allOffers}>
-            {" "}
-            Բոլոր առաջարկները{" "}
+            Բոլոր առաջարկները
           </Button>
         </div>
       </Box>

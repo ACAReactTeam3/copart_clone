@@ -1,9 +1,8 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
-import { Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Filter from "./Filter";
-import Post from "./Post";
 
 let useStyles = createUseStyles({
   ul: {
@@ -30,30 +29,37 @@ export default function CarTypes() {
   const classes = useStyles();
   const carsType = [
     {
+      link: "passenger",
       name: "Մարդատար",
       selected: true,
     },
     {
+      link: "trucks",
       name: "Բեռնատար",
       selected: false,
     },
     {
+      link: "motorcycles",
       name: "Մոտոտեխնիկա",
       selected: false,
     },
     {
+      link: "special-motor-vehicle",
       name: "Հատուկ տեխնիկա",
       selected: false,
     },
     {
+      link: "buses",
       name: "Ավտոբուս",
       selected: false,
     },
     {
+      link: "trailers",
       name: "Կցասայլ",
       selected: false,
     },
     {
+      link: "water-vehicles",
       name: "Ջրային տեխնիկա",
       selected: false,
     },
@@ -62,7 +68,11 @@ export default function CarTypes() {
     <>
       <ul className={classes.ul}>
         {carsType.map((item) => {
-          return <li key={uuid()}>{item.name}</li>;
+          return (
+            <Link to={item.link} key={uuid()}>
+              {item.name}
+            </Link>
+          );
         })}
       </ul>
       <Filter />
