@@ -11,13 +11,58 @@ import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ScrollTop from "./ScrollTop";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { auth, db, dbStore } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, dbStore } from "../../firebase/firebase";
+import selCategoryReducer from "./sellComponents/category/categorySlice";
+import { ref } from "firebase/database";
+import { getDownloadURL, getStorage, uploadBytes } from "firebase/storage";
 
 const SellPage = (props) => {
-  const newPost = useSelector((state) => state);
+  const [carName, setCarName] = useState([]);
+  const [brand, setBrand] = useState("");
+  const [modelName, setModelName] = useState([]);
 
+  const [value, setValue] = useState(false);
+  let [img, setImg] = useState(null);
+  let [url, setUrl] = useState([]);
+  const storage = getStorage();
+  const getData = useSelector(function (state) {
+    return state;
+  });
+  // add post
+  const add = async () => {
+    const newPost = await addDoc(collection(dbStore, "post"), {
+      userEmail: auth.currentUser.email,
+      brand: getData.sellDescription.carBodyType,
+      model: getData.sellDescription.model,
+      year: getData.sellDescription.year,
+      price: getData.sellPriceList.price,
+      category: getData.selCategory.category,
+    });
+  };
+
+  const addPhoto = (id) => {
+    const imageRef = ref(
+      storage,
+      `image/${auth.currentUser.email}/1aMIrTdlZNEupeP4g19p/${img.name}`
+    ); // id ??
+    uploadBytes(imageRef, img)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+          })
+          .catch((error) => {
+            console.log("img error", error.message);
+          });
+        setImg(null);
+      })
+      .catch((error) => {
+        console.log("err", error.message);
+      });
+    alert(id);
+  };
   return (
     <Container maxWidth="md" sx={{ ml: 16 }}>
       <Toolbar id="back-to-top-anchor" />
@@ -28,12 +73,21 @@ const SellPage = (props) => {
       <AdditionalInformation />
       <Photos />
       <Button
-        onClick={handleAdd}
+        onClick={add}
         sx={{ width: 350, mt: 5, ml: 5 }}
         variant="contained"
       >
         Տեղադրել հայտարարությունը
       </Button>
+      <Button variant="outlined" type="file" onClick={addPhoto}>
+        Upload image
+      </Button>
+      <input
+        type="file"
+        onChange={(e) => {
+          return setUrl(url), setImg(e.target.files[0]);
+        }}
+      />
       <ScrollTop {...props}>
         <Fab size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
