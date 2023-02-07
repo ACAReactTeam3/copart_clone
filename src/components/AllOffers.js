@@ -118,10 +118,10 @@ export default function AllOffers() {
         // onSwiper={(swiper) => console.log(swiper)}
         // onSlideChange={() => console.log("slide change")}
       >
-        {post.map((item) => {
+        {post?.map((item) => {
           return (
             <div key={uuidv4()} className={classes.parentDiv}>
-              {item.posts.map((post) => {
+              {item.posts?.map((post) => {
                 return (
                   <div key={uuidv4()} className={classes.parentDiv}>
                     <SwiperSlide key={uuidv4()} className={classes.swiperSlide}>
@@ -133,16 +133,16 @@ export default function AllOffers() {
                         <div className={classes.childDiv}>
                           <div>
                             <img
-                              src={post.img}
+                              src={post?.img}
                               alt="Car"
                               className={classes.img}
                             />
                           </div>
                           <div>
-                            <h3 className={classes.header}> {post.brand} </h3>
+                            <h3 className={classes.header}> {post?.brand} </h3>
                             <h4 className={classes.text}>
                               {" "}
-                              Price: {post.price} $
+                              Price: {post?.price} $
                             </h4>
                           </div>
                         </div>
