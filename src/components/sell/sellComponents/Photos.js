@@ -8,18 +8,14 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addPhotos, selectSellPhotos } from "./photosSlice";
-import uploadePhotosImg from "../../../../images/uploadePhotos.png";
+import uploadePhotosImg from "../../../images/uploadePhotos.png";
 
 export const Photos = () => {
-  const dispatch = useDispatch();
-  const selectedFile = useSelector(selectSellPhotos);
-  //const [selectedFile, setSelectedFile] = useState({});
+  const [selectedFile, setSelectedFile] = useState({});
   const [uploaded, setUploaded] = useState();
 
   const handleChange = (e) => {
-    dispatch(addPhotos(e.target.files[0]));
+    setSelectedFile(e.target.files[0]);
   };
 
   const handleUpload = async () => {
@@ -46,11 +42,11 @@ export const Photos = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <img
-              hidden={selectedFile.name}
+              hidden={!selectedFile.name}
               src={uploadePhotosImg}
               alt="UploadePhotosImg"
             />
-            <Input
+            <input
               multiple={true}
               type="file"
               accept="image/*, .png, .jpg, .gif, .web"

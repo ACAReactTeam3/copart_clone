@@ -9,32 +9,20 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { additOpt, initialOptions } from "../../forSellCar&Filter";
-import { addOptions, selectAdditionalOptions } from "./additionalOptionsSlice";
+import { additOpt } from "../forSellCar&Filter";
 
-export const AdditionalOptions = () => {
-  const dispatch = useDispatch();
-  const options = useSelector(selectAdditionalOptions);
+export const AdditionalOptions = ({ options, setOptions }) => {
   const [btnMore, setBtnMore] = useState("+ Ավելին");
   const moreAdditOpt = ((btnMore) =>
     btnMore === "+ Ավելին" ? 12 : additOpt.length)(btnMore);
 
-  //const [options, setOptions] = useState(initialOptions);
-
   const handleChange = (event) => {
-    // setOptions({
-    //   ...options,
-    //   [event.target.name]: event.target.checked,
-    // });
-    dispatch(
-      addOptions({
-        ...options,
-        [event.target.name]: event.target.checked,
-      })
-    );
+    setOptions((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.checked,
+    }));
   };
-  //console.log(options);
+
   return (
     <Grid>
       <Typography variant="h5" component="h2" sx={{ mt: 2, mb: 1 }}>

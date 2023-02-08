@@ -1,17 +1,11 @@
 import {
   Autocomplete,
   Box,
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
-  FormLabel,
   Grid,
-  Icon,
-  IconButton,
-  SvgIcon,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -20,20 +14,9 @@ import {
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
-import React, { useState } from "react";
-import { carState, customsCleared } from "../../forSellCar&Filter";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addCurrency,
-  addPrice,
-  addSaleConditions,
-  addSellCarState,
-  addSellCustomsCleared,
-  addSellVinCode,
-  selectSellPriceList,
-} from "./priceListSlice";
+import { carState, customsCleared } from "../forSellCar&Filter";
 
-export const PriceList = () => {
+export const PriceList = ({ priceList, setPriceList }) => {
   const {
     price,
     currency,
@@ -41,31 +24,26 @@ export const PriceList = () => {
     saleConditions,
     sellCarState,
     sellVinCode,
-  } = useSelector(selectSellPriceList);
-  const dispatch = useDispatch();
+  } = priceList;
 
   const { Պայմ, Փոխանակում, ՄասՄասվճարում } = saleConditions;
 
-  const handleCurrency = (event, newCurrency) => {
-    dispatch(addCurrency(newCurrency));
+  const handleCurrency = (event, newValue) => {
+    setPriceList((prev) => ({
+      ...prev,
+      currency: newValue,
+    }));
   };
 
   const handleChange = (event) => {
-    dispatch(
-      addSaleConditions({
+    setPriceList((prev) => ({
+      ...prev,
+      saleConditions: {
         ...saleConditions,
         [event.target.name]: event.target.checked,
-      })
-    );
+      },
+    }));
   };
-
-  // console.log(price, "price");
-  // console.log(currency, "currency");
-  // console.log(sellCustomsCleared, "sellCustomsCleared");
-  // console.log(saleConditions, "saleConditions");
-  // console.log(sellCarState, "sellCarState");
-  // console.log(sellVinCode, "sellVinCode");
-  // console.log(useSelector(selectSellPriceList));
 
   return (
     <Box
@@ -89,7 +67,12 @@ export const PriceList = () => {
           }}
           type="number"
           variant="outlined"
-          onChange={(e) => dispatch(addPrice(e.target.value))}
+          onChange={(e) =>
+            setPriceList((prev) => ({
+              ...prev,
+              price: e.target.value,
+            }))
+          }
         />
         <ToggleButtonGroup value={currency} exclusive onChange={handleCurrency}>
           <ToggleButton
@@ -165,7 +148,12 @@ export const PriceList = () => {
       <Autocomplete
         sx={{ width: 200, mt: 2, ml: 3, backgroundColor: "white" }}
         disablePortal
-        onChange={(e, newValue) => dispatch(addSellCustomsCleared(newValue))}
+        onChange={(e, newValue) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellCustomsCleared: newValue,
+          }))
+        }
         id={"combo-box-demo"}
         options={customsCleared}
         renderInput={(params) => <TextField {...params} />}
@@ -206,7 +194,12 @@ export const PriceList = () => {
       <Autocomplete
         sx={{ width: 310, mt: 1, backgroundColor: "white" }}
         disablePortal
-        onChange={(e, newE) => dispatch(addSellCarState(newE))}
+        onChange={(e, newValue) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellCarState: newValue,
+          }))
+        }
         id={"combo-box-demo"}
         options={carState}
         renderInput={(params) => <TextField {...params} />}
@@ -219,7 +212,12 @@ export const PriceList = () => {
         type="text"
         placeholder={"JTHCK262665001465"}
         variant="outlined"
-        onChange={(e) => dispatch(addSellVinCode(e.target.value))}
+        onChange={(e) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellVinCode: e.target.value,
+          }))
+        }
       />
       <Typography variant="body2" component="h2" sx={{ mt: 2, color: "gray" }}>
         Այստեղ կարող եք նշել ավտոմեքենայի VIN կոդը կամ թափքի համարը
@@ -227,14 +225,3 @@ export const PriceList = () => {
     </Box>
   );
 };
-
-// const [price, setPrice] = useState("");
-// const [currency, setCurrency] = useState("amd");
-// const [sellCustomsCleared, setSellCustomsCleared] = useState("Այո");
-// const [saleConditions, setSaleConditions] = useState({
-//   Պայմ: false,
-//   Փոխանակում: false,
-//   ՄասՄասվճարում: false,
-// });
-// const [sellCarState, setSellCarState] = useState("");
-// const [sellVinCode, setSellVinCode] = useState("");

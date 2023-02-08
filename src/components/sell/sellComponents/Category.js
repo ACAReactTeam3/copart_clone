@@ -1,19 +1,11 @@
 import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { carsType, carsTypeSort } from "../../forSellCar&Filter";
-import {
-  addCategory,
-  addCategoryType,
-  selectSelCategory,
-} from "./categorySlice";
+import { carsType, carsTypeSort } from "../forSellCar&Filter";
 
-const Category = () => {
+const Category = ({ catAndType, setCategory }) => {
+  const { category, categoryType } = catAndType;
   // const [category, setCategory] = useState("Մարդատար");
   // const [categoryType, setCategoryType] = useState("");
-
-  const { category, categoryType } = useSelector(selectSelCategory);
-  const dispatch = useDispatch();
 
   const catHandleSort = ((value) => {
     if (value === "Բեռնատար") {
@@ -52,8 +44,11 @@ const Category = () => {
               //value={brand}
               //id="combo-box-demo"
               onChange={(e, newValue) => {
-                dispatch(addCategoryType(""));
-                dispatch(addCategory(newValue));
+                setCategory((prev) => ({
+                  ...prev,
+                  categoryType: "",
+                  category: newValue,
+                }));
               }}
               disablePortal
               options={carsType}
@@ -73,7 +68,10 @@ const Category = () => {
               disablePortal
               value={categoryType}
               onChange={(e, newValue) => {
-                dispatch(addCategoryType(newValue));
+                setCategory((prev) => ({
+                  ...prev,
+                  categoryType: newValue,
+                }));
               }}
               id="combo-box-demo"
               options={catHandleSort}
