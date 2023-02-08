@@ -1,9 +1,9 @@
 export const prodTYear = (() => {
   const x = [];
-  let i = 1911;
-  while (i <= 2024) {
+  let i = 2024;
+  while (i >= 1911) {
     x.push(`${i}`);
-    i++;
+    i--;
   }
   return x;
 })();

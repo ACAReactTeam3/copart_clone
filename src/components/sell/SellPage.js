@@ -18,6 +18,7 @@ import { AdditionalOptions } from "./sellComponents/AdditionalOptions ";
 import { Location } from "./sellComponents/Location";
 import { AdditionalInformation } from "./sellComponents/AdditionalInformation";
 import { Photos } from "./sellComponents/Photos";
+import { useNavigate } from "react-router-dom";
 
 const SellPage = (props) => {
   let [img, setImg] = useState(null);
@@ -61,7 +62,7 @@ const SellPage = (props) => {
     sellCarState: "",
     sellVinCode: "",
   });
-
+  console.log(priceList, "priceList");
   const [options, setOptions] = useState(initialOptions);
 
   const [location, setLocation] = useState({
@@ -76,33 +77,30 @@ const SellPage = (props) => {
     phoneNum: "",
   });
 
-  const [post, setPost] = useState({
-    addInfo: "",
-    phoneNum: "",
-    //photos
-    photos: {},
-  });
+  const [post, setPost] = useState({});
 
   useEffect(
     () =>
       setPost((prev) => ({
         ...prev,
         userEmail: auth.currentUser.email,
-        brand: carDescription.carBodyType,
+        brand: carDescription.selectedBrand,
         model: carDescription.model,
         year: carDescription.year,
         price: priceList.price,
         category: catAndType.category,
         timeStamp: serverTimestamp(),
       })),
-    [getData, auth]
+    [carDescription, auth, priceList, catAndType]
   );
   //const storage = getStorage();
   console.log(post, "post");
+  const navigate = useNavigate();
   // add post
   const add = async () => {
     const newPost = await addDoc(collection(dbStore, "post"), post);
     console.log(newPost.id);
+    navigate("/personalinfo/myOffers", { replace: true });
   };
 
   useEffect(() => {

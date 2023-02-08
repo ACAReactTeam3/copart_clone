@@ -1,11 +1,13 @@
 import {
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 import { v4 as uuid } from "uuid";
@@ -114,7 +116,7 @@ export default function MyOffers() {
       setPost(docs);
     })();
   }, []);
-  
+
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -146,15 +148,13 @@ export default function MyOffers() {
         </label>
       </div>
       <div className={classes.buttonParent}>
-        {
-          !post.length ? (
-            <p>
-              <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
-            </p>
-          ) : (
-            <p> Դուք ունեք {post.length} հայտարարություն։ </p>
-          )
-        }
+        {!post.length ? (
+          <p>
+            <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
+          </p>
+        ) : (
+          <p> Դուք ունեք {post.length} հայտարարություն։ </p>
+        )}
         <Button variant="contained" sx={{ margin: "auto" }}>
           Տեղադրել հայտարարություն
         </Button>
@@ -173,6 +173,9 @@ export default function MyOffers() {
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
                 <Link key={uuid()} style={{ textDecoration: "none" }} to="hi">
                   <div className={classes.childDiv}>
+                    {/* <IconButton aria-label="delete" sx={{ ml: 20, mt: 0 }}>
+                      <DeleteIcon />
+                    </IconButton> */}
                     <div>
                       <img src={item.img} alt="Car" className={classes.img} />
                     </div>
