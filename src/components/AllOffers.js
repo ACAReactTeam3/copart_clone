@@ -14,9 +14,6 @@ import Post from "./Post";
 import SellPage from "./sell/SellPage";
 import { v4 as uuidv4 } from "uuid";
 let useStyles = createUseStyles({
-  //   mapParent: {
-  //     display: "inline",
-  //   },
   parentDiv: {
     marginTop: "30px",
     width: "80%",
@@ -24,20 +21,6 @@ let useStyles = createUseStyles({
     margin: [0, "auto"],
     display: "flex",
   },
-  //   postBox: {
-  //     width: "100%",
-  //     height: 210,
-  //     marginRight: 1,
-  //     objectFit: "cover",
-  //     position: "relative",
-  //     display: "flex",
-  //     flexDirection: "column",
-  //     justifyContent: "center",
-  //     border: [1, "black", "solid"],
-  //     "& :hover": {
-  //       transform: "scale(1)",
-  //     },
-  //   },
   img: {
     width: 270,
     height: 155,
@@ -46,16 +29,6 @@ let useStyles = createUseStyles({
     transition: "1s",
     cursor: "pointer",
   },
-  //   priceDiv: {
-  //     width: "100%",
-  //     height: 55,
-  //     position: "relative",
-  //     textAlign: "center",
-  //     backgroundColor: "grey",
-  //     display: "flex",
-  //     flexDirection: "column",
-  //     justifyContent: "center",
-  //   },
   swiperSlide: {
     // objectFit: "cover",
     // position: "relative",

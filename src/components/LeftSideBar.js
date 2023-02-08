@@ -45,6 +45,10 @@ export default function LeftSideBar() {
       icon: <MessageIcon />,
     },
     {
+      link: "/",
+      name: "Գլխավոր էջ",
+    },
+    {
       link: "dealer",
       name: "Դիլերներ",
     },
@@ -53,21 +57,17 @@ export default function LeftSideBar() {
       name: "Դառնալ ավտոդիլեր",
     },
     {
-      link: "",
-      name: "Գովազդ կայքում",
+      link: auth.currentUser ? "sell" : "signin",
+      name: "Վաճառել",
     },
     {
       link: "usageRules",
       name: "Օգտագործման կանոնները",
     },
-    {
-      link: "",
-      name: "Օգնություն",
-    },
-    {
-      link: "",
-      name: "Կապ",
-    },
+    // {
+    //   link: "",
+    //   name: "Օգնություն",
+    // },
   ];
   const [state, setState] = useState({ left: false });
 

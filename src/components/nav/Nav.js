@@ -25,6 +25,7 @@ let useStyles = createUseStyles({
     boxShadow: "0 2px 6px 0 rgb(0 0 0 / 7%) !important",
   },
   parentDiv: {
+    placeItems: "center",
     width: "80%",
     height: 70,
     display: "flex",
@@ -118,7 +119,7 @@ export default function Nav(props) {
             variant="outlined"
           />
         </Box>
-        <Link to="dealer">
+        <Link to="dealer" style={{ textDecoration: "none" }}>
           <DealersButton />
         </Link>
         <Link to="messages">
@@ -139,17 +140,33 @@ export default function Nav(props) {
           {user ? (
             <nav className={classes.ul}>
               <div>
-                <Link to="personalinfo/myOffers" onClick={handleCloseMyPage}>
+                <Link
+                  to="personalinfo/myOffers"
+                  onClick={handleCloseMyPage}
+                  style={{ textDecoration: "none", color: "#1976d2" }}
+                >
                   Անձնական տվյալներ
                 </Link>
               </div>
               <div>
-                <Link to="personalinfo/saved" onClick={handleCloseMyPage}>
+                <Link
+                  to="personalinfo/saved"
+                  onClick={handleCloseMyPage}
+                  style={{
+                    textDecoration: "none",
+                    color: "#1976d2",
+                    width: "100%",
+                  }}
+                >
                   <Button> Հիշվածները </Button>
                 </Link>
               </div>
               <div>
-                <Link to="/" onClick={handleCloseMyPage}>
+                <Link
+                  to="/"
+                  onClick={handleCloseMyPage}
+                  style={{ textDecoration: "none", color: "#1976d2" }}
+                >
                   <Button onClick={logout}> Ելք </Button>
                 </Link>
               </div>
@@ -175,7 +192,7 @@ export default function Nav(props) {
             </div>
           )}
         </Dialog>
-        <Link to="sell">
+        <Link to="sell" style={{ textDecoration: "none" }}>
           <Button variant="contained"> Վաճառել </Button>
         </Link>
       </div>
