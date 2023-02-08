@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Button from "@mui/material/Button";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -21,6 +23,8 @@ import { signInWithGoogle } from "../../constants/constants";
 let useStyle = createUseStyles({
   parentDiv: {
     backgroundColor: "#D0D0D0",
+    width: "80%",
+    margin: [0, "auto"],
   },
   columnDiv: {
     height: 200,
@@ -31,7 +35,11 @@ let useStyle = createUseStyles({
   link: {
     display: "flex",
     justifyContent: "space-around",
-    padding: 10,
+    padding: 20,
+    color: "yellow",
+  },
+  linkStyle: {
+    textDecoration: "none",
   },
 });
 
@@ -99,15 +107,15 @@ export default function Account(props) {
         </div>
       </div>
       <nav className={classes.link}>
-        <Link to="myOffers">
+        <Link to="myOffers" className={classes.linkStyle}>
           {" "}
           <h2> Իմ հայտարարությունները </h2>
         </Link>
-        <Link to="saved">
+        <Link to="saved" className={classes.linkStyle}>
           {" "}
           <h2> Հիշվածները </h2>
         </Link>
-        <Link to="personalinfo">
+        <Link to="personalinfo" className={classes.linkStyle}>
           {" "}
           <h2> Անձնական տվյալներ </h2>{" "}
         </Link>

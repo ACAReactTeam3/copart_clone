@@ -171,7 +171,7 @@ const SellPage = (props) => {
   //   alert(id);
   // };
   return (
-    <Container maxWidth="md" sx={{ ml: 16 }}>
+    <Container maxWidth="md" sx={{ ml: 16, margin: [0, "auto"] }}>
       <Toolbar id="back-to-top-anchor" />
       <Category catAndType={catAndType} setCategory={setCategory} />
       <SellDescription

@@ -2,19 +2,6 @@ import React from "react";
 import styles from "./DealersPage.module.css";
 import { useEffect, useState } from "react";
 
-// const useStyles = createUseStyles({
-//   parentDiv: {
-//     width: "80%",
-//     height: 70,
-//     display: "flex",
-//     justifyContent: "space-around",
-//     margin: [0, "auto"],
-//     position: "relative",
-//     display: "flex",
-//     flexDirection: "column",
-//   },
-// });
-
 export default function DealersPage() {
   const [error, setError] = useState(null);
   const [items, setItems] = useState([]);
