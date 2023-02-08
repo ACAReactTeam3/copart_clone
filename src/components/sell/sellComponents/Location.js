@@ -1,4 +1,3 @@
-import { Image } from "@mui/icons-material";
 import {
   Autocomplete,
   Box,
@@ -10,27 +9,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { countries, provincesOfArmenia } from "../../forSellCar&Filter";
+import { countries, provincesOfArmenia } from "../forSellCar&Filter";
 
-export const Location = () => {
-  const [catValue, setCatValue] = useState("Մարդատար");
-  const [categryType, setCategryType] = useState("");
-
-  //console.log(categryType, "categryType");
-
-  const [state, setState] = useState({
-    Ճանապարհին: false,
-    Աճուրդում: false,
-  });
+export const Location = ({ location, setLocation }) => {
+  const { country, citySettlement, region, onWayAtAuction } = location;
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    setLocation((prev) => ({
+      ...prev,
+      onWayAtAuction: {
+        ...onWayAtAuction,
+        [event.target.name]: event.target.checked,
+      },
+    }));
   };
-  const { Ճանապարհին, Աճուրդում } = state;
+
+  const { Ճանապարհին, Աճուրդում } = onWayAtAuction;
 
   return (
     <>
@@ -56,6 +50,12 @@ export const Location = () => {
               options={countries}
               autoHighlight
               getOptionLabel={(option) => option.label}
+              onChange={(e, newValue) =>
+                setLocation((prev) => ({
+                  ...prev,
+                  country: newValue,
+                }))
+              }
               renderOption={(props, option) => (
                 <Box
                   component="li"
@@ -94,11 +94,13 @@ export const Location = () => {
             </Typography>
             <Autocomplete
               disablePortal
-              // value={categryType}
-              //   onChange={(e, newValue) => {
-              //     setCategryType(newValue);
-              //   }}
               id="combo-box-demo"
+              onChange={(e, newValue) =>
+                setLocation((prev) => ({
+                  ...prev,
+                  region: newValue,
+                }))
+              }
               options={provincesOfArmenia}
               sx={{ width: 310, mt: 1 }}
               renderInput={(params) => <TextField {...params} label="Ընտրել" />}
@@ -114,7 +116,12 @@ export const Location = () => {
               type="text"
               label={"Շիջան, քաղաք, բնակավայր"}
               variant="outlined"
-              //onChange={(e) => setPower(e.target.value)}
+              onChange={(e) =>
+                setLocation((prev) => ({
+                  ...prev,
+                  citySettlement: e.target.value,
+                }))
+              }
             />
           </Grid>
           <Grid item xs={6}>

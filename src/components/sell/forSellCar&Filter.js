@@ -110,8 +110,12 @@ export const additOpt = [
   "Ձայնամեկուսացում",
   "Թյունինգ",
 ];
-
-export const condition = [
+export const initialOptions = ((additOpt) => {
+  const state = {};
+  additOpt.map((item, index) => (state[item] = false));
+  return state;
+})(additOpt);
+export const carState = [
   "Գերազանց",
   "Լավ",
   "Նորմալ",

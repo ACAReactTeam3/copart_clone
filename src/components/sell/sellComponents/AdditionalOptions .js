@@ -9,28 +9,20 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { additOpt } from "../../forSellCar&Filter";
+import { additOpt } from "../forSellCar&Filter";
 
-export const AdditionalOptions = () => {
+export const AdditionalOptions = ({ options, setOptions }) => {
   const [btnMore, setBtnMore] = useState("+ Ավելին");
   const moreAdditOpt = ((btnMore) =>
     btnMore === "+ Ավելին" ? 12 : additOpt.length)(btnMore);
 
-  const initialState = ((additOpt) => {
-    const state = {};
-    additOpt.map((item, index) => (state[item] = false));
-    return state;
-  })(additOpt);
-
-  const [state, setState] = useState(initialState);
-
   const handleChange = (event) => {
-    setState({
-      ...state,
+    setOptions((prev) => ({
+      ...prev,
       [event.target.name]: event.target.checked,
-    });
+    }));
   };
-  //console.log(state);
+
   return (
     <Grid>
       <Typography variant="h5" component="h2" sx={{ mt: 2, mb: 1 }}>
@@ -64,7 +56,7 @@ export const AdditionalOptions = () => {
                       key={index}
                       control={
                         <Checkbox
-                          checked={state[item]}
+                          checked={options[item]}
                           onChange={handleChange}
                           name={item}
                         />

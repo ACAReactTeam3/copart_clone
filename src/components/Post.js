@@ -47,14 +47,15 @@ let useStyles = createUseStyles({
   },
 });
 
-export default function Post() {
+export default function Post(props) {
+  const { item, url } = props;
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const navigate = useNavigate();
+
   return (
     <div>
       <Card
@@ -73,12 +74,14 @@ export default function Post() {
             className={classes.img}
             component="img"
             image="https://www.kia.com/content/dam/kia/us/en/home2-0/mtf-carousel/mpv/sorento/kia_sorento_2023_large-middle.png"
+            //image={url}
             alt="Car"
           />
           <CardContent>
-            <Typography> Մակնիշը: </Typography>
-            <Typography> Մոդիֆիկացիան: </Typography>
-            <Typography> Տարեթիվը: </Typography>
+            {/*    <Typography> Գինը: {item.price} </Typography>
+            <Typography> Մակնիշը: {item.brand} </Typography>
+            <Typography> Մոդիֆիկացիան: {item.model} </Typography>
+            <Typography> Տարեթիվը: {item.year} </Typography> */}
             <Typography> Թափքը: </Typography>
             <Typography> Վազքը: </Typography>
             <Typography> Փոխանցման տուփը: </Typography>
