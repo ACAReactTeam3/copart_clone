@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Box,
   Grid,
   InputAdornment,
@@ -7,14 +6,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { carsType, carsTypeSort } from "../../forSellCar&Filter";
 
-export const AdditionalInformation = () => {
+export const AdditionalInformation = ({
+  additionalInfo,
+  setAdditionalInfo,
+}) => {
+  const { addInfo, phoneNum } = additionalInfo;
   const [additPhoneNum, setAdditPhoneNum] = useState("");
-  const [addInfo, setAddInfo] = useState("");
-  const [phoneNum374, setPhoneNum374] = useState("");
-
-  //console.log(additPhoneNum, "additPhoneNum");
 
   return (
     <>
@@ -39,7 +37,12 @@ export const AdditionalInformation = () => {
               //label="Multiline"
               multiline
               rows={5}
-              onChange={(e) => setAddInfo(e.target.value)}
+              onChange={(e) =>
+                setAdditionalInfo((prev) => ({
+                  ...prev,
+                  addInfo: e.target.value,
+                }))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -56,8 +59,10 @@ export const AdditionalInformation = () => {
                 additPhoneNum.length < 8
                   ? setAdditPhoneNum(e.target.value)
                   : setAdditPhoneNum(e.target.value.slice(0, 8));
-
-                setPhoneNum374("(+374) " + additPhoneNum);
+                setAdditionalInfo((prev) => ({
+                  ...prev,
+                  phoneNum: "(+374) " + additPhoneNum,
+                }));
               }}
               placeholder="91 123456"
               InputProps={{

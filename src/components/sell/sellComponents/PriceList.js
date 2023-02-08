@@ -1,13 +1,10 @@
 import {
   Autocomplete,
   Box,
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
-  FormLabel,
   Grid,
   TextField,
   ToggleButton,
@@ -15,33 +12,38 @@ import {
   Typography,
 } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
-import CurrencyYuanIcon from "@mui/icons-material/CurrencyYuan";
-import React, { useState } from "react";
-import { condition, customsCleared } from "../../forSellCar&Filter";
+import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
+import { carState, customsCleared } from "../forSellCar&Filter";
 
-export const PriceList = () => {
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+export const PriceList = ({ priceList, setPriceList }) => {
+  const {
+    price,
+    currency,
+    sellCustomsCleared,
+    saleConditions,
+    sellCarState,
+    sellVinCode,
+  } = priceList;
+
+  const { Պայմ, Փոխանակում, ՄասՄասվճարում } = saleConditions;
+
+  const handleCurrency = (event, newValue) => {
+    setPriceList((prev) => ({
+      ...prev,
+      currency: newValue,
+    }));
   };
-  const [price, setPrice] = useState("");
-  const [alignment, setAlignment] = useState("left");
-
-  const [state, setState] = useState({
-    gilad: false,
-    jason: false,
-    antoine: false,
-  });
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    setPriceList((prev) => ({
+      ...prev,
+      saleConditions: {
+        ...saleConditions,
+        [event.target.name]: event.target.checked,
+      },
+    }));
   };
-
-  const { gilad, jason, antoine } = state;
 
   return (
     <Box
@@ -65,14 +67,14 @@ export const PriceList = () => {
           }}
           type="number"
           variant="outlined"
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) =>
+            setPriceList((prev) => ({
+              ...prev,
+              price: e.target.value,
+            }))
+          }
         />
-        <ToggleButtonGroup
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment"
-        >
+        <ToggleButtonGroup value={currency} exclusive onChange={handleCurrency}>
           <ToggleButton
             sx={{
               width: 5,
@@ -81,10 +83,17 @@ export const PriceList = () => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="left"
-            aria-label="left aligned"
+            value="amd"
           >
-            <CurrencyPoundIcon />
+            <Typography
+              variant="h6"
+              component="h2"
+              sx={{
+                mb: 1.5,
+              }}
+            >
+              ֏
+            </Typography>
           </ToggleButton>
           <ToggleButton
             sx={{
@@ -94,10 +103,9 @@ export const PriceList = () => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="center"
-            aria-label="centered"
+            value="usd"
           >
-            <AttachMoneyIcon />
+            <AttachMoneyIcon fontSize="medium" />
           </ToggleButton>
           <ToggleButton
             sx={{
@@ -107,23 +115,21 @@ export const PriceList = () => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="right"
-            aria-label="right aligned"
+            value="eur"
+          >
+            <EuroSymbolIcon />
+          </ToggleButton>
+          <ToggleButton
+            sx={{
+              width: 5,
+              mt: 1,
+              ml: 3,
+              backgroundColor: "white",
+              color: "inherit",
+            }}
+            value="rub"
           >
             <CurrencyRubleIcon />
-          </ToggleButton>
-          <ToggleButton
-            sx={{
-              width: 5,
-              mt: 1,
-              ml: 3,
-              backgroundColor: "white",
-              color: "inherit",
-            }}
-            value="justify"
-            aria-label="justified"
-          >
-            <CurrencyYuanIcon />
           </ToggleButton>
         </ToggleButtonGroup>
         <Typography
@@ -142,7 +148,12 @@ export const PriceList = () => {
       <Autocomplete
         sx={{ width: 200, mt: 2, ml: 3, backgroundColor: "white" }}
         disablePortal
-        //onChange={(e, mileageType) => setMileageType(mileageType)}
+        onChange={(e, newValue) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellCustomsCleared: newValue,
+          }))
+        }
         id={"combo-box-demo"}
         options={customsCleared}
         renderInput={(params) => <TextField {...params} />}
@@ -151,22 +162,26 @@ export const PriceList = () => {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
+              <Checkbox checked={Պայմ} onChange={handleChange} name="Պայմ" />
             }
             label="Պայմ․"
           />
           <FormControlLabel
             control={
-              <Checkbox checked={jason} onChange={handleChange} name="jason" />
+              <Checkbox
+                checked={Փոխանակում}
+                onChange={handleChange}
+                name="Փոխանակում"
+              />
             }
             label="Փոխանակում"
           />
           <FormControlLabel
             control={
               <Checkbox
-                checked={antoine}
+                checked={ՄասՄասվճարում}
                 onChange={handleChange}
-                name="antoine"
+                name="ՄասՄասվճարում"
               />
             }
             label="Մաս-Մաս վճարում"
@@ -179,9 +194,14 @@ export const PriceList = () => {
       <Autocomplete
         sx={{ width: 310, mt: 1, backgroundColor: "white" }}
         disablePortal
-        //onChange={(e, mileageType) => setMileageType(mileageType)}
+        onChange={(e, newValue) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellCarState: newValue,
+          }))
+        }
         id={"combo-box-demo"}
-        options={condition}
+        options={carState}
         renderInput={(params) => <TextField {...params} />}
       />
       <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
@@ -190,9 +210,14 @@ export const PriceList = () => {
       <TextField
         sx={{ width: 310, mt: 1 }}
         type="text"
-        label={"JTHCK262665001465"}
+        placeholder={"JTHCK262665001465"}
         variant="outlined"
-        //onChange={(e) => setPower(e.target.value)}
+        onChange={(e) =>
+          setPriceList((prev) => ({
+            ...prev,
+            sellVinCode: e.target.value,
+          }))
+        }
       />
       <Typography variant="body2" component="h2" sx={{ mt: 2, color: "gray" }}>
         Այստեղ կարող եք նշել ավտոմեքենայի VIN կոդը կամ թափքի համարը
