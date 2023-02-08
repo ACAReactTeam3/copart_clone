@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Box,
   Grid,
   InputAdornment,
@@ -7,23 +6,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { carsType, carsTypeSort } from "../../forSellCar&Filter";
-import {
-  AddAddInfo,
-  AddPhoneNum,
-  selectAdditionalInfo,
-} from "./additionalInformationSlice";
 
-export const AdditionalInformation = () => {
-  const dispatch = useDispatch();
-  const { addInfo, phoneNum } = useSelector(selectAdditionalInfo);
+export const AdditionalInformation = ({
+  additionalInfo,
+  setAdditionalInfo,
+}) => {
+  const { addInfo, phoneNum } = additionalInfo;
   const [additPhoneNum, setAdditPhoneNum] = useState("");
-  // const [addInfo, setAddInfo] = useState("");
-  // const [phoneNum, setPhoneNum] = useState("");
-
-  // console.log(addInfo, "addInfo");
-  // console.log(phoneNum, "phoneNum");
 
   return (
     <>
@@ -48,7 +37,12 @@ export const AdditionalInformation = () => {
               //label="Multiline"
               multiline
               rows={5}
-              onChange={(e) => dispatch(AddAddInfo(e.target.value))}
+              onChange={(e) =>
+                setAdditionalInfo((prev) => ({
+                  ...prev,
+                  addInfo: e.target.value,
+                }))
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -65,8 +59,10 @@ export const AdditionalInformation = () => {
                 additPhoneNum.length < 8
                   ? setAdditPhoneNum(e.target.value)
                   : setAdditPhoneNum(e.target.value.slice(0, 8));
-
-                dispatch(AddPhoneNum("(+374) " + additPhoneNum));
+                setAdditionalInfo((prev) => ({
+                  ...prev,
+                  phoneNum: "(+374) " + additPhoneNum,
+                }));
               }}
               placeholder="91 123456"
               InputProps={{

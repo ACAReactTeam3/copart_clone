@@ -125,7 +125,7 @@ export default function AllOffers() {
         navigation
         speed={500}
       >
-        {post.map((item) => {
+        {post?.map((item) => {
           return (
             <React.Fragment key={uuidv4()}>
               <div key={uuidv4()} className={classes.parentDiv}>

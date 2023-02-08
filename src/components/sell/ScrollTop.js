@@ -1,8 +1,8 @@
 import { Autocomplete, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { carsType } from "./forSellCar&Filter";
-import Category from "./sellComponents/category/Category";
-import SellDescription from "./sellComponents/sellDescription/SellDescription";
+import Category from "./sellComponents/Category";
+import SellDescription from "./sellComponents/SellDescription";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
