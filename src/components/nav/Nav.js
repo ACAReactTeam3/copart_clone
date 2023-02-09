@@ -192,7 +192,10 @@ export default function Nav(props) {
             </div>
           )}
         </Dialog>
-        <Link to="sell" style={{ textDecoration: "none" }}>
+        <Link
+          to={auth.currentUser ? "sell" : "signin"}
+          style={{ textDecoration: "none" }}
+        >
           <Button variant="contained"> Վաճառել </Button>
         </Link>
       </div>
