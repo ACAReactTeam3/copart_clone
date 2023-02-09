@@ -87,8 +87,11 @@ function App() {
         <Route path="usageRules" element={<UsageRules />}></Route>
         {post.map((item) => {
           return (
-            <Route key={uuid()} path={item.id} element={<Post item={item} />}>
-            </Route>
+            <Route
+              key={uuid()}
+              path={item.id}
+              element={<Post item={item} />}
+            ></Route>
           );
         })}
       </Routes>

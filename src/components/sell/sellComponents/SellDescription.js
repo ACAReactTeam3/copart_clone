@@ -162,7 +162,7 @@ const SellDescription = ({
                 onChange={(e) =>
                   setCarDescription((prev) => ({
                     ...prev,
-                    carBodyType: e.target.value,
+                    carMileage: e.target.value,
                   }))
                 }
               />
