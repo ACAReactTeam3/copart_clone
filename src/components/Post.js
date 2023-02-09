@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -49,6 +49,7 @@ let useStyles = createUseStyles({
 });
 
 export default function Post(props) {
+  const { item } = props;
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
@@ -73,15 +74,15 @@ export default function Post(props) {
           <CardMedia
             className={classes.img}
             component="img"
-            image="https://www.kia.com/content/dam/kia/us/en/home2-0/mtf-carousel/mpv/sorento/kia_sorento_2023_large-middle.png"
-            //image={url}
+            // image="https://www.kia.com/content/dam/kia/us/en/home2-0/mtf-carousel/mpv/sorento/kia_sorento_2023_large-middle.png"
+            image={item.img}
             alt="Car"
           />
           <CardContent>
-            {/* <Typography> Գինը: {item.price} </Typography> */}
-            {/* <Typography> Մակնիշը: {item.brand} </Typography>
-            <Typography> Մոդիֆիկացիան: {item.model} </Typography>
-            <Typography> Տարեթիվը: {item.year} </Typography>  */}
+            <Typography> Գինը: {item?.price} </Typography>
+            <Typography> Մակնիշը: {item?.brand} </Typography>
+            <Typography> Մոդիֆիկացիան: {item?.model} </Typography>
+            <Typography> Տարեթիվը: {item?.year} </Typography>
             <Typography> Թափքը: </Typography>
             <Typography> Վազքը: </Typography>
             <Typography> Փոխանցման տուփը: </Typography>
@@ -96,23 +97,23 @@ export default function Post(props) {
         <div className={classes.parentImgSmall}>
           <img
             className={classes.imgSmall}
-            src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
+            // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
           />
           <img
             className={classes.imgSmall}
-            src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021007/IOF_H150/2022-Kia-Sorento-4dr-AWD_21007.jpg"
+            //  src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021007/IOF_H150/2022-Kia-Sorento-4dr-AWD_21007.jpg"
           />
           <img
             className={classes.imgSmall}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkAh8F6N9jT0xlh2m_b2VeDp7YzQio569mTcyd5NydUueBUIa_tU2w_CKqjOoOiKxQZM&usqp=CAU"
+            //  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkAh8F6N9jT0xlh2m_b2VeDp7YzQio569mTcyd5NydUueBUIa_tU2w_CKqjOoOiKxQZM&usqp=CAU"
           />
           <img
             className={classes.imgSmall}
-            src="https://www.kiaonhuntclub.com/vimgs/usd20kis022b022200/IOF_H600/xColourPhotoSample_0.jpg.pagespeed.ic.ObavIULTW_.jpg"
+            //  src="https://www.kiaonhuntclub.com/vimgs/usd20kis022b022200/IOF_H600/xColourPhotoSample_0.jpg.pagespeed.ic.ObavIULTW_.jpg"
           />
           <img
             className={classes.imgSmall}
-            src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
+            // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
           />
         </div>
         <CardActions disableSpacing>

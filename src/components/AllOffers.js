@@ -54,31 +54,17 @@ let useStyles = createUseStyles({
   },
 });
 
-export default function AllOffers() {
+export default function AllOffers(props) {
+  const { post } = props;
   const classes = useStyles();
   const storage = getStorage();
   const listRef = ref(storage, `image`);
-  let [post, setPost] = useState([]);
+  /*   let [post, setPost] = useState([]); */
   let [img, setImg] = useState(null);
   let [url, setUrl] = useState([]);
 
-  // all posts
-  useEffect(() => {
-    (async () => {
-      const colRef = collection(dbStore, "post");
-      const snapshots = await getDocs(colRef);
-
-      const docs = snapshots.docs.map((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        return data;
-      });
-      setPost(docs);
-    })();
-  }, []);
-
   // img list
-  useEffect(() => {
+  /* useEffect(() => {
     listAll(listRef)
       .then((res) => {
         res.prefixes.forEach((folderRef) => {
@@ -114,7 +100,7 @@ export default function AllOffers() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, []); */
 
   return (
     <div className={classes.parentDiv}>
@@ -122,7 +108,7 @@ export default function AllOffers() {
         className={classes.swiper}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={post.length > 4 ? 4 : post.length}
         navigation
         speed={500}
       >
@@ -134,7 +120,7 @@ export default function AllOffers() {
                   <Link
                     key={uuidv4()}
                     style={{ textDecoration: "none" }}
-                    to="hi"
+                    to={item.id}
                   >
                     <div className={classes.childDiv}>
                       <div>
