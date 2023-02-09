@@ -8,9 +8,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
+import Post from "./Post";
 let useStyles = createUseStyles({
   parentDiv: {
     marginTop: "30px",
@@ -138,7 +139,8 @@ export default function AllOffers() {
                     <div className={classes.childDiv}>
                       <div>
                         <img
-                          src="https://firebasestorage.googleapis.com/v0/b/copartclone-b2247.appspot.com/o/image%2Faadd%40gmail.com%2F4fdhIwDPs3UB9JnmrWXJ%2FMazda%20%20CX-7.jpeg?alt=media&token=3a3bade8-34e3-4977-bbe9-4d4dd630ab42"
+                          //src="https://firebasestorage.googleapis.com/v0/b/copartclone-b2247.appspot.com/o/image%2Faadd%40gmail.com%2F4fdhIwDPs3UB9JnmrWXJ%2FMazda%20%20CX-7.jpeg?alt=media&token=3a3bade8-34e3-4977-bbe9-4d4dd630ab42"
+                          src={item.img}
                           alt={item.id}
                           className={classes.img}
                         />

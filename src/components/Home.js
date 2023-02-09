@@ -83,8 +83,7 @@ export default function Home() {
               <Route
                 path={item.link}
                 element={<CategoryPage category={item.category} />}
-              >
-              </Route>
+              ></Route>
             </Routes>
           </React.Fragment>
         );

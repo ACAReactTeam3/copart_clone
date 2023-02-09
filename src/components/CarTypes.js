@@ -69,7 +69,11 @@ export default function CarTypes() {
       <ul className={classes.ul}>
         {carsType.map((item) => {
           return (
-            <Link to={item.link} key={uuid()}>
+            <Link
+              to={item.link}
+              key={uuid()}
+              style={{ textDecoration: "none" }}
+            >
               {item.name}
             </Link>
           );

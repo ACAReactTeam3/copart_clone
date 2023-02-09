@@ -63,6 +63,7 @@ const SellPage = (props) => {
   });
 
   const [options, setOptions] = useState(initialOptions);
+  console.log(options);
 
   const [location, setLocation] = useState({
     country: "",
@@ -88,14 +89,14 @@ const SellPage = (props) => {
       setPost((prev) => ({
         ...prev,
         userEmail: auth.currentUser.email,
-        brand: carDescription.carBodyType,
+        brand: carDescription.selectedBrand,
         model: carDescription.model,
         year: carDescription.year,
         price: priceList.price,
         category: catAndType.category,
         timeStamp: serverTimestamp(),
       })),
-    [getData, auth]
+    [carDescription, auth, catAndType, priceList]
   );
   //const storage = getStorage();
   console.log(post, "post");
