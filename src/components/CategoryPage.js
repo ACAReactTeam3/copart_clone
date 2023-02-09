@@ -53,6 +53,7 @@ let useStyles = createUseStyles({
     width: "80%",
     height: "300px",
     display: "flex",
+    marginTop: 20,
   },
   h2: {
     color: "#1976d2",
@@ -70,7 +71,7 @@ let useStyles = createUseStyles({
 });
 
 export default function CategoryPage(props) {
-  const { category } = props;
+  const { category, search } = props;
   const classes = useStyles();
   const navigate = useNavigate();
   let [post, setPost] = useState([]);
@@ -79,7 +80,11 @@ export default function CategoryPage(props) {
   useEffect(() => {
     (async () => {
       const colRef = collection(dbStore, "post");
-      const filterUser = query(colRef, where("category", "==", category));
+      const filterUser = query(
+        colRef,
+        where("category", "==", category),
+        search && where("brand".toLowerCase(), "==", search)
+      );
       const snapshots = await getDocs(filterUser);
 
       const docs = snapshots.docs.map((doc) => {
@@ -89,7 +94,7 @@ export default function CategoryPage(props) {
       });
       setPost(docs);
     })();
-  }, []);
+  }, [search]);
 
   return (
     <div className={classes.parentDiv}>
@@ -109,7 +114,11 @@ export default function CategoryPage(props) {
           return (
             <div key={uuid()}>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
-                <Link key={uuid()} style={{ textDecoration: "none" }} to="hi">
+                <Link
+                  key={uuid()}
+                  style={{ textDecoration: "none" }}
+                  to={`/${item.id}`}
+                >
                   <div className={classes.childDiv}>
                     <div>
                       <img src={item.img} alt="Car" className={classes.img} />

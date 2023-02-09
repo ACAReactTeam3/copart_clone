@@ -114,7 +114,7 @@ export default function MyOffers() {
       setPost(docs);
     })();
   }, []);
-  
+
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -146,15 +146,13 @@ export default function MyOffers() {
         </label>
       </div>
       <div className={classes.buttonParent}>
-        {
-          !post.length ? (
-            <p>
-              <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
-            </p>
-          ) : (
-            <p> Դուք ունեք {post.length} հայտարարություն։ </p>
-          )
-        }
+        {!post.length ? (
+          <p>
+            <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
+          </p>
+        ) : (
+          <p> Դուք ունեք {post.length} հայտարարություն։ </p>
+        )}
         <Button variant="contained" sx={{ margin: "auto" }}>
           Տեղադրել հայտարարություն
         </Button>
@@ -171,10 +169,18 @@ export default function MyOffers() {
           return (
             <div key={uuid()} className={classes.parentDiv}>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
-                <Link key={uuid()} style={{ textDecoration: "none" }} to="hi">
+                <Link
+                  key={uuid()}
+                  style={{ textDecoration: "none" }}
+                  to={`/${item.id}`}
+                >
                   <div className={classes.childDiv}>
                     <div>
-                      <img src={item.img} alt="Car" className={classes.img} />
+                      <img
+                        src={item.img}
+                        alt={item.id}
+                        className={classes.img}
+                      />
                     </div>
                     <div>
                       <h3 className={classes.header}> {item.brand} </h3>

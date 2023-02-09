@@ -17,6 +17,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import SellPage from "../sell/SellPage";
 import Post from "../Post";
+import Home from "../Home";
 
 let useStyles = createUseStyles({
   div: {
@@ -62,6 +63,17 @@ let useStyles = createUseStyles({
       backgroundColor: "#ff5252",
     },
   },
+  deleteSearch: {
+    maxWidth: 50,
+    height: 50,
+    backgroundColor: "white",
+    position: "absolute",
+    left: "70%",
+    top: -70,
+    borderRadius: "50%",
+    border: 0,
+    cursor: "pointer",
+  },
 });
 
 export default function Nav(props) {
@@ -69,6 +81,7 @@ export default function Nav(props) {
   const classes = useStyles();
   const auth = getAuth();
   const user = auth.currentUser;
+  let [search, setSearch] = useState("");
   let [show, setShow] = useState(false);
   const isShow = () => {
     setShow(!show);
@@ -108,16 +121,34 @@ export default function Nav(props) {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "45ch" },
+            "& > :not(style)": { m: 1, width: "45ch", position: "relative" },
           }}
           noValidate
           autoComplete="off"
         >
           <TextField
             id="outlined-basic"
-            label={"Մակնիշ, մոդել, տարեթիվ"}
+            label={"Մակնիշ"}
             variant="outlined"
+            value={search}
+            onChange={(e) => {
+              e.preventDefault();
+              setSearch(
+                e.target.value.substring(0, 1).toUpperCase() +
+                  e.target.value.substring(1, e.target.length).toLowerCase()
+              );
+            }}
           />
+          <button
+            className={classes.deleteSearch}
+            onClick={(e) => {
+              e.preventDefault();
+              setSearch("");
+            }}
+          >
+            {" "}
+            X{" "}
+          </button>
         </Box>
         <Link to="dealer" style={{ textDecoration: "none" }}>
           <DealersButton />
@@ -198,6 +229,11 @@ export default function Nav(props) {
       </div>
       <SignIn open={open} handleClose={handleClose} />
       <SignUp openSignUp={openSignUp} handleCloseSignUp={handleCloseSignUp} />
+      <Routes>
+        <Route path="/*" element={<Home search={search} />}>
+          Home
+        </Route>
+      </Routes>
     </div>
   );
 }
