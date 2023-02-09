@@ -70,7 +70,9 @@ function App() {
         <Route path="sell" element={<SellPage />} />
         <Route path="dealer" element={<DealersPage />}></Route>
         <Route path="usageRules" element={<UsageRules />}></Route>
-        {/*  <Route path="hi" element={<Post />}> </Route> */}
+        {/* <Route path="hi" element={<Post />}>
+          {" "}
+        </Route> */}
       </Routes>
     </>
   );
