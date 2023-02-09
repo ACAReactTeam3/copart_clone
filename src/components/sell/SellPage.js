@@ -63,6 +63,7 @@ const SellPage = (props) => {
   });
 
   const [options, setOptions] = useState(initialOptions);
+  console.log(options);
 
   const [location, setLocation] = useState({
     country: "",

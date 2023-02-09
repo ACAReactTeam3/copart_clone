@@ -12,8 +12,9 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { createUseStyles } from "react-jss";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useLocation } from "react-router-dom";
 
 let useStyles = createUseStyles({
   parentimgAndContent: {
@@ -48,7 +49,6 @@ let useStyles = createUseStyles({
 });
 
 export default function Post(props) {
-  const { item, url } = props;
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
@@ -78,10 +78,10 @@ export default function Post(props) {
             alt="Car"
           />
           <CardContent>
-            {/*    <Typography> Գինը: {item.price} </Typography>
-            <Typography> Մակնիշը: {item.brand} </Typography>
+            {/* <Typography> Գինը: {item.price} </Typography> */}
+            {/* <Typography> Մակնիշը: {item.brand} </Typography>
             <Typography> Մոդիֆիկացիան: {item.model} </Typography>
-            <Typography> Տարեթիվը: {item.year} </Typography> */}
+            <Typography> Տարեթիվը: {item.year} </Typography>  */}
             <Typography> Թափքը: </Typography>
             <Typography> Վազքը: </Typography>
             <Typography> Փոխանցման տուփը: </Typography>

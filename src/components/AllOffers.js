@@ -8,9 +8,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
+import Post from "./Post";
 let useStyles = createUseStyles({
   parentDiv: {
     marginTop: "30px",
