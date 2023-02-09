@@ -17,7 +17,6 @@ let useStyles = createUseStyles({
     marginTop: "30px",
     width: "80%",
     margin: [0, "auto"],
-    display: "flex",
   },
   img: {
     width: 270,
@@ -50,7 +49,7 @@ let useStyles = createUseStyles({
   },
   swiper: {
     height: "300px",
-    display: "flex",
+    // display: "flex",
   },
 });
 

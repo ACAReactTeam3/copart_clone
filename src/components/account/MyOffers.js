@@ -78,7 +78,8 @@ let useStyle = createUseStyles({
     padding: "50px 0",
   },
   swiper: {
-    width: "80%",
+    marginTop: "30px",
+    width: "100%",
     height: "300px",
     display: "flex",
   },
@@ -114,7 +115,7 @@ export default function MyOffers() {
       setPost(docs);
     })();
   }, []);
-  
+
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -146,15 +147,13 @@ export default function MyOffers() {
         </label>
       </div>
       <div className={classes.buttonParent}>
-        {
-          !post.length ? (
-            <p>
-              <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
-            </p>
-          ) : (
-            <p> Դուք ունեք {post.length} հայտարարություն։ </p>
-          )
-        }
+        {!post.length ? (
+          <p>
+            <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
+          </p>
+        ) : (
+          <p> Դուք ունեք {post.length} հայտարարություն։ </p>
+        )}
         <Button variant="contained" sx={{ margin: "auto" }}>
           Տեղադրել հայտարարություն
         </Button>
