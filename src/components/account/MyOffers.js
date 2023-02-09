@@ -78,7 +78,8 @@ let useStyle = createUseStyles({
     padding: "50px 0",
   },
   swiper: {
-    width: "80%",
+    marginTop: "30px",
+    width: "100%",
     height: "300px",
     display: "flex",
   },
@@ -153,9 +154,11 @@ export default function MyOffers() {
         ) : (
           <p> Դուք ունեք {post.length} հայտարարություն։ </p>
         )}
-        <Button variant="contained" sx={{ margin: "auto" }}>
-          Տեղադրել հայտարարություն
-        </Button>
+        <Link to="../../sell" style={{ textDecoration: "none" }}>
+          <Button variant="contained" sx={{ margin: "auto" }}>
+            Տեղադրել հայտարարություն
+          </Button>
+        </Link>
       </div>
       <Swiper
         className={classes.swiper}
@@ -172,7 +175,7 @@ export default function MyOffers() {
                 <Link
                   key={uuid()}
                   style={{ textDecoration: "none" }}
-                  to={`/${item.id}`}
+                  to={`../../${item.id}`}
                 >
                   <div className={classes.childDiv}>
                     <div>

@@ -16,9 +16,14 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useLocation } from "react-router-dom";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+
 let useStyles = createUseStyles({
   parentimgAndContent: {
-    width: 800,
+    width: 900,
     display: "flex",
   },
   img: {
@@ -27,7 +32,7 @@ let useStyles = createUseStyles({
     objectFit: "contain",
   },
   parentImgSmall: {
-    width: 610,
+    width: 600,
     height: 200,
     display: "flex",
     flexWrap: "wrap",
@@ -48,6 +53,10 @@ let useStyles = createUseStyles({
   },
 });
 
+function createData(name, value) {
+  return { name, value };
+}
+
 export default function Post(props) {
   const { item } = props;
   const classes = useStyles();
@@ -57,6 +66,24 @@ export default function Post(props) {
   };
   const navigate = useNavigate();
 
+  const rows = [
+    createData("Գինը:", `${!item.price ? "x" : item.price}`),
+    createData("Մակնիշը:", `${!item.brand ? "x" : item.brand}`),
+    createData("Մոդիֆիկացիան:", `${!item.model ? "x" : item.model}`),
+    createData("Տարեթիվը:", `${!item.year ? "x" : item.year}`),
+    createData("Թափքը:", `${!item.carBodyType ? "x" : item.carBodyType}`),
+    createData("Վազքը:", `${!item.carMileage ? "x" : item.carMileage}`),
+    createData("Փոխանցման տուփը:", 356),
+    createData(
+      "Ղեկը:",
+      `${!item.selSteeringWheel ? "x" : item.selSteeringWheel}`
+    ),
+    createData("Շարժիչը:", `${!item.selFuel ? "x" : item.selFuel}`),
+    createData("Գույնը:", `${!item.color ? "x" : item.color}`),
+    createData("Ձիաուժը:", `${!item.power ? "x" : item.power}`),
+    createData("Դռների քանակը:", `${!item.selDoors ? "x" : item.selDoors}`),
+    createData("Անվահեծը:", `${!item.selTires ? "x" : item.selTires}`),
+  ];
   return (
     <div>
       <Card
@@ -69,7 +96,9 @@ export default function Post(props) {
         <div className={classes.arrow}>
           <ArrowBackIcon onClick={() => navigate(-1)}></ArrowBackIcon>
         </div>
-        <CardHeader avatar={<Avatar aria-label="post">U</Avatar>} />
+        <CardHeader
+          avatar={<Avatar aria-label="post">{item.userEmail[0]}</Avatar>}
+        />
         <div className={classes.parentimgAndContent}>
           <CardMedia
             className={classes.img}
@@ -78,21 +107,33 @@ export default function Post(props) {
             image={item.img}
             alt="Car"
           />
-          <CardContent>
-            <Typography> Գինը: {item?.price} </Typography>
-            <Typography> Մակնիշը: {item?.brand} </Typography>
-            <Typography> Մոդիֆիկացիան: {item?.model} </Typography>
-            <Typography> Տարեթիվը: {item?.year} </Typography>
-            <Typography> Թափքը: </Typography>
-            <Typography> Վազքը: </Typography>
-            <Typography> Փոխանցման տուփը: </Typography>
-            <Typography> Ղեկը: </Typography>
-            <Typography> Շարժիչը: </Typography>
-            <Typography> Գույնը: </Typography>
-            <Typography> Ձիաուժը: </Typography>
-            <Typography> Դռների քանակը: </Typography>
-            <Typography> Անվահեծը: </Typography>
-          </CardContent>
+          <Table
+            aria-label="simple table"
+            size="small"
+            style={{
+              lineHeight: "100px",
+            }}
+          >
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+
+                      // fontSize: "13px",
+                    }}
+                  >
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.value}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
         <div className={classes.parentImgSmall}>
           <img
@@ -117,7 +158,10 @@ export default function Post(props) {
           />
         </div>
         <CardActions disableSpacing>
-          <IconButton onClick={handleExpandClick}>
+          <IconButton
+            onClick={handleExpandClick}
+            style={{ marginTop: "100px" }}
+          >
             {!expanded ? (
               <ExpandMore
                 aria-expanded={expanded}
@@ -143,6 +187,20 @@ export default function Post(props) {
           </IconButton>
         </CardActions>
       </Card>
+
+      {/* <Table sx={{ maxWidth: 460 }} aria-label="simple table">
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell style={{ fontWeight: "bold" }}>{row.name}</TableCell>
+              <TableCell align="right">{row.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table> */}
     </div>
   );
 }
