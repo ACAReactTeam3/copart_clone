@@ -170,10 +170,18 @@ export default function MyOffers() {
           return (
             <div key={uuid()} className={classes.parentDiv}>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
-                <Link key={uuid()} style={{ textDecoration: "none" }} to="hi">
+                <Link
+                  key={uuid()}
+                  style={{ textDecoration: "none" }}
+                  to={`/${item.id}`}
+                >
                   <div className={classes.childDiv}>
                     <div>
-                      <img src={item.img} alt="Car" className={classes.img} />
+                      <img
+                        src={item.img}
+                        alt={item.id}
+                        className={classes.img}
+                      />
                     </div>
                     <div>
                       <h3 className={classes.header}> {item.brand} </h3>

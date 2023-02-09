@@ -88,7 +88,7 @@ const SellPage = (props) => {
     () =>
       setPost((prev) => ({
         ...prev,
-        userEmail: auth.currentUser.email,
+        userEmail: auth?.currentUser?.email,
         brand: carDescription.selectedBrand,
         model: carDescription.model,
         year: carDescription.year,
@@ -96,7 +96,7 @@ const SellPage = (props) => {
         category: catAndType.category,
         timeStamp: serverTimestamp(),
       })),
-    [carDescription, auth, catAndType, priceList]
+    [getData, auth, carDescription, priceList, catAndType]
   );
   //const storage = getStorage();
   console.log(post, "post");
