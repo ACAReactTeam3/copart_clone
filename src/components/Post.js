@@ -135,7 +135,7 @@ export default function Post(props) {
             </TableBody>
           </Table>
         </div>
-        <div className={classes.parentImgSmall}>
+        {/*  <div className={classes.parentImgSmall}>
           <img
             className={classes.imgSmall}
             // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
@@ -156,7 +156,7 @@ export default function Post(props) {
             className={classes.imgSmall}
             // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
           />
-        </div>
+        </div> */}
         <CardActions disableSpacing>
           <IconButton
             onClick={handleExpandClick}
