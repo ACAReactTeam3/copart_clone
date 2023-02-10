@@ -1,21 +1,39 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./components/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
 import { signOut } from "firebase/auth";
-import { auth } from "./firebase/firebase";
+import { auth, dbStore } from "./firebase/firebase";
 import Nav from "./components/nav/Nav";
 import SellPage from "./components/sell/SellPage";
 import Post from "./components/Post";
 import DealersPage from "./components/nav/dealers/DealersPage";
 import UsageRules from "./components/UsageRules";
+import { collection, getDocs } from "firebase/firestore";
+import { v4 as uuid } from "uuid";
 
 function App() {
   let db = getDatabase();
   let navigate = useNavigate();
   let dispatch = useDispatch();
+
+  let [post, setPost] = useState([]);
+  // all posts
+  useEffect(() => {
+    (async () => {
+      const colRef = collection(dbStore, "post");
+      const snapshots = await getDocs(colRef);
+
+      const docs = snapshots.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
+      });
+      setPost(docs);
+    })();
+  }, []);
 
   const logout = async () => {
     signOut(auth)
@@ -64,13 +82,18 @@ function App() {
     <>
       <Nav logout={logout} />
       <Routes>
-        <Route path="/*" element={<Home />}>
-          Home
-        </Route>
         <Route path="sell" element={<SellPage />} />
         <Route path="dealer" element={<DealersPage />}></Route>
         <Route path="usageRules" element={<UsageRules />}></Route>
-        {/*  <Route path="hi" element={<Post />}> </Route> */}
+        {post.map((item) => {
+          return (
+            <Route
+              key={uuid()}
+              path={item.id}
+              element={<Post item={item} />}
+            ></Route>
+          );
+        })}
       </Routes>
     </>
   );

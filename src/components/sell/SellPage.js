@@ -65,6 +65,7 @@ const SellPage = (props) => {
   });
   //console.log(priceList, "priceList");
   const [options, setOptions] = useState(initialOptions);
+  console.log(options);
 
   const [location, setLocation] = useState({
     country: "",
@@ -84,15 +85,30 @@ const SellPage = (props) => {
     () =>
       setPost((prev) => ({
         ...prev,
-        userEmail: auth.currentUser.email,
+        userEmail: auth?.currentUser?.email,
         brand: carDescription.selectedBrand,
+        carBodyType: carDescription.carBodyType,
+        color: carDescription.selColor,
         model: carDescription.model,
         year: carDescription.year,
+        carMileage:
+          carDescription.carMileage + " " + carDescription.mileageType,
         price: priceList.price,
         category: catAndType.category,
         timeStamp: serverTimestamp(),
+        selGearbox: carDescription.selGearbox,
+        selSteeringWheel: carDescription.selSteeringWheel,
+        selFuel: carDescription.selFuel,
+        selTires: carDescription.selTires,
+        selDoors: carDescription.selDoors,
+        selDrive: carDescription.selDrive,
+        selCylinders: carDescription.selCylinders,
+        power: carDescription.power,
+        selEngineType: carDescription.selEngineType,
+        selSalonColor: carDescription.selSalonColor,
+        // :carDescription.,
       })),
-    [carDescription, auth, priceList, catAndType]
+    [getData, auth, carDescription, priceList, catAndType]
   );
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const isEmptyMess = checkEmptyFilds(

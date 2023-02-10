@@ -80,7 +80,8 @@ let useStyle = createUseStyles({
     padding: "50px 0",
   },
   swiper: {
-    width: "80%",
+    marginTop: "30px",
+    width: "100%",
     height: "300px",
     display: "flex",
   },
@@ -155,9 +156,11 @@ export default function MyOffers() {
         ) : (
           <p> Դուք ունեք {post.length} հայտարարություն։ </p>
         )}
-        <Button variant="contained" sx={{ margin: "auto" }}>
-          Տեղադրել հայտարարություն
-        </Button>
+        <Link to="../../sell" style={{ textDecoration: "none" }}>
+          <Button variant="contained" sx={{ margin: "auto" }}>
+            Տեղադրել հայտարարություն
+          </Button>
+        </Link>
       </div>
       <Swiper
         className={classes.swiper}
@@ -171,13 +174,21 @@ export default function MyOffers() {
           return (
             <div key={uuid()} className={classes.parentDiv}>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
-                <Link key={uuid()} style={{ textDecoration: "none" }} to="hi">
+                <Link
+                  key={uuid()}
+                  style={{ textDecoration: "none" }}
+                  to={`../../${item.id}`}
+                >
                   <div className={classes.childDiv}>
                     {/* <IconButton aria-label="delete" sx={{ ml: 20, mt: 0 }}>
                       <DeleteIcon />
                     </IconButton> */}
                     <div>
-                      <img src={item.img} alt="Car" className={classes.img} />
+                      <img
+                        src={item.img}
+                        alt={item.id}
+                        className={classes.img}
+                      />
                     </div>
                     <div>
                       <h3 className={classes.header}> {item.brand} </h3>
