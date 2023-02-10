@@ -82,8 +82,10 @@ export default function CategoryPage(props) {
       const colRef = collection(dbStore, "post");
       const filterUser = query(
         colRef,
-        where("category", "==", category),
-        search && where("brand".toLowerCase(), "==", search)
+        search
+          ? where("category", "==", category) &&
+              where("brand".toLowerCase(), "==", search)
+          : where("category", "==", category)
       );
       const snapshots = await getDocs(filterUser);
 
