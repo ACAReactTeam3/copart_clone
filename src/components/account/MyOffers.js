@@ -1,11 +1,13 @@
 import {
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 import { v4 as uuid } from "uuid";
@@ -178,6 +180,9 @@ export default function MyOffers() {
                   to={`../../${item.id}`}
                 >
                   <div className={classes.childDiv}>
+                    {/* <IconButton aria-label="delete" sx={{ ml: 20, mt: 0 }}>
+                      <DeleteIcon />
+                    </IconButton> */}
                     <div>
                       <img
                         src={item.img}

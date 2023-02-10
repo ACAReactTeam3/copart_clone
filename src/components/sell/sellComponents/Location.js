@@ -10,8 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { countries, provincesOfArmenia } from "../forSellCar&Filter";
+import { CustomizedAlert } from "./customized";
 
-export const Location = ({ location, setLocation }) => {
+export const Location = ({ location, setLocation, isMessageOpen }) => {
   const { country, citySettlement, region, onWayAtAuction } = location;
 
   const handleChange = (event) => {
@@ -23,7 +24,7 @@ export const Location = ({ location, setLocation }) => {
       },
     }));
   };
-
+  console.log(country);
   const { Ճանապարհին, Աճուրդում } = onWayAtAuction;
 
   return (
@@ -35,7 +36,7 @@ export const Location = ({ location, setLocation }) => {
         sx={{
           mt: 5,
           bgcolor: "Window",
-          height: "40vh",
+          height: isMessageOpen && !country ? "45vh" : "38vh",
           border: "ButtonFace",
         }}
       >
@@ -45,6 +46,7 @@ export const Location = ({ location, setLocation }) => {
               Եիկիրը*
             </Typography>
             <Autocomplete
+              size="small"
               id="country-select-demo"
               sx={{ width: 310, mt: 1, ml: 5 }}
               options={countries}
@@ -86,13 +88,21 @@ export const Location = ({ location, setLocation }) => {
                 />
               )}
             />
+            {isMessageOpen && !country && <CustomizedAlert />}
           </Grid>
 
           <Grid item xs={6}>
-            <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
+            <Typography
+              hidden={country?.label !== "Հայաստան"}
+              variant="body1"
+              component="h2"
+              sx={{ mt: 2 }}
+            >
               Մարզը
             </Typography>
             <Autocomplete
+              size="small"
+              hidden={country?.label !== "Հայաստան"}
               disablePortal
               id="combo-box-demo"
               onChange={(e, newValue) =>
@@ -112,6 +122,7 @@ export const Location = ({ location, setLocation }) => {
               Շիջան, քաղաք, բնակավայր
             </Typography>
             <TextField
+              size="small"
               sx={{ width: 300, mt: 1, ml: 5 }}
               type="text"
               label={"Շիջան, քաղաք, բնակավայր"}

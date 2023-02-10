@@ -18,13 +18,15 @@ import { AdditionalOptions } from "./sellComponents/AdditionalOptions ";
 import { Location } from "./sellComponents/Location";
 import { AdditionalInformation } from "./sellComponents/AdditionalInformation";
 import { Photos } from "./sellComponents/Photos";
+import { useNavigate } from "react-router-dom";
+import { checkEmptyFilds } from "./sellComponents/customized";
 
 const SellPage = (props) => {
   let [img, setImg] = useState(null);
   let [url, setUrl] = useState([]);
   const [cId, setCId] = useState("");
   const [per, setPer] = useState(null);
-
+  console.log(url);
   const getData = useSelector(function (state) {
     return state;
   });
@@ -52,7 +54,7 @@ const SellPage = (props) => {
     selEngineType: "",
     selSalonColor: "",
   });
-
+  console.log(carDescription.carMileage, "mill");
   const [priceList, setPriceList] = useState({
     price: "",
     currency: "",
@@ -61,7 +63,7 @@ const SellPage = (props) => {
     sellCarState: "",
     sellVinCode: "",
   });
-
+  //console.log(priceList, "priceList");
   const [options, setOptions] = useState(initialOptions);
   console.log(options);
 
@@ -77,12 +79,7 @@ const SellPage = (props) => {
     phoneNum: "",
   });
 
-  const [post, setPost] = useState({
-    addInfo: "",
-    phoneNum: "",
-    //photos
-    photos: {},
-  });
+  const [post, setPost] = useState({});
 
   useEffect(
     () =>
@@ -113,14 +110,23 @@ const SellPage = (props) => {
       })),
     [getData, auth, carDescription, priceList, catAndType]
   );
-  //const storage = getStorage();
-  console.log(post, "post");
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const isEmptyMess = checkEmptyFilds(
+    catAndType,
+    carDescription,
+    priceList,
+    location
+  );
+  const navigate = useNavigate();
   // add post
+
   const add = async () => {
     const newPost = await addDoc(collection(dbStore, "post"), post);
     console.log(newPost.id);
+    navigate("/personalinfo/myOffers", { replace: true });
   };
 
+  console.log(isEmptyMess, isMessageOpen, "!isEmptyMess && isMessageOpen");
   useEffect(() => {
     const uploadImg = () => {
       const name = new Date().getTime() + img.name;
@@ -164,63 +170,44 @@ const SellPage = (props) => {
     setCId(new Date().getTime());
     setPost((prev) => ({ ...prev, imgFolderId: cId }));
   }, [img]);
-  //console.log(cId);
-  // const addPhoto = (id) => {
-  //   const imageRef = ref(
-  //     storage,
-  //     `image/${auth.currentUser.email}/1aMIrTdlZNEupeP4g19p/${img.name}`
-  //   ); // id ??
-  //   uploadBytes(imageRef, img)
-  //     .then(() => {
-  //       getDownloadURL(imageRef)
-  //         .then((url) => {
-  //           setUrl(url);
-  //         })
-  //         .catch((error) => {
-  //           console.log("img error", error.message);
-  //         });
-  //       setImg(null);
-  //     })
-  //     .catch((error) => {
-  //       console.log("err", error.message);
-  //     });
-  //   alert(id);
-  // };
+
   return (
     <Container maxWidth="md" sx={{ ml: 16, margin: [0, "auto"] }}>
       <Toolbar id="back-to-top-anchor" />
-      <Category catAndType={catAndType} setCategory={setCategory} />
+      <Category
+        isMessageOpen={isMessageOpen}
+        catAndType={catAndType}
+        setCategory={setCategory}
+      />
       <SellDescription
+        isMessageOpen={isMessageOpen}
         carDescription={carDescription}
         setCarDescription={setCarDescription}
         priceList={priceList}
         setPriceList={setPriceList}
       />
       <AdditionalOptions options={options} setOptions={setOptions} />
-      <Location location={location} setLocation={setLocation} />
+      <Location
+        isMessageOpen={isMessageOpen}
+        location={location}
+        setLocation={setLocation}
+      />
       <AdditionalInformation
         additionalInfo={additionalInfo}
         setAdditionalInfo={setAdditionalInfo}
       />
-      <Photos />
+      <Photos setImg={setImg} />
       <Button
         disabled={per !== null && per < 100}
-        onClick={add}
-        sx={{ width: 350, mt: 5, ml: 5 }}
+        onClick={() => {
+          setIsMessageOpen(true);
+          isEmptyMess && add();
+        }}
+        sx={{ width: 350, mt: 5, ml: 5, mb: 10 }}
         variant="contained"
       >
         Տեղադրել հայտարարությունը
       </Button>
-      {/* <Button variant="outlined" type="file" onClick={addPhoto}>
-        Upload image
-      </Button> */}
-      <input
-        multiple
-        type="file"
-        onChange={(e) => {
-          return setUrl(url), setImg(e.target.files[0]);
-        }}
-      />
       <ScrollTop {...props}>
         <Fab size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
