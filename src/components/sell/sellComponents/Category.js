@@ -1,8 +1,9 @@
 import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { carsType, carsTypeSort } from "../forSellCar&Filter";
+import { CustomizedAlert } from "./customized";
 
-const Category = ({ catAndType, setCategory }) => {
+const Category = ({ catAndType, setCategory, isMessageOpen }) => {
   const { category, categoryType } = catAndType;
   // const [category, setCategory] = useState("Մարդատար");
   // const [categoryType, setCategoryType] = useState("");
@@ -22,6 +23,10 @@ const Category = ({ catAndType, setCategory }) => {
     }
     return [];
   })(category);
+
+  const customHidden = ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(category)
+    ? true
+    : false;
   // console.log(category, "category");
   // console.log(categoryType, "categoryType");
 
@@ -34,15 +39,19 @@ const Category = ({ catAndType, setCategory }) => {
         sx={{
           mt: 5,
           bgcolor: "Window",
-          height: "30vh",
+          height:
+            (isMessageOpen && !category) ||
+            (isMessageOpen && !customHidden && !categoryType)
+              ? "25vh"
+              : "15vh",
           border: "ButtonFace",
         }}
       >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Autocomplete
-              //value={brand}
-              //id="combo-box-demo"
+              size="small"
+              value={category}
               onChange={(e, newValue) => {
                 setCategory((prev) => ({
                   ...prev,
@@ -52,19 +61,17 @@ const Category = ({ catAndType, setCategory }) => {
               }}
               disablePortal
               options={carsType}
-              sx={{ width: 310, mt: 5, ml: 5 }}
+              sx={{ width: 310, mt: 3, ml: 5 }}
               renderInput={(params) => (
                 <TextField {...params} label="Կատեգորիա*" />
               )}
             />
+            {isMessageOpen && !category && <CustomizedAlert />}
           </Grid>
           <Grid item xs={6}>
             <Autocomplete
-              hidden={
-                ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(category)
-                  ? true
-                  : false
-              }
+              size="small"
+              hidden={customHidden}
               disablePortal
               value={categoryType}
               onChange={(e, newValue) => {
@@ -75,11 +82,14 @@ const Category = ({ catAndType, setCategory }) => {
               }}
               id="combo-box-demo"
               options={catHandleSort}
-              sx={{ width: 310, mt: 5 }}
+              sx={{ width: 310, mt: 3 }}
               renderInput={(params) => (
                 <TextField {...params} label="Տեսակը*" />
               )}
             />
+            {isMessageOpen && !customHidden && !categoryType && (
+              <CustomizedAlert />
+            )}
           </Grid>
         </Grid>
       </Box>

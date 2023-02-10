@@ -10,12 +10,12 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import uploadePhotosImg from "../../../images/uploadePhotos.png";
 
-export const Photos = () => {
+export const Photos = ({ setImg }) => {
   const [selectedFile, setSelectedFile] = useState({});
   const [uploaded, setUploaded] = useState();
 
   const handleChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    setImg(e.target.files[0]);
   };
 
   const handleUpload = async () => {
