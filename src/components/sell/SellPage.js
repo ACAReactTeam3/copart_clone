@@ -36,27 +36,27 @@ const SellPage = (props) => {
   });
 
   const [carDescription, setCarDescription] = useState({
-    selectedBrand: "",
-    model: "",
-    year: "",
-    carBodyType: "",
-    carMileage: "",
+    selectedBrand: "x",
+    model: "x",
+    year: "x",
+    carBodyType: "x",
+    carMileage: "x",
     mileageType: "",
-    selGearbox: "",
-    selSteeringWheel: "",
-    selFuel: "",
-    selColor: "",
-    selTires: "",
-    selDoors: "",
+    selGearbox: "x",
+    selSteeringWheel: "x",
+    selFuel: "x",
+    selColor: "x",
+    selTires: "x",
+    selDoors: "x",
     selDrive: "",
     selCylinders: "",
-    power: "",
+    power: "x",
     selEngineType: "",
     selSalonColor: "",
   });
   //console.log(carDescription.carMileage, "mill");
   const [priceList, setPriceList] = useState({
-    price: "",
+    price: "x",
     currency: "",
     sellCustomsCleared: "",
     saleConditions: { Պայմ: false, Փոխանակում: false, ՄասՄասվճարում: false },
@@ -80,7 +80,18 @@ const SellPage = (props) => {
   });
 
   const [post, setPost] = useState({});
-  console.log(priceList);
+
+  const filterOptions = (obj) => {
+    const keys = Object.keys(obj);
+    const option = [];
+    keys.forEach((key) => {
+      if (obj[key] == true) {
+        option.push(key);
+      }
+    });
+    return option;
+  };
+
   useEffect(
     () =>
       setPost((prev) => ({
@@ -106,9 +117,21 @@ const SellPage = (props) => {
         power: carDescription.power,
         selEngineType: carDescription.selEngineType,
         selSalonColor: carDescription.selSalonColor,
+        options: filterOptions(options),
+        phoneNum: additionalInfo.phoneNum,
+        additionalInfo: additionalInfo.addInfo,
+
         // :carDescription.,
       })),
-    [getData, auth, carDescription, priceList, catAndType]
+    [
+      getData,
+      auth,
+      carDescription,
+      priceList,
+      catAndType,
+      options,
+      additionalInfo,
+    ]
   );
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const isEmptyMess = checkEmptyFilds(

@@ -63,15 +63,19 @@ let useStyles = createUseStyles({
       backgroundColor: "#ff5252",
     },
   },
+  textFieldSearch: {
+    width: "100%",
+    // position: "relative",
+  },
   deleteSearch: {
-    maxWidth: 50,
-    height: 50,
+    width: 20,
+    height: 20,
     backgroundColor: "white",
     position: "absolute",
-    left: "70%",
-    top: -70,
+    right: 583,
+    top: 24,
+    border: [1, "black", "solid"],
     borderRadius: "50%",
-    border: 0,
     cursor: "pointer",
   },
 });
@@ -121,34 +125,40 @@ export default function Nav(props) {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "45ch", position: "relative" },
+            "& > :not(style)": {
+              width: "45ch",
+              // position: "relative",
+            },
           }}
           noValidate
           autoComplete="off"
         >
-          <TextField
-            id="outlined-basic"
-            label={"Մակնիշ"}
-            variant="outlined"
-            value={search}
-            onChange={(e) => {
-              e.preventDefault();
-              setSearch(
-                e.target.value.substring(0, 1).toUpperCase() +
-                  e.target.value.substring(1, e.target.length).toLowerCase()
-              );
-            }}
-          />
-          <button
-            className={classes.deleteSearch}
-            onClick={(e) => {
-              e.preventDefault();
-              setSearch("");
-            }}
-          >
-            {" "}
-            X{" "}
-          </button>
+          <div className={classes.search}>
+            <TextField
+              id="outlined-basic"
+              label="Մակնիշ"
+              variant="outlined"
+              className={classes.textFieldSearch}
+              value={search}
+              onChange={(e) => {
+                e.preventDefault();
+                setSearch(
+                  e.target.value.substring(0, 1).toUpperCase() +
+                    e.target.value.substring(1, e.target.length).toLowerCase()
+                );
+              }}
+            />
+            <button
+              className={classes.deleteSearch}
+              onClick={(e) => {
+                e.preventDefault();
+                setSearch("");
+              }}
+            >
+              {" "}
+              X{" "}
+            </button>
+          </div>
         </Box>
         <Link to="dealer" style={{ textDecoration: "none" }}>
           <DealersButton />
