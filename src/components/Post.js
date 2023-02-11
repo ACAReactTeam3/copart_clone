@@ -191,6 +191,7 @@ export default function Post(props) {
             </TableBody>
           </Table>
         </div>
+
         <div className={classes.top}>
           <p
             style={{
