@@ -65,15 +65,15 @@ let useStyles = createUseStyles({
   },
   textFieldSearch: {
     width: "100%",
-    position: "relative",
+    // position: "relative",
   },
   deleteSearch: {
     width: 20,
     height: 20,
     backgroundColor: "white",
     position: "absolute",
-    right: 10,
-    top: 18,
+    right: 583,
+    top: 24,
     border: [1, "black", "solid"],
     borderRadius: "50%",
     cursor: "pointer",
@@ -133,7 +133,7 @@ export default function Nav(props) {
           noValidate
           autoComplete="off"
         >
-          <div>
+          <div className={classes.search}>
             <TextField
               id="outlined-basic"
               label="Մակնիշ"
