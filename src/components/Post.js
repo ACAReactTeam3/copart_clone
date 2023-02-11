@@ -15,7 +15,7 @@ import { createUseStyles } from "react-jss";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useLocation } from "react-router-dom";
-
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -30,15 +30,18 @@ let useStyles = createUseStyles({
     width: 500,
     height: 380,
     objectFit: "contain",
+    position: "relative",
   },
   parentImgSmall: {
-    width: 600,
+    width: 504,
     height: 200,
     display: "flex",
     flexWrap: "wrap",
+    position: "absolute",
+    marginTop: 377,
   },
   imgSmall: {
-    width: 200,
+    width: 248,
     height: 100,
     objectFit: "contain",
     border: [0.8, "black", "solid"],
@@ -51,6 +54,18 @@ let useStyles = createUseStyles({
       color: "white",
     },
   },
+  email: {
+    fontFamily: "Times New Roman, Times, serif",
+    fontSize: "20px",
+    marginTop: "25px",
+    color: "#1172b6",
+  },
+  header: {
+    display: "flex",
+  },
+  top: {
+    display: "flex",
+  },
 });
 
 function createData(name, value) {
@@ -61,44 +76,68 @@ export default function Post(props) {
   const { item } = props;
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [isShown, setIsShown] = useState(false);
+  const navigate = useNavigate();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    setIsShown((current) => !current);
+  };
 
   const rows = [
-    createData("Գինը:", `${!item.price ? "x" : item.price}`),
-    createData("Մակնիշը:", `${!item.brand ? "x" : item.brand}`),
-    createData("Մոդիֆիկացիան:", `${!item.model ? "x" : item.model}`),
-    createData("Տարեթիվը:", `${!item.year ? "x" : item.year}`),
-    createData("Թափքը:", `${!item.carBodyType ? "x" : item.carBodyType}`),
-    createData("Վազքը:", `${!item.carMileage ? "x" : item.carMileage}`),
-    createData("Փոխանցման տուփը:", 356),
-    createData(
-      "Ղեկը:",
-      `${!item.selSteeringWheel ? "x" : item.selSteeringWheel}`
-    ),
-    createData("Շարժիչը:", `${!item.selFuel ? "x" : item.selFuel}`),
-    createData("Գույնը:", `${!item.color ? "x" : item.color}`),
-    createData("Ձիաուժը:", `${!item.power ? "x" : item.power}`),
-    createData("Դռների քանակը:", `${!item.selDoors ? "x" : item.selDoors}`),
-    createData("Անվահեծը:", `${!item.selTires ? "x" : item.selTires}`),
+    createData("Գինը:", `${item.price}`),
+    createData("Մակնիշը:", `${item.brand}`),
+    createData("Մոդիֆիկացիան:", `${item.model}`),
+    createData("Տարեթիվը:", `${item.year}`),
+    createData("Թափքը:", `${item.carBodyType}`),
+    createData("Վազքը:", `${item.carMileage}`),
+    createData("Փոխանցման տուփը:", `${item.selGearbox}`),
+    createData("Ղեկը:", `${item.selSteeringWheel}`),
+    createData("Շարժիչը:", `${item.selFuel}`),
+    createData("Գույնը:", `${item.color}`),
+    createData("Ձիաուժը:", `${item.power}`),
+    createData("Դռների քանակը:", `${item.selDoors}`),
+    createData("Անվահեծը:", `${item.selTires}`),
   ];
+
   return (
     <div>
       <Card
         sx={{
-          maxWidth: 1000,
+          maxWidth: 930,
           border: [1, "white"],
           m: "auto",
         }}
       >
+        <IconButton
+          size="large"
+          aria-label="add to favorites"
+          style={{ float: "right", marginTop: 0 }}
+          onClick={handleClick}
+          id={item.id}
+        >
+          {/* 👇️ show component on click */}
+          {isShown ? <BookmarkIcon /> : <BookmarkBorderIcon color="action" />}
+        </IconButton>
         <div className={classes.arrow}>
           <ArrowBackIcon onClick={() => navigate(-1)}></ArrowBackIcon>
         </div>
-        <CardHeader
-          avatar={<Avatar aria-label="post">{item.userEmail[0]}</Avatar>}
-        />
+
+        <div className={classes.header}>
+          <CardHeader
+            avatar={
+              <Avatar
+                aria-label="post"
+                style={{ color: "#1172b6", fontSize: "20px" }}
+              >
+                {item.userEmail[0]}
+              </Avatar>
+            }
+          />
+          <div className={classes.email}>{item.userEmail}</div>
+        </div>
         <div className={classes.parentimgAndContent}>
           <CardMedia
             className={classes.img}
@@ -107,6 +146,28 @@ export default function Post(props) {
             image={item.img}
             alt="Car"
           />
+          <div className={classes.parentImgSmall}>
+            <img
+              className={classes.imgSmall}
+              // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
+            />
+            <img
+              className={classes.imgSmall}
+              //  src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021007/IOF_H150/2022-Kia-Sorento-4dr-AWD_21007.jpg"
+            />
+            <img
+              className={classes.imgSmall}
+              //  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkAh8F6N9jT0xlh2m_b2VeDp7YzQio569mTcyd5NydUueBUIa_tU2w_CKqjOoOiKxQZM&usqp=CAU"
+            />
+            <img
+              className={classes.imgSmall}
+              //  src="https://www.kiaonhuntclub.com/vimgs/usd20kis022b022200/IOF_H600/xColourPhotoSample_0.jpg.pagespeed.ic.ObavIULTW_.jpg"
+            />
+            <img
+              className={classes.imgSmall}
+              // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
+            />
+          </div>
           <Table
             aria-label="simple table"
             size="small"
@@ -116,15 +177,10 @@ export default function Post(props) {
           >
             <TableBody>
               {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <TableRow key={row.name}>
                   <TableCell
                     style={{
                       fontWeight: "bold",
-
-                      // fontSize: "13px",
                     }}
                   >
                     {row.name}
@@ -135,72 +191,59 @@ export default function Post(props) {
             </TableBody>
           </Table>
         </div>
-        {/*  <div className={classes.parentImgSmall}>
-          <img
-            className={classes.imgSmall}
-            // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
-          />
-          <img
-            className={classes.imgSmall}
-            //  src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021007/IOF_H150/2022-Kia-Sorento-4dr-AWD_21007.jpg"
-          />
-          <img
-            className={classes.imgSmall}
-            //  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkAh8F6N9jT0xlh2m_b2VeDp7YzQio569mTcyd5NydUueBUIa_tU2w_CKqjOoOiKxQZM&usqp=CAU"
-          />
-          <img
-            className={classes.imgSmall}
-            //  src="https://www.kiaonhuntclub.com/vimgs/usd20kis022b022200/IOF_H600/xColourPhotoSample_0.jpg.pagespeed.ic.ObavIULTW_.jpg"
-          />
-          <img
-            className={classes.imgSmall}
-            // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
-          />
-        </div> */}
-        <CardActions disableSpacing>
-          <IconButton
-            onClick={handleExpandClick}
-            style={{ marginTop: "100px" }}
+
+        <div className={classes.top}>
+          <p
+            style={{
+              marginTop: 280,
+              fontSize: "25px",
+              marginLeft: "10px",
+            }}
           >
-            {!expanded ? (
-              <ExpandMore
-                aria-expanded={expanded}
-                aria-label="show more"
-              ></ExpandMore>
-            ) : (
-              <ExpandLessIcon
-                aria-expanded={expanded}
-                aria-label="show less"
-              ></ExpandLessIcon>
-            )}
-          </IconButton>
-        </CardActions>
+            Լրացուցիչ
+          </p>
+          <CardActions disableSpacing>
+            <IconButton onClick={handleExpandClick} style={{ marginTop: 270 }}>
+              {!expanded ? (
+                <ExpandMore
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                ></ExpandMore>
+              ) : (
+                <ExpandLessIcon
+                  aria-expanded={expanded}
+                  aria-label="show less"
+                ></ExpandLessIcon>
+              )}
+            </IconButton>
+          </CardActions>
+        </div>
         <Collapse in={expanded} timeout="auto">
           <CardContent>
-            <Typography paragraph> Լրացուցիչ: </Typography>
-            <Typography paragraph></Typography>
+            <Typography
+              paragraph
+              style={{ fontSize: "20px", color: "#1172b6", fontWeight: "bold" }}
+            >
+              Լրացուցիչ օպցիաներ
+            </Typography>
+            <Typography paragraph>{item.options?.join()}</Typography>
+            <Typography
+              paragraph
+              style={{ fontSize: "20px", color: "#1172b6", fontWeight: "bold" }}
+            >
+              Լրացուցիչ տվյալներ
+            </Typography>
+            <Typography paragraph>{item.additionalInfo}</Typography>
+            <Typography
+              paragraph
+              style={{ fontSize: "20px", color: "#1172b6", fontWeight: "bold" }}
+            >
+              Լրացուցիչ հեռախոսահամար
+            </Typography>
+            <Typography paragraph>{item.phoneNum}</Typography>
           </CardContent>
         </Collapse>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <BookmarkBorderIcon />
-          </IconButton>
-        </CardActions>
       </Card>
-
-      {/* <Table sx={{ maxWidth: 460 }} aria-label="simple table">
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell style={{ fontWeight: "bold" }}>{row.name}</TableCell>
-              <TableCell align="right">{row.value}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table> */}
     </div>
   );
 }
