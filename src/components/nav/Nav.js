@@ -121,7 +121,10 @@ export default function Nav(props) {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "45ch", position: "relative" },
+            "& > :not(style)": {
+              width: "45ch",
+              // position: "relative",
+            },
           }}
           noValidate
           autoComplete="off"
