@@ -70,7 +70,6 @@ const SellDescription = ({
 
   const btnMoreHide = (btnMore) => (btnMore === "+ Ավելին" ? true : false);
   const modelList = sellBranMmodList(selectedBrand, carBrandModels);
-  console.log(`${trueQuantity(carDescription)}vh`, "modelList");
 
   return (
     <>
@@ -83,24 +82,13 @@ const SellDescription = ({
           bgcolor: "Window",
           height:
             btnMore === "- Ավելին"
-              ? (`${
+              ? `${
                   212 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
-                }vh`,
-                console.log(
-                  `${
-                    212 +
-                    (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
-                  }vh`
-                ))
-              : (`${
+                }vh`
+              : `${
                   140 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
                 }vh`,
-                console.log(
-                  `${
-                    140 +
-                    (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
-                  }vh`
-                )),
+
           border: "ButtonFace",
         }}
       >

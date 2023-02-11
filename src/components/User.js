@@ -55,12 +55,10 @@ export default function User() {
       <nav className={classes.navigate}>
         <div className={classes.div}>
           <Link to="/" className={classes.link}>
-            {" "}
-            Home{" "}
+            Home
           </Link>
           <Link to="createpost" className={classes.link}>
-            {" "}
-            Create Post{" "}
+            Create Post
           </Link>
         </div>
       </nav>

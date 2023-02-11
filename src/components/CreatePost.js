@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from "uuid";
 import Box from "@mui/material/Box";
 import { Paper, Stack, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
 import { createUseStyles } from "react-jss";
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import FormControl from '@mui/material/FormControl';
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
 
 const useStyle = createUseStyles({
-    '@global': {
-        body: {
-            backgroundColor: 'brown', 
-        }
+  "@global": {
+    body: {
+      backgroundColor: "brown",
     },
+  },
   box: {
     position: "relative",
   },
   contentTitle: {
-    height: 'auto',
+    height: "auto",
     backgroundColor: "black",
     color: "white",
     textAlign: "center",
@@ -39,65 +39,77 @@ const useStyle = createUseStyles({
 });
 
 export default function CreatePost(props) {
-  
   const { addedPost } = props;
   let classes = useStyle();
-  let [carName, setCarName] = useState([])
-  let [brand, setBrand] = useState('')
-  let [modelName, setModelName] = useState([])
-  let [model, setModel] = useState('')
+  let [carName, setCarName] = useState([]);
+  let [brand, setBrand] = useState("");
+  let [modelName, setModelName] = useState([]);
+  let [model, setModel] = useState("");
   let [color, setColor] = useState("#000");
   let [price, setPrice] = useState("");
   let [mileage, setMileage] = useState("");
-  let [distanceType, setDistanceType] = useState('ԿՄ')
+  let [distanceType, setDistanceType] = useState("ԿՄ");
   let [horsepower, setHorsepower] = useState("");
 
-  let [moneyType, setMoneyType] = useState('USD $');
-  let bodyType = ['SEDAN', 'COUPE', 'SPORTS','STATION WAGON','HATCHBACK', 'CONVERTIBLE', 'SPORT-UTILITY VEHICLE (SUV)', 'MINIVAN', 'PICKUP TRUCK'];
-  let [body, setBody] = useState('')
-  let [gearbox, setGearbox ] = useState('')
-  let [handDrive, setHandDrive] = useState('')
-  let [engine, setEngine] = useState('')
-  let [additionalInfo, setAdditionalInfo] = useState('')
+  let [moneyType, setMoneyType] = useState("USD $");
+  let bodyType = [
+    "SEDAN",
+    "COUPE",
+    "SPORTS",
+    "STATION WAGON",
+    "HATCHBACK",
+    "CONVERTIBLE",
+    "SPORT-UTILITY VEHICLE (SUV)",
+    "MINIVAN",
+    "PICKUP TRUCK",
+  ];
+  let [body, setBody] = useState("");
+  let [gearbox, setGearbox] = useState("");
+  let [handDrive, setHandDrive] = useState("");
+  let [engine, setEngine] = useState("");
+  let [additionalInfo, setAdditionalInfo] = useState("");
 
   const handleChangeMoneyType = (event) => {
-    setMoneyType(event.target.value) ;
+    setMoneyType(event.target.value);
   };
   const handleChangeDistanceType = (event) => {
-    setDistanceType(event.target.value) ;
+    setDistanceType(event.target.value);
   };
   const handleChangeBodyType = (event) => {
-    setBody(event.target.value) ;
+    setBody(event.target.value);
   };
   const handleChangeGearboxType = (event) => {
-    setGearbox(event.target.value) ;
+    setGearbox(event.target.value);
   };
   const handleChangeHandDriveType = (event) => {
-    setHandDrive(event.target.value) ;
+    setHandDrive(event.target.value);
   };
   const handleChangeEngineType = (event) => {
-    setEngine(event.target.value) ;
+    setEngine(event.target.value);
   };
-  let disabledButton = brand && price && mileage
+  let disabledButton = brand && price && mileage;
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/matthlavacka/car-list/master/car-list.json')
-        .then(function(response) {
-            return response.json()
-        }).then(function(result) {
-            setCarName(result)
-        })
-  }, [])
+    fetch(
+      "https://raw.githubusercontent.com/matthlavacka/car-list/master/car-list.json"
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        setCarName(result);
+      });
+  }, []);
 
   useEffect(() => {
-    if(brand) {
-      setModelName(carName.find(obj => obj.brand == brand).models)
+    if (brand) {
+      setModelName(carName.find((obj) => obj.brand == brand).models);
     }
-}, [brand])
+  }, [brand]);
 
   return (
     <div className={classes.box}>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
@@ -309,7 +321,7 @@ export default function CreatePost(props) {
             </Stack>
           </Box>
         </Paper>
-      </Box>
+      </Box> */}
     </div>
   );
 }

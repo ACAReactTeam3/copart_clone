@@ -26,7 +26,7 @@ const SellPage = (props) => {
   let [url, setUrl] = useState([]);
   const [cId, setCId] = useState("");
   const [per, setPer] = useState(null);
-  console.log(url);
+  //console.log(url);
   const getData = useSelector(function (state) {
     return state;
   });
@@ -54,7 +54,7 @@ const SellPage = (props) => {
     selEngineType: "",
     selSalonColor: "",
   });
-  console.log(carDescription.carMileage, "mill");
+  //console.log(carDescription.carMileage, "mill");
   const [priceList, setPriceList] = useState({
     price: "",
     currency: "",
@@ -65,7 +65,7 @@ const SellPage = (props) => {
   });
   //console.log(priceList, "priceList");
   const [options, setOptions] = useState(initialOptions);
-  console.log(options);
+  //console.log(options);
 
   const [location, setLocation] = useState({
     country: "",
@@ -80,7 +80,7 @@ const SellPage = (props) => {
   });
 
   const [post, setPost] = useState({});
-
+  console.log(priceList);
   useEffect(
     () =>
       setPost((prev) => ({
@@ -93,7 +93,7 @@ const SellPage = (props) => {
         year: carDescription.year,
         carMileage:
           carDescription.carMileage + " " + carDescription.mileageType,
-        price: priceList.price,
+        price: priceList.price + " " + priceList.currency,
         category: catAndType.category,
         timeStamp: serverTimestamp(),
         selGearbox: carDescription.selGearbox,
@@ -126,7 +126,6 @@ const SellPage = (props) => {
     navigate("/personalinfo/myOffers", { replace: true });
   };
 
-  console.log(isEmptyMess, isMessageOpen, "!isEmptyMess && isMessageOpen");
   useEffect(() => {
     const uploadImg = () => {
       const name = new Date().getTime() + img.name;

@@ -39,10 +39,14 @@ let useStyles = createUseStyles({
   },
   header: {
     color: "#1172b6",
+    textAlign: "left",
+    marginLeft: "40px",
   },
   text: {
     color: "black",
     fontSize: "15px",
+    textAlign: "left",
+    marginLeft: "40px",
   },
   childDiv: {
     padding: "50px 0",
@@ -132,7 +136,7 @@ export default function AllOffers(props) {
                       </div>
                       <div>
                         <h3 className={classes.header}> {item.brand} </h3>
-                        <h4 className={classes.text}>Price: {item.price} $</h4>
+                        <h4 className={classes.text}>Price: {item.price}</h4>
                       </div>
                     </div>
                   </Link>
