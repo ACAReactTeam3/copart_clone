@@ -27,7 +27,7 @@ let useStyle = createUseStyles({
     margin: [0, "auto"],
   },
   columnDiv: {
-    height: 200,
+    height: 100,
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
@@ -93,31 +93,26 @@ export default function Account(props) {
         <div>
           <p> Հաշվի կապը սոց. հաշիվների հետ</p>
           <Button variant="contained" sx={{ m: 1 }}>
-            {" "}
-            <FacebookOutlinedIcon /> Facebook{" "}
+            <FacebookOutlinedIcon /> Facebook
           </Button>
           <Button
             variant="contained"
             color="success"
             onClick={signInWithGoogle}
           >
-            {" "}
-            <GoogleIcon /> oogle{" "}
+            <GoogleIcon /> oogle
           </Button>
         </div>
       </div>
       <nav className={classes.link}>
         <Link to="myOffers" className={classes.linkStyle}>
-          {" "}
           <h2> Իմ հայտարարությունները </h2>
         </Link>
         <Link to="saved" className={classes.linkStyle}>
-          {" "}
           <h2> Հիշվածները </h2>
         </Link>
         <Link to="personalinfo" className={classes.linkStyle}>
-          {" "}
-          <h2> Անձնական տվյալներ </h2>{" "}
+          <h2> Անձնական տվյալներ </h2>
         </Link>
       </nav>
       {routes}

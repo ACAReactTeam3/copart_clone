@@ -13,7 +13,14 @@ import { createUseStyles } from "react-jss";
 import { v4 as uuid } from "uuid";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { auth, dbStore } from "../../firebase/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
 import { Link } from "react-router-dom";
@@ -71,16 +78,21 @@ let useStyle = createUseStyles({
   },
   header: {
     color: "#1172b6",
+    textAlign: "left",
+    marginLeft: "40px",
   },
   text: {
     color: "black",
     fontSize: "15px",
+    textAlign: "left",
+    marginLeft: "40px",
   },
   childDiv: {
-    padding: "50px 0",
+    padding: "10px 0",
   },
   swiper: {
     marginTop: "30px",
+    marginBottom: "30px",
     width: "100%",
     height: "300px",
     display: "flex",
@@ -117,6 +129,15 @@ export default function MyOffers() {
       setPost(docs);
     })();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(dbStore, "post", id));
+      setPost(post.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={classes.parent}>
@@ -171,8 +192,23 @@ export default function MyOffers() {
         speed={500}
       >
         {post.map((item) => {
+          const curr =
+            item.price.slice(-1) === "€" ||
+            item.price.slice(-1) === "₽" ||
+            item.price.slice(-1) === "$" ||
+            item.price.slice(-1) === "֏";
           return (
             <div key={uuid()} className={classes.parentDiv}>
+              <IconButton
+                aria-label="delete"
+                sx={{ ml: 20, mt: 0 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log(e);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
                 <Link
                   key={uuid()}
@@ -180,19 +216,22 @@ export default function MyOffers() {
                   to={`../../${item.id}`}
                 >
                   <div className={classes.childDiv}>
-                    {/* <IconButton aria-label="delete" sx={{ ml: 20, mt: 0 }}>
+                    <IconButton
+                      aria-label="delete"
+                      sx={{ ml: 20, mt: 0 }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(item.id);
+                      }}
+                    >
                       <DeleteIcon />
-                    </IconButton> */}
-                    <div>
-                      <img
-                        src={item.img}
-                        alt={item.id}
-                        className={classes.img}
-                      />
-                    </div>
+                    </IconButton>
+                    <img src={item.img} alt={item.id} className={classes.img} />
                     <div>
                       <h3 className={classes.header}> {item.brand} </h3>
-                      <h4 className={classes.text}>Price: {item.price} $</h4>
+                      <h4 className={classes.text}>
+                        Price: {curr ? item.price : item.price + "$"}
+                      </h4>
                     </div>
                   </div>
                 </Link>
