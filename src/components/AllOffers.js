@@ -116,6 +116,11 @@ export default function AllOffers(props) {
         speed={500}
       >
         {post?.map((item) => {
+          const curr =
+            item.price.slice(-1) === "€" ||
+            item.price.slice(-1) === "₽" ||
+            item.price.slice(-1) === "$" ||
+            item.price.slice(-1) === "֏";
           return (
             <React.Fragment key={uuidv4()}>
               <div key={uuidv4()} className={classes.parentDiv}>
@@ -136,7 +141,9 @@ export default function AllOffers(props) {
                       </div>
                       <div>
                         <h3 className={classes.header}> {item.brand} </h3>
-                        <h4 className={classes.text}>Price: {item.price}</h4>
+                        <h4 className={classes.text}>
+                          Price: {curr ? item.price : item.price + "$"}
+                        </h4>
                       </div>
                     </div>
                   </Link>
