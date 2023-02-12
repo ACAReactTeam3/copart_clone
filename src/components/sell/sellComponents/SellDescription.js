@@ -54,7 +54,7 @@ const SellDescription = ({
     selEngineType,
     selSalonColor,
   } = carDescription;
-
+  console.log(model, "model");
   const [btnMore, setBtnMore] = useState("+ Ավելին");
 
   const brands = carBrandModels.map((item) => item.brand);
@@ -116,8 +116,8 @@ const SellDescription = ({
               size="small"
               sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
-              disabled={selectedBrand ? false : true}
-              value={model}
+              disabled={selectedBrand !== "x" ? false : true}
+              // value={model}
               onChange={(e, newValue) =>
                 setCarDescription((prev) => ({
                   ...prev,
