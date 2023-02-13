@@ -36,27 +36,27 @@ const SellPage = (props) => {
   });
 
   const [carDescription, setCarDescription] = useState({
-    selectedBrand: "x",
-    model: "x",
-    year: "x",
-    carBodyType: "x",
-    carMileage: "x",
+    selectedBrand: "",
+    model: "",
+    year: "",
+    carBodyType: "",
+    carMileage: "",
     mileageType: "",
-    selGearbox: "x",
-    selSteeringWheel: "x",
-    selFuel: "x",
-    selColor: "x",
+    selGearbox: "",
+    selSteeringWheel: "",
+    selFuel: "",
+    selColor: "",
     selTires: "x",
     selDoors: "x",
     selDrive: "",
-    selCylinders: "",
+    selCylinders: "x",
     power: "x",
-    selEngineType: "",
-    selSalonColor: "",
+    selEngineType: "x",
+    selSalonColor: "x",
   });
   //console.log(carDescription.carMileage, "mill");
   const [priceList, setPriceList] = useState({
-    price: "x",
+    price: "",
     currency: "",
     sellCustomsCleared: "",
     saleConditions: { Պայմ: false, Փոխանակում: false, ՄասՄասվճարում: false },
@@ -120,6 +120,7 @@ const SellPage = (props) => {
         options: filterOptions(options),
         phoneNum: additionalInfo.phoneNum,
         additionalInfo: additionalInfo.addInfo,
+        saved: [],
 
         // :carDescription.,
       })),

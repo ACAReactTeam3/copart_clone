@@ -199,16 +199,6 @@ export default function MyOffers() {
             item.price.slice(-1) === "֏";
           return (
             <div key={uuid()} className={classes.parentDiv}>
-              <IconButton
-                aria-label="delete"
-                sx={{ ml: 20, mt: 0 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(e);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
               <SwiperSlide key={uuid()} className={classes.swiperSlide}>
                 <Link
                   key={uuid()}

@@ -116,7 +116,7 @@ const SellDescription = ({
               size="small"
               sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
-              disabled={selectedBrand !== "x" ? false : true}
+              disabled={selectedBrand ? false : true}
               // value={model}
               onChange={(e, newValue) =>
                 setCarDescription((prev) => ({
