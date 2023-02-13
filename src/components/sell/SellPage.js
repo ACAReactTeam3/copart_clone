@@ -26,7 +26,7 @@ const SellPage = (props) => {
   let [url, setUrl] = useState([]);
   const [cId, setCId] = useState("");
   const [per, setPer] = useState(null);
-  console.log(url);
+  //console.log(url);
   const getData = useSelector(function (state) {
     return state;
   });
@@ -36,27 +36,27 @@ const SellPage = (props) => {
   });
 
   const [carDescription, setCarDescription] = useState({
-    selectedBrand: "x",
-    model: "x",
-    year: "x",
-    carBodyType: "x",
-    carMileage: "x",
+    selectedBrand: "",
+    model: "",
+    year: "",
+    carBodyType: "",
+    carMileage: "",
     mileageType: "",
-    selGearbox: "x",
-    selSteeringWheel: "x",
-    selFuel: "x",
-    selColor: "x",
+    selGearbox: "",
+    selSteeringWheel: "",
+    selFuel: "",
+    selColor: "",
     selTires: "x",
     selDoors: "x",
     selDrive: "",
-    selCylinders: "",
+    selCylinders: "x",
     power: "x",
-    selEngineType: "",
-    selSalonColor: "",
+    selEngineType: "x",
+    selSalonColor: "x",
   });
-  console.log(carDescription.carMileage, "mill");
+  //console.log(carDescription.carMileage, "mill");
   const [priceList, setPriceList] = useState({
-    price: "x",
+    price: "",
     currency: "",
     sellCustomsCleared: "",
     saleConditions: { Պայմ: false, Փոխանակում: false, ՄասՄասվճարում: false },
@@ -65,7 +65,7 @@ const SellPage = (props) => {
   });
   //console.log(priceList, "priceList");
   const [options, setOptions] = useState(initialOptions);
-  console.log(options);
+  //console.log(options);
 
   const [location, setLocation] = useState({
     country: "",
@@ -104,7 +104,7 @@ const SellPage = (props) => {
         year: carDescription.year,
         carMileage:
           carDescription.carMileage + " " + carDescription.mileageType,
-        price: priceList.price,
+        price: priceList.price + " " + priceList.currency,
         category: catAndType.category,
         timeStamp: serverTimestamp(),
         selGearbox: carDescription.selGearbox,
@@ -120,6 +120,7 @@ const SellPage = (props) => {
         options: filterOptions(options),
         phoneNum: additionalInfo.phoneNum,
         additionalInfo: additionalInfo.addInfo,
+        saved: [],
 
         // :carDescription.,
       })),
@@ -149,7 +150,6 @@ const SellPage = (props) => {
     navigate("/personalinfo/myOffers", { replace: true });
   };
 
-  console.log(isEmptyMess, isMessageOpen, "!isEmptyMess && isMessageOpen");
   useEffect(() => {
     const uploadImg = () => {
       const name = new Date().getTime() + img.name;

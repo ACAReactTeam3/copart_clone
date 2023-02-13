@@ -20,6 +20,15 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+import { dbStore } from "../firebase/firebase";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 let useStyles = createUseStyles({
   parentimgAndContent: {
@@ -82,9 +91,36 @@ export default function Post(props) {
     setExpanded(!expanded);
   };
 
+  const currentEmail = getAuth()?.currentUser?.email;
+
+  // const [isEmailAdded, setIsEmailAdded] = useState(
+  //   item.saved.includes(currentEmail) ? true : false
+  // );
+  // const func = async () => {
+  //   const itemDoc = doc(dbStore, "post", item.id);
+  //   const snapshot = await getDoc(itemDoc);
+  //   const docItem = snapshot.data();
+  //   setDocSnap(docItem);
+  // };
+  // const [docSnap, setDocSnap] = useState([]);
   const handleClick = (event) => {
     setIsShown((current) => !current);
   };
+  useEffect(() => setIsShown(item.saved.includes(currentEmail)), []);
+  useEffect(() => {
+    const itemDoc = doc(dbStore, "post", item.id);
+    if (isShown) {
+      (async () =>
+        await updateDoc(itemDoc, {
+          saved: arrayUnion(currentEmail),
+        }))();
+    } else {
+      (async () =>
+        await updateDoc(itemDoc, {
+          saved: arrayRemove(currentEmail),
+        }))();
+    }
+  }, [isShown]);
 
   const rows = [
     createData("Գինը:", `${item.price}`),
@@ -115,7 +151,9 @@ export default function Post(props) {
           size="large"
           aria-label="add to favorites"
           style={{ float: "right", marginTop: 0 }}
-          onClick={handleClick}
+          onClick={() => {
+            handleClick();
+          }}
           id={item.id}
         >
           {/* 👇️ show component on click */}

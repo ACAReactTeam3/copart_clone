@@ -40,7 +40,7 @@ export default function LeftSideBar() {
       icon: <AccountCircleIcon />,
     },
     {
-      link: "",
+      link: "/messages",
       name: "Հաղորդագրություններ",
       icon: <MessageIcon />,
     },

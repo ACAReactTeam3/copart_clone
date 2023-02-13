@@ -47,7 +47,6 @@ export function checkEmptyFilds(
     !!priceList.sellCustomsCleared &&
     !!priceList.sellCarState &&
     !!location.country;
-  console.log(isTrue);
   return isTrue;
 }
 
