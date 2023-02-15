@@ -72,7 +72,7 @@ export default function CarTypes() {
             <Link
               to={item.link}
               key={uuid()}
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "#1172b6" }}
             >
               {item.name}
             </Link>

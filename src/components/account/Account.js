@@ -92,8 +92,10 @@ export default function Account(props) {
         </div>
         <div>
           <p> Հաշվի կապը սոց. հաշիվների հետ</p>
+
           <Button variant="contained" sx={{ m: 1 }}>
-            <FacebookOutlinedIcon /> Facebook
+            {" "}
+            <FacebookOutlinedIcon /> Facebook{" "}
           </Button>
           <Button
             variant="contained"

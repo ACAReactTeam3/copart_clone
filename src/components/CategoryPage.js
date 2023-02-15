@@ -53,7 +53,6 @@ let useStyles = createUseStyles({
     width: "80%",
     height: "300px",
     display: "flex",
-    marginTop: 20,
   },
   h2: {
     color: "#1976d2",

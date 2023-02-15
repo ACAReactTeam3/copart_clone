@@ -18,6 +18,7 @@ import { auth } from "../firebase/firebase";
 import { Route, Routes } from "react-router-dom";
 import UsageRules from "./UsageRules";
 import Post from "./Post";
+import Messages from "./Comment/Messages";
 
 const useStyles = createUseStyles({
   ListItem: {
@@ -30,7 +31,7 @@ const useStyles = createUseStyles({
   },
 });
 
-export default function LeftSideBar() {
+export default function LeftSideBar(props) {
   const classes = useStyles();
   let navigate = useNavigate();
   let menuList = [
@@ -40,7 +41,8 @@ export default function LeftSideBar() {
       icon: <AccountCircleIcon />,
     },
     {
-      link: "/messages",
+      link: "message",
+
       name: "Հաղորդագրություններ",
       icon: <MessageIcon />,
     },
