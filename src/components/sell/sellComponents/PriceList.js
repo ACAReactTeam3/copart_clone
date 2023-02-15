@@ -61,7 +61,6 @@ export const PriceList = ({ priceList, setPriceList, isMessageOpen }) => {
         backgroundColor: "lightskyblue",
       }}
     >
-      {console.log(isMessageOpen, !price, !currency, !sellCustomsCleared)}
       <Typography variant="body1" component="h2" sx={{ mt: 3, mb: 1, ml: 3 }}>
         Գինը*
       </Typography>
@@ -93,7 +92,7 @@ export const PriceList = ({ priceList, setPriceList, isMessageOpen }) => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="amd"
+            value="֏"
           >
             <Typography
               variant="h6"
@@ -114,7 +113,7 @@ export const PriceList = ({ priceList, setPriceList, isMessageOpen }) => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="usd"
+            value="$"
           >
             <AttachMoneyIcon fontSize="medium" />
           </ToggleButton>
@@ -127,7 +126,7 @@ export const PriceList = ({ priceList, setPriceList, isMessageOpen }) => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="eur"
+            value="€"
           >
             <EuroSymbolIcon />
           </ToggleButton>
@@ -140,7 +139,7 @@ export const PriceList = ({ priceList, setPriceList, isMessageOpen }) => {
               backgroundColor: "white",
               color: "inherit",
             }}
-            value="rub"
+            value="₽"
           >
             <CurrencyRubleIcon />
           </ToggleButton>

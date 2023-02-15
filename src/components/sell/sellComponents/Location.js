@@ -24,7 +24,7 @@ export const Location = ({ location, setLocation, isMessageOpen }) => {
       },
     }));
   };
-  console.log(country);
+
   const { Ճանապարհին, Աճուրդում } = onWayAtAuction;
 
   return (

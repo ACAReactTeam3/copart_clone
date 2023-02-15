@@ -54,7 +54,7 @@ const SellDescription = ({
     selEngineType,
     selSalonColor,
   } = carDescription;
-
+  console.log(model, "model");
   const [btnMore, setBtnMore] = useState("+ Ավելին");
 
   const brands = carBrandModels.map((item) => item.brand);
@@ -70,7 +70,6 @@ const SellDescription = ({
 
   const btnMoreHide = (btnMore) => (btnMore === "+ Ավելին" ? true : false);
   const modelList = sellBranMmodList(selectedBrand, carBrandModels);
-  console.log(`${trueQuantity(carDescription)}vh`, "modelList");
 
   return (
     <>
@@ -83,24 +82,13 @@ const SellDescription = ({
           bgcolor: "Window",
           height:
             btnMore === "- Ավելին"
-              ? (`${
-                  212 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
+              ? `${
+                  213 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
+                }vh`
+              : `${
+                  128 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
                 }vh`,
-                console.log(
-                  `${
-                    212 +
-                    (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
-                  }vh`
-                ))
-              : (`${
-                  140 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
-                }vh`,
-                console.log(
-                  `${
-                    140 +
-                    (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
-                  }vh`
-                )),
+
           border: "ButtonFace",
         }}
       >
@@ -129,7 +117,7 @@ const SellDescription = ({
               sx={{ width: 310, mt: 5, ml: 5 }}
               disablePortal
               disabled={selectedBrand ? false : true}
-              value={model}
+              // value={model}
               onChange={(e, newValue) =>
                 setCarDescription((prev) => ({
                   ...prev,
@@ -319,19 +307,21 @@ const SellDescription = ({
                 <TextField {...params} label={description[11]} />
               )}
             />
-            <TextField
-              size="small"
-              sx={{ width: 310, mt: 5, ml: 5 }}
-              type="text"
-              label={description[12]}
-              variant="outlined"
-              onChange={(e) =>
-                setCarDescription((prev) => ({
-                  ...prev,
-                  power: e.target.value,
-                }))
-              }
-            />
+            {!btnMoreHide(btnMore) && (
+              <TextField
+                size="small"
+                sx={{ width: 310, mt: 5, ml: 5 }}
+                type="text"
+                label={description[12]}
+                variant="outlined"
+                onChange={(e) =>
+                  setCarDescription((prev) => ({
+                    ...prev,
+                    power: e.target.value,
+                  }))
+                }
+              />
+            )}
             <Autocomplete
               size="small"
               sx={{ width: 310, mt: 5, ml: 5 }}

@@ -42,6 +42,7 @@ export default function LeftSideBar(props) {
     },
     {
       link: "message",
+
       name: "Հաղորդագրություններ",
       icon: <MessageIcon />,
     },

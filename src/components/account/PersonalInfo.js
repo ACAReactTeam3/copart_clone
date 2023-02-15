@@ -28,22 +28,18 @@ export default function PersonalInfo() {
     <div>
       <nav className={classes.nav}>
         <Link to="personalinfodata">
-          {" "}
-          <h3> Անձնական տվյալներ </h3>{" "}
+          <h3> Անձնական տվյալներ </h3>
         </Link>
         <Link to="changepassword">
-          {" "}
-          <h3> Գաղտնաբառ </h3>{" "}
+          <h3> Գաղտնաբառ </h3>
         </Link>
       </nav>
       <Routes>
         <Route path="personalinfodata" element={<PersonalInfoData />}>
-          {" "}
-          personalinfodata{" "}
+          personalinfodata
         </Route>
         <Route path="changepassword" element={<PersonalInfoPassword />}>
-          {" "}
-          personalinfodata{" "}
+          personalinfodata
         </Route>
       </Routes>
       {/*  <Outlet /> */}
