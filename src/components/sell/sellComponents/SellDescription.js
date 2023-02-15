@@ -83,10 +83,10 @@ const SellDescription = ({
           height:
             btnMore === "- Ավելին"
               ? `${
-                  212 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
+                  213 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 7.2
                 }vh`
               : `${
-                  140 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
+                  128 + (isMessageOpen ? trueQuantity(carDescription) : 0) * 6.5
                 }vh`,
 
           border: "ButtonFace",
@@ -307,19 +307,21 @@ const SellDescription = ({
                 <TextField {...params} label={description[11]} />
               )}
             />
-            <TextField
-              size="small"
-              sx={{ width: 310, mt: 5, ml: 5 }}
-              type="text"
-              label={description[12]}
-              variant="outlined"
-              onChange={(e) =>
-                setCarDescription((prev) => ({
-                  ...prev,
-                  power: e.target.value,
-                }))
-              }
-            />
+            {!btnMoreHide(btnMore) && (
+              <TextField
+                size="small"
+                sx={{ width: 310, mt: 5, ml: 5 }}
+                type="text"
+                label={description[12]}
+                variant="outlined"
+                onChange={(e) =>
+                  setCarDescription((prev) => ({
+                    ...prev,
+                    power: e.target.value,
+                  }))
+                }
+              />
+            )}
             <Autocomplete
               size="small"
               sx={{ width: 310, mt: 5, ml: 5 }}

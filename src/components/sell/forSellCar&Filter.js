@@ -616,6 +616,7 @@ export const carBrandModels = [
       "GX",
       "IS",
       "IS 200",
+      "IS 250",
       "IS 250 C",
       "IS-F",
       "LS",
