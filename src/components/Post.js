@@ -87,19 +87,25 @@ export default function Post(props) {
   };
 
   const rows = [
-    createData("Գինը:", `${item.price}`),
-    createData("Մակնիշը:", `${item.brand}`),
-    createData("Մոդիֆիկացիան:", `${item.model}`),
-    createData("Տարեթիվը:", `${item.year}`),
-    createData("Թափքը:", `${item.carBodyType}`),
-    createData("Վազքը:", `${item.carMileage}`),
-    createData("Փոխանցման տուփը:", `${item.selGearbox}`),
-    createData("Ղեկը:", `${item.selSteeringWheel}`),
-    createData("Շարժիչը:", `${item.selFuel}`),
-    createData("Գույնը:", `${item.color}`),
-    createData("Ձիաուժը:", `${item.power}`),
-    createData("Դռների քանակը:", `${item.selDoors}`),
-    createData("Անվահեծը:", `${item.selTires}`),
+    createData("Գինը:", `${!item.price ? "x" : item.price}`),
+    createData("Մակնիշը:", `${!item.brand ? "x" : item.brand}`),
+    createData("Մոդիֆիկացիան:", `${!item.model ? "x" : item.model}`),
+    createData("Տարեթիվը:", `${!item.year ? "x" : item.year}`),
+    createData("Թափքը:", `${!item.carBodyType ? "x" : item.carBodyType}`),
+    createData("Վազքը:", `${!item.carMileage ? "x" : item.carMileage}`),
+    createData(
+      "Փոխանցման տուփը:",
+      `${!item.selGearbox ? "x" : item.selGearbox}`
+    ),
+    createData(
+      "Ղեկը:",
+      `${!item.selSteeringWheel ? "x" : item.selSteeringWheel}`
+    ),
+    createData("Շարժիչը:", `${!item.selFuel ? "x" : item.selFuel}`),
+    createData("Գույնը:", `${!item.color ? "x" : item.color}`),
+    createData("Ձիաուժը:", `${!item.power ? "x" : item.power}`),
+    createData("Դռների քանակը:", `${!item.selDoors ? "x" : item.selDoors}`),
+    createData("Անվահեծը:", `${!item.selTires ? "x" : item.selTires}`),
   ];
 
   return (

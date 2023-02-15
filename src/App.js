@@ -13,6 +13,7 @@ import DealersPage from "./components/nav/dealers/DealersPage";
 import UsageRules from "./components/UsageRules";
 import { collection, getDocs } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
+import Messages from "./components/Comment/Messages";
 
 function App() {
   let db = getDatabase();
@@ -85,6 +86,7 @@ function App() {
         <Route path="sell" element={<SellPage />} />
         <Route path="dealer" element={<DealersPage />}></Route>
         <Route path="usageRules" element={<UsageRules />}></Route>
+        <Route path="message" element={<Messages />}></Route>
         {post.map((item) => {
           return (
             <Route

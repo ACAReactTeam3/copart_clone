@@ -18,6 +18,9 @@ import logo from "../../images/logo.png";
 import SellPage from "../sell/SellPage";
 import Post from "../Post";
 import Home from "../Home";
+import Messages from "../Comment/Messages";
+import message from "../../images/message.jpg";
+import Drawer from "@mui/material/Drawer";
 
 let useStyles = createUseStyles({
   div: {
@@ -87,6 +90,7 @@ export default function Nav(props) {
   const user = auth.currentUser;
   let [search, setSearch] = useState("");
   let [show, setShow] = useState(false);
+
   const isShow = () => {
     setShow(!show);
   };
@@ -115,10 +119,12 @@ export default function Nav(props) {
   const handleCloseMyPage = () => {
     setDialogMyPage(false);
   };
+
   return (
     <div className={classes.div}>
       <div className={classes.parentDiv}>
         <LeftSideBar />
+
         <Link to="/">
           <img src={logo} className={classes.img} />
         </Link>
@@ -163,9 +169,8 @@ export default function Nav(props) {
         <Link to="dealer" style={{ textDecoration: "none" }}>
           <DealersButton />
         </Link>
-        <Link to="messages">
-          <MessagesIcon />
-        </Link>
+        <Messages />
+
         <AccountCircleIcon
           fontSize="large"
           color="action"

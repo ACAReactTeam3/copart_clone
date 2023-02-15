@@ -120,7 +120,7 @@ const SellPage = (props) => {
         options: filterOptions(options),
         phoneNum: additionalInfo.phoneNum,
         additionalInfo: additionalInfo.addInfo,
-
+        saved: [],
         // :carDescription.,
       })),
     [
