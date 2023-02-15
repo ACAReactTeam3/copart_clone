@@ -121,10 +121,6 @@ const SellPage = (props) => {
         phoneNum: additionalInfo.phoneNum,
         additionalInfo: additionalInfo.addInfo,
         saved: [],
-<<<<<<< HEAD
-=======
-
->>>>>>> 62e1f1a12370555ea30a562ab6229b4b8586d715
         // :carDescription.,
       })),
     [
