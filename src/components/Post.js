@@ -21,6 +21,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { dbStore } from "../firebase/firebase";
+import CallIcon from "@mui/icons-material/Call";
 import {
   arrayRemove,
   arrayUnion,
@@ -123,19 +124,25 @@ export default function Post(props) {
   }, [isShown]);
 
   const rows = [
-    createData("Գինը:", `${item.price}`),
-    createData("Մակնիշը:", `${item.brand}`),
-    createData("Մոդիֆիկացիան:", `${item.model}`),
-    createData("Տարեթիվը:", `${item.year}`),
-    createData("Թափքը:", `${item.carBodyType}`),
-    createData("Վազքը:", `${item.carMileage}`),
-    createData("Փոխանցման տուփը:", `${item.selGearbox}`),
-    createData("Ղեկը:", `${item.selSteeringWheel}`),
-    createData("Շարժիչը:", `${item.selFuel}`),
-    createData("Գույնը:", `${item.color}`),
-    createData("Ձիաուժը:", `${item.power}`),
-    createData("Դռների քանակը:", `${item.selDoors}`),
-    createData("Անվահեծը:", `${item.selTires}`),
+    createData("Գինը:", `${!item.price ? "x" : item.price}`),
+    createData("Մակնիշը:", `${!item.brand ? "x" : item.brand}`),
+    createData("Մոդիֆիկացիան:", `${!item.model ? "x" : item.model}`),
+    createData("Տարեթիվը:", `${!item.year ? "x" : item.year}`),
+    createData("Թափքը:", `${!item.carBodyType ? "x" : item.carBodyType}`),
+    createData("Վազքը:", `${!item.carMileage ? "x" : item.carMileage}`),
+    createData(
+      "Փոխանցման տուփը:",
+      `${!item.selGearbox ? "x" : item.selGearbox}`
+    ),
+    createData(
+      "Ղեկը:",
+      `${!item.selSteeringWheel ? "x" : item.selSteeringWheel}`
+    ),
+    createData("Շարժիչը:", `${!item.selFuel ? "x" : item.selFuel}`),
+    createData("Գույնը:", `${!item.color ? "x" : item.color}`),
+    createData("Ձիաուժը:", `${!item.power ? "x" : item.power}`),
+    createData("Դռների քանակը:", `${!item.selDoors ? "x" : item.selDoors}`),
+    createData("Անվահեծը:", `${!item.selTires ? "x" : item.selTires}`),
   ];
 
   return (
@@ -170,7 +177,7 @@ export default function Post(props) {
                 aria-label="post"
                 style={{ color: "#1172b6", fontSize: "20px" }}
               >
-                {item.userEmail[0]}
+                {/*   { item.displayName ? item.displayName : item.userEmail[0]} */}
               </Avatar>
             }
           />
@@ -184,7 +191,7 @@ export default function Post(props) {
             image={item.img}
             alt="Car"
           />
-          <div className={classes.parentImgSmall}>
+          {/*  <div className={classes.parentImgSmall}>
             <img
               className={classes.imgSmall}
               // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
@@ -205,7 +212,7 @@ export default function Post(props) {
               className={classes.imgSmall}
               // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
             />
-          </div>
+          </div> */}
           <Table
             aria-label="simple table"
             size="small"
@@ -278,7 +285,9 @@ export default function Post(props) {
             >
               Լրացուցիչ հեռախոսահամար
             </Typography>
-            <Typography paragraph>{item.phoneNum}</Typography>
+            <a href={`tel:${item.phoneNum}`}>
+              <CallIcon /> {item.phoneNum}
+            </a>
           </CardContent>
         </Collapse>
       </Card>

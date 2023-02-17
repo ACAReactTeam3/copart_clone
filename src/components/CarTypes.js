@@ -25,7 +25,7 @@ let useStyles = createUseStyles({
     },
   },
 });
-export default function CarTypes() {
+export default function CarTypes(props) {
   const classes = useStyles();
   const carsType = [
     {
@@ -72,14 +72,14 @@ export default function CarTypes() {
             <Link
               to={item.link}
               key={uuid()}
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "#1172b6" }}
             >
               {item.name}
             </Link>
           );
         })}
       </ul>
-      <Filter />
+      <Filter setSelectFilter={props.setSelectFilter} />
     </>
   );
 }

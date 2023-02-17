@@ -136,7 +136,7 @@ export default function Saved() {
           data.id = doc.id;
           return data;
         })
-        .filter((item) => item.saved.includes(email));
+        .filter((item) => item?.saved?.includes(email));
       setPost(docs);
     })();
   }, []);
@@ -174,16 +174,11 @@ export default function Saved() {
       <div className={classes.buttonParent}>
         {!post.length ? (
           <p>
-            <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
+            <ErrorOutlineIcon /> Դուք դեռևս չունեք հիշված հայտարարություններ:{" "}
           </p>
         ) : (
-          <p> Դուք ունեք {post.length} հայտարարություն։ </p>
+          <p> Դուք ունեք {post.length} հիշված հայտարարություն։ </p>
         )}
-        <Link to="../../sell" style={{ textDecoration: "none" }}>
-          <Button variant="contained" sx={{ margin: "auto" }}>
-            Տեղադրել հայտարարություն
-          </Button>
-        </Link>
       </div>
       <Swiper
         className={classes.swiper}
