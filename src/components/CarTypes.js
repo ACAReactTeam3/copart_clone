@@ -25,7 +25,7 @@ let useStyles = createUseStyles({
     },
   },
 });
-export default function CarTypes() {
+export default function CarTypes(props) {
   const classes = useStyles();
   const carsType = [
     {
@@ -79,7 +79,7 @@ export default function CarTypes() {
           );
         })}
       </ul>
-      <Filter />
+      <Filter setSelectFilter={props.setSelectFilter} />
     </>
   );
 }

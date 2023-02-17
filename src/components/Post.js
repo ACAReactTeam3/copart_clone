@@ -21,6 +21,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { dbStore } from "../firebase/firebase";
+import CallIcon from "@mui/icons-material/Call";
 import {
   arrayRemove,
   arrayUnion,
@@ -176,7 +177,7 @@ export default function Post(props) {
                 aria-label="post"
                 style={{ color: "#1172b6", fontSize: "20px" }}
               >
-                {item.userEmail[0]}
+                {/*   { item.displayName ? item.displayName : item.userEmail[0]} */}
               </Avatar>
             }
           />
@@ -190,7 +191,7 @@ export default function Post(props) {
             image={item.img}
             alt="Car"
           />
-          <div className={classes.parentImgSmall}>
+          {/*  <div className={classes.parentImgSmall}>
             <img
               className={classes.imgSmall}
               // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
@@ -211,7 +212,7 @@ export default function Post(props) {
               className={classes.imgSmall}
               // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
             />
-          </div>
+          </div> */}
           <Table
             aria-label="simple table"
             size="small"
@@ -284,7 +285,9 @@ export default function Post(props) {
             >
               Լրացուցիչ հեռախոսահամար
             </Typography>
-            <Typography paragraph>{item.phoneNum}</Typography>
+            <a href={`tel:${item.phoneNum}`}>
+              <CallIcon /> {item.phoneNum}
+            </a>
           </CardContent>
         </Collapse>
       </Card>

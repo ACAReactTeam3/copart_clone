@@ -136,7 +136,7 @@ export default function Saved() {
           data.id = doc.id;
           return data;
         })
-        .filter((item) => item.saved.includes(email));
+        .filter((item) => item?.saved?.includes(email));
       setPost(docs);
     })();
   }, []);

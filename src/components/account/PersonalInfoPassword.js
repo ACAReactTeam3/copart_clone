@@ -1,36 +1,54 @@
-import { Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
-import { createUseStyles } from 'react-jss'
+import { Button, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { createUseStyles } from "react-jss";
+import { getAuth, updatePassword } from "firebase/auth";
 
 let useStyle = createUseStyles({
-    parent: {
-        backgroundColor: '#d9d9d9'
-    },
-    parentPassword: {
-        width: '50%',
-        display: 'flex',
-        flexDirection: 'column',
-        margin: [0, '40%'],
-        padding: 10
-    }
-})
+  parent: {
+    backgroundColor: "#d9d9d9",
+  },
+  parentPassword: {
+    width: "50%",
+    minHeight: 300,
+    display: "flex",
+    flexDirection: "column",
+    margin: [0, "40%"],
+    padding: 10,
+    top: "50%",
+  },
+});
 
 export default function PersonalInfoPassword() {
-    let classes = useStyle()
-    let [oldPassword, setOldPassword] = useState('')
-    let [password, setPassword] = useState('')
-    let [confirmPassword, setConfirmPassword] = useState('')
+  let classes = useStyle();
+  let [oldPassword, setOldPassword] = useState("");
+  let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  const onSave = () => {
+    updatePassword(user)
+      .then((result) => {
+        // Update successful.
+        alert("Խնդրում ենք ստուգել Ձեր էլ.հասցեն:");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
-      <div className={classes.parent}>
-    <div className={classes.parentPassword}>
-           <TextField
+    <div className={classes.parent}>
+      <div className={classes.parentPassword}>
+        {/* <TextField
             required
             id="outlined-required"
             label="Հին գաղտնաբառ"
             sx={{width: 250, m: 1}}
             type='password'
-            value={oldPassword}
-            onChange={(e) => {
+            value={oldPassword}  
+            onChange={(e) => { 
                 setOldPassword(e.target.value.trim())
           }}
         />
@@ -55,10 +73,15 @@ export default function PersonalInfoPassword() {
           onChange={(e) => {
             setConfirmPassword(e.target.value.trim())
           }}
-          />
-          <Button variant='contained' sx={{width: 250, m: 1}}> Change Password </Button>
-    <p> Դուք կարող եք պարբերաբար թարմացնել գաղտնաբառը՝ այն ավելի ապահով դարձնելու համար </p>
+          /> */}
+        <Button variant="contained" sx={{ width: 250, m: 1 }} onClick={onSave}>
+          Փոխել գաղտնաբառը
+        </Button>
+        <p>
+          Դուք կարող եք պարբերաբար թարմացնել գաղտնաբառը՝ այն ավելի ապահով
+          դարձնելու համար
+        </p>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
