@@ -20,9 +20,9 @@ export default function Home(props) {
   let [post, setPost] = useState([]);
   // all posts
   useEffect(() => {
-    (async () => {
-      const colRef = await collection(dbStore, "post");
-      const filtered = await query(
+    const fetchData = async () => {
+      const colRef = collection(dbStore, "post");
+      const filtered = query(
         colRef,
         search && where("brand".toLowerCase(), "==", search)
       );
@@ -34,7 +34,8 @@ export default function Home(props) {
         return data;
       });
       setPost(docs);
-    })();
+    };
+    fetchData();
   }, [search]);
 let [selectFilter, setSelectFilter] = useState([])
   let routes = useRoutes([
