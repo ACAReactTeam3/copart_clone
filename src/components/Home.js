@@ -14,6 +14,7 @@ import SignUp from "./registration/SignUp";
 import { v4 as uuid } from "uuid";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { dbStore } from "../firebase/firebase";
+import FilteredPage from "../FilteredPage";
 export default function Home(props) {
   const { search } = props;
   let [post, setPost] = useState([]);
@@ -35,7 +36,7 @@ export default function Home(props) {
       setPost(docs);
     })();
   }, [search]);
-
+let [selectFilter, setSelectFilter] = useState([])
   let routes = useRoutes([
     {
       path: "/*",
@@ -44,8 +45,9 @@ export default function Home(props) {
           path: "/*",
           element: (
             <>
-              <CarTypes />
+              <CarTypes setSelectFilter={setSelectFilter} />
               <AllOffers post={post} />
+              <FilteredPage selectFilter={selectFilter} />
             </>
           ),
         },

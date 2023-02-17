@@ -10,6 +10,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import { prodTYear } from "./sell/forSellCar&Filter";
 import { price } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 
 const useStyle = createUseStyles({
   box: {
@@ -39,8 +40,9 @@ const useStyle = createUseStyles({
   },
 });
 
-export default function Filter() {
+export default function Filter(props) {
   let classes = useStyle();
+  let navigate = useNavigate();
   let [carName, setCarName] = useState([]);
   let [brand, setBrand] = useState("");
   let [modelName, setModelName] = useState([]);
@@ -100,6 +102,21 @@ export default function Filter() {
       setModelName(carName.find((obj) => obj.brand == brand).models);
     }
   }, [brand]);
+
+  useEffect(() => {
+    props.setSelectFilter(() => {
+      return [
+        {
+          brand: brand,
+          model: model,
+          minYear: minYear,
+          maxYear: maxYear,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        },
+      ];
+    });
+  }, [brand, model, minYear, maxYear, minPrice, maxPrice]);
 
   return (
     <>
@@ -325,7 +342,13 @@ export default function Filter() {
               {isShow ? "հասարակ որոնում" : "Ընդլայնված որոնում"}
             </Button>
           </div>
-          <Button variant="contained" className={classes.allOffers}>
+          <Button
+            variant="contained"
+            className={classes.allOffers}
+            onClick={() => {
+              return navigate("/filteredPage");
+            }}
+          >
             Բոլոր առաջարկները
           </Button>
         </div>
