@@ -5,7 +5,11 @@ import {
 import { getDatabase, ref, set } from "firebase/database";
 import { auth, dbStore } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 
 export let actionType = {
   userSignIn: "user-signIn",
@@ -50,6 +54,23 @@ export const signInWithGoogle = () => {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       setDoc(doc(dbStore, "user", auth.currentUser.email), {
+        posts: [],
+        saved: [],
+        messages: [],
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const signInWithFacebook = () => {
+  const provider = new FacebookAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = FacebookAuthProvider.credentialFromResult(result);
+      const user = result.user;
+      setDoc(doc(dbStore, "user", user), {
         posts: [],
         saved: [],
         messages: [],

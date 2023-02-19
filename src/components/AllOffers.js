@@ -117,10 +117,10 @@ export default function AllOffers(props) {
       >
         {post?.map((item) => {
           const curr =
-            item.price.slice(-1) === "€" ||
-            item.price.slice(-1) === "₽" ||
-            item.price.slice(-1) === "$" ||
-            item.price.slice(-1) === "֏";
+            item.price?.slice(-1) === "€" ||
+            item.price?.slice(-1) === "₽" ||
+            item.price?.slice(-1) === "$" ||
+            item.price?.slice(-1) === "֏";
           return (
             <React.Fragment key={uuidv4()}>
               <div key={uuidv4()} className={classes.parentDiv}>
