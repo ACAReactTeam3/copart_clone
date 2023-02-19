@@ -3,6 +3,7 @@ import LeftSideBar from "../LeftSideBar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Dialog, DialogTitle } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { createUseStyles } from "react-jss";
 import MessagesIcon from "./messages/MessagesIcon";
@@ -22,7 +23,7 @@ import Messages from "../Comment/Messages";
 import message from "../../images/message.jpg";
 import Drawer from "@mui/material/Drawer";
 
-let useStyles = createUseStyles({
+const useStyles = makeStyles({
   div: {
     width: "100%",
     backgroundColor: "rgba(255,255,255,.95)",
@@ -31,14 +32,16 @@ let useStyles = createUseStyles({
   parentDiv: {
     placeItems: "center",
     width: "80%",
-    height: 70,
+    //height: 70,
     display: "flex",
-    justifyContent: "space-around",
-    margin: [0, "auto"],
+    justifyContent: "space-between",
+    // margin: [0, "auto"],
     backgroundColor: "rgba(255,255,255,.95)",
+    margin: "auto",
   },
   img: {
-    width: 210,
+    maxWidth: 150,
+    minWidth: 70,
   },
   button: {
     height: 30,
@@ -66,20 +69,40 @@ let useStyles = createUseStyles({
       backgroundColor: "#ff5252",
     },
   },
-  textFieldSearch: {
-    width: "100%",
-    // position: "relative",
+  search: {
+    position: "relative",
   },
   deleteSearch: {
     width: 20,
     height: 20,
     backgroundColor: "white",
     position: "absolute",
-    right: 583,
-    top: 24,
-    border: [1, "white", "solid"],
+    right: 15,
+    top: 20,
     borderRadius: "50%",
     cursor: "pointer",
+  },
+  "@media only screen and (max-width: 935px)": {
+    parentDiv: {
+      width: "100%",
+      flexWrap: "wrap",
+    },
+    search: {
+      width: "100%",
+      order: 1,
+      position: "relative",
+      marginTop: 10,
+    },
+    textFieldSearch: {
+      width: "100%",
+    },
+    linkButton: {
+      width: "80%",
+      paddingLeft: "10%",
+    },
+    button: {
+      width: "100%",
+    },
   },
 });
 
@@ -124,43 +147,32 @@ export default function Nav(props) {
         <Link to="/">
           <img src={logo} className={classes.img} />
         </Link>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": {
-              width: "45ch",
-              // position: "relative",
-            },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div className={classes.search}>
-            <TextField
-              id="outlined-basic"
-              label="Մակնիշ"
-              variant="outlined"
-              className={classes.textFieldSearch}
-              value={search}
-              onChange={(e) => {
-                e.preventDefault();
-                setSearch(
-                  e.target.value.substring(0, 1).toUpperCase() +
-                    e.target.value.substring(1, e.target.length).toLowerCase()
-                );
-              }}
-            />
-            <button
-              className={classes.deleteSearch}
-              onClick={(e) => {
-                e.preventDefault();
-                setSearch("");
-              }}
-            >
-              X
-            </button>
-          </div>
-        </Box>
+        <div className={classes.search}>
+          <TextField
+            id="outlined-basic"
+            label="Մակնիշ"
+            variant="outlined"
+            className={classes.textFieldSearch}
+            value={search}
+            onChange={(e) => {
+              e.preventDefault();
+              setSearch(
+                e.target.value.substring(0, 1).toUpperCase() +
+                  e.target.value.substring(1, e.target.length).toLowerCase()
+              );
+            }}
+          />
+          <button
+            style={{ borderWidth: 1, borderStyle: "solid" }}
+            className={classes.deleteSearch}
+            onClick={(e) => {
+              e.preventDefault();
+              setSearch("");
+            }}
+          >
+            X
+          </button>
+        </div>
         <Link to="dealer" style={{ textDecoration: "none" }}>
           <DealersButton />
         </Link>
@@ -234,8 +246,11 @@ export default function Nav(props) {
         <Link
           to={auth.currentUser ? "sell" : "signin"}
           style={{ textDecoration: "none" }}
+          className={classes.linkButton}
         >
-          <Button variant="contained"> Վաճառել </Button>
+          <Button variant="contained" className={classes.button}>
+            Վաճառել
+          </Button>
         </Link>
       </div>
       <SignIn open={open} handleClose={handleClose} />

@@ -3,19 +3,24 @@ import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Filter from "./Filter";
+import { makeStyles } from "@mui/styles";
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import ListIcon from "@mui/icons-material/List";
 
-let useStyles = createUseStyles({
+const useStyles = makeStyles({
+  parentUl: {
+    display: "none",
+  },
   ul: {
-    width: "80%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    paddingLeft: "10%",
+    position: "relative",
     margin: [0, "auto"],
     "&": {
       backgroundColor: "#DCDCDC",
-      height: 50,
       lineHeight: "3",
-
       fontSize: "14px",
       fontWeight: "600",
     },
@@ -24,9 +29,32 @@ let useStyles = createUseStyles({
       cursor: "pointer",
     },
   },
+  categoryLink: {
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  "@media only screen and (max-width: 935px)": {
+    parentUl: {
+      display: "block",
+      backgroundColor: "#DCDCDC",
+    },
+    buttonBurger: {
+      cursor: "pointer",
+    },
+    ul: {
+      flexDirection: "column",
+      alignItems: "center",
+      padding: 0,
+    },
+    categoryLink: {
+      width: "100%",
+      textAlign: "center",
+    },
+  },
 });
 export default function CarTypes(props) {
   const classes = useStyles();
+  const [isShow, setIsShow] = useState(false);
   const carsType = [
     {
       link: "passenger",
@@ -66,13 +94,33 @@ export default function CarTypes(props) {
   ];
   return (
     <>
-      <ul className={classes.ul}>
+      <div className={classes.parentUl}>
+        {isShow ? (
+          <CloseIcon
+            className={classes.buttonBurger}
+            style={{ fontSize: 40 }}
+            onClick={() => {
+              setIsShow(!isShow);
+            }}
+          />
+        ) : (
+          <ListIcon
+            className={classes.buttonBurger}
+            style={{ fontSize: 40 }}
+            onClick={() => {
+              setIsShow(!isShow);
+            }}
+          />
+        )}
+      </div>
+      <ul className={classes.ul} style={{ display: isShow ? "flex" : "none" }}>
         {carsType.map((item) => {
           return (
             <Link
               to={item.link}
               key={uuid()}
               style={{ textDecoration: "none", color: "#1172b6" }}
+              className={classes.categoryLink}
             >
               {item.name}
             </Link>

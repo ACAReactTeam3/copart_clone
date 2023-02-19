@@ -34,6 +34,7 @@ const useStyle = createUseStyles({
     padding: 10,
     display: "flex",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   allOffers: {
     margin: [0, "auto"],

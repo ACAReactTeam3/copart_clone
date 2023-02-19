@@ -56,7 +56,6 @@ export default function Home(props) {
           data.id = doc.id;
           return data;
         });
-        console.log(docs, "bbbbb");
         setPost(docs);
       },
       (error) => {

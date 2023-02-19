@@ -57,9 +57,9 @@ let useStyle = createUseStyles({
   },
 
   img: {
-    width: 270,
+    maxWidth: 270,
     height: 155,
-    objectFit: "cover",
+    objectFit: "contain",
     transform: "scale(.7)",
     transition: "1s",
     cursor: "pointer",
@@ -102,8 +102,6 @@ let useStyle = createUseStyles({
 export default function MyOffers() {
   const [isActive, setIsActive] = useState(true);
   const [isNotActive, setIsNotActive] = useState(false);
-
-  console.log(isActive, isNotActive);
 
   let classes = useStyle();
   let sort = [

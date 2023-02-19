@@ -21,6 +21,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { dbStore } from "../firebase/firebase";
 import CallIcon from "@mui/icons-material/Call";
+import { v4 as uuid } from "uuid";
 import {
   arrayRemove,
   arrayUnion,
@@ -34,12 +35,12 @@ import { Checkbox, FormControlLabel, Switch } from "@mui/material";
 
 let useStyles = createUseStyles({
   parentimgAndContent: {
-    width: 900,
     display: "flex",
+    flexWrap: "wrap",
   },
   img: {
-    width: 500,
-    height: 380,
+    maxWidth: 500,
+    maxHeight: 380,
     objectFit: "contain",
     position: "relative",
   },
@@ -74,7 +75,15 @@ let useStyles = createUseStyles({
   header: {
     display: "flex",
   },
+  table: {
+    minWidth: 200,
+    maxWidth: 400,
+  },
   top: {
+    display: "flex",
+  },
+  a: {
+    minWidth: 150,
     display: "flex",
   },
 });
@@ -172,8 +181,8 @@ export default function Post(props) {
     <div>
       <Card
         sx={{
-          maxWidth: 930,
-          border: [1, "white"],
+          paddingLeft: 15,
+          paddingRight: 15,
           m: "auto",
         }}
       >
@@ -224,7 +233,7 @@ export default function Post(props) {
             component="img"
             // image="https://www.kia.com/content/dam/kia/us/en/home2-0/mtf-carousel/mpv/sorento/kia_sorento_2023_large-middle.png"
             image={item.img}
-            alt="Car"
+            alt={item.id}
           />
           {/*  <div className={classes.parentImgSmall}>
             <img
@@ -254,6 +263,7 @@ export default function Post(props) {
             style={{
               lineHeight: "100px",
             }}
+            className={classes.table}
           >
             <TableBody>
               {rows.map((row) => (
@@ -318,11 +328,25 @@ export default function Post(props) {
               paragraph
               style={{ fontSize: "20px", color: "#1172b6", fontWeight: "bold" }}
             >
+              Հիմնական հեռախոսահամար
+              <a href={`tel:${item.phoneNum}`} className={classes.a}>
+                <CallIcon className={classes.call} /> {item.phoneNum}
+              </a>
+            </Typography>
+            <Typography
+              paragraph
+              style={{ fontSize: "20px", color: "#1172b6", fontWeight: "bold" }}
+            >
               Լրացուցիչ հեռախոսահամար
             </Typography>
-            <a href={`tel:${item.phoneNum}`}>
-              <CallIcon /> {item.phoneNum}
-            </a>
+
+            {item.phone?.map((number) => {
+              return (
+                <a href={`tel:${number}`} key={uuid()} className={classes.a}>
+                  <CallIcon className={classes.call} /> {number}
+                </a>
+              );
+            })}
           </CardContent>
         </Collapse>
       </Card>
