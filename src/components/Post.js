@@ -12,23 +12,25 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { createUseStyles } from "react-jss";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useLocation } from "react-router-dom";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { dbStore } from "../firebase/firebase";
+import CallIcon from "@mui/icons-material/Call";
 import {
   arrayRemove,
   arrayUnion,
   doc,
   getDoc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { Checkbox, FormControlLabel, Switch } from "@mui/material";
 
 let useStyles = createUseStyles({
   parentimgAndContent: {
@@ -107,6 +109,7 @@ export default function Post(props) {
     setIsShown((current) => !current);
   };
   useEffect(() => setIsShown(item.saved.includes(currentEmail)), []);
+
   useEffect(() => {
     const itemDoc = doc(dbStore, "post", item.id);
     if (isShown) {
@@ -121,6 +124,27 @@ export default function Post(props) {
         }))();
     }
   }, [isShown]);
+
+  // const handleActive = (e) => setIsActive(e.target.checked);
+
+  useEffect(() => {
+    (async () => {
+      const itemDoc = doc(dbStore, "post", item.id);
+      const docSnap = await getDoc(itemDoc);
+      setIsActive(docSnap.data().isActive);
+    })();
+  }, []);
+  const [firstStart, setFirstStart] = useState(false);
+  const [isActive, setIsActive] = useState(item.isActive);
+
+  useEffect(() => {
+    const itemDoc = doc(dbStore, "post", item.id);
+    firstStart &&
+      (async () => {
+        await updateDoc(itemDoc, { isActive: isActive });
+      })();
+    setFirstStart(true);
+  }, [isActive]);
 
   const rows = [
     createData("Գինը:", `${!item.price ? "x" : item.price}`),
@@ -153,6 +177,18 @@ export default function Post(props) {
           m: "auto",
         }}
       >
+        {item.userEmail === currentEmail ? (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isActive}
+                onChange={() => setIsActive(!isActive)}
+                name="activ"
+              />
+            }
+            label="Ակտիվացել"
+          />
+        ) : null}
         <IconButton
           size="large"
           aria-label="add to favorites"
@@ -176,7 +212,7 @@ export default function Post(props) {
                 aria-label="post"
                 style={{ color: "#1172b6", fontSize: "20px" }}
               >
-                {item.userEmail[0]}
+                {/*   { item.displayName ? item.displayName : item.userEmail[0]} */}
               </Avatar>
             }
           />
@@ -190,7 +226,7 @@ export default function Post(props) {
             image={item.img}
             alt="Car"
           />
-          <div className={classes.parentImgSmall}>
+          {/*  <div className={classes.parentImgSmall}>
             <img
               className={classes.imgSmall}
               // src="https://www.kia.com/us/content/dam/kia/us/en/vehicles/sorento/2023/trims/s-xline-awd/exterior/46533a/360/01.png/jcr:content/renditions/mobile.png"
@@ -211,7 +247,7 @@ export default function Post(props) {
               className={classes.imgSmall}
               // src="https://www.kiaonhuntclub.com/vimgs/USD20KIS022B021009/IOF_H150/x2022-Kia-Sorento-4dr-AWD_21009.jpg.pagespeed.ic.Sm96kYwWkW.jpg"
             />
-          </div>
+          </div> */}
           <Table
             aria-label="simple table"
             size="small"
@@ -284,7 +320,9 @@ export default function Post(props) {
             >
               Լրացուցիչ հեռախոսահամար
             </Typography>
-            <Typography paragraph>{item.phoneNum}</Typography>
+            <a href={`tel:${item.phoneNum}`}>
+              <CallIcon /> {item.phoneNum}
+            </a>
           </CardContent>
         </Collapse>
       </Card>

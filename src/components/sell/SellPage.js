@@ -1,4 +1,10 @@
-import { Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
@@ -20,6 +26,7 @@ import { AdditionalInformation } from "./sellComponents/AdditionalInformation";
 import { Photos } from "./sellComponents/Photos";
 import { useNavigate } from "react-router-dom";
 import { checkEmptyFilds } from "./sellComponents/customized";
+import { Stack } from "@mui/system";
 
 const SellPage = (props) => {
   let [img, setImg] = useState(null);
@@ -80,6 +87,7 @@ const SellPage = (props) => {
   });
 
   const [post, setPost] = useState({});
+  const [isActive, setIsActive] = useState(true);
 
   const filterOptions = (obj) => {
     const keys = Object.keys(obj);
@@ -121,7 +129,7 @@ const SellPage = (props) => {
         phoneNum: additionalInfo.phoneNum,
         additionalInfo: additionalInfo.addInfo,
         saved: [],
-        // :carDescription.,
+        isActive: isActive,
       })),
     [
       getData,
@@ -140,6 +148,7 @@ const SellPage = (props) => {
     priceList,
     location
   );
+
   const navigate = useNavigate();
   // add post
 
@@ -219,13 +228,39 @@ const SellPage = (props) => {
         setAdditionalInfo={setAdditionalInfo}
       />
       <Photos setImg={setImg} />
+      <Box>
+        <Stack direction="row" spacing={47}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isActive}
+                onChange={(e) => setIsActive(e.target.checked)}
+                name="activ"
+              />
+            }
+            label="Պահպանել, բայց չհրապարակել"
+          />
+          <Typography
+            textAlign={"center"}
+            variant="body2"
+            component="h2"
+            sx={{ color: "gray" }}
+          >
+            Տեղադրման ժամկետը 60 օր
+          </Typography>
+        </Stack>
+        <Typography variant="body2" component="h2">
+          Սեղմելով Տեղադրել հայտարարություն կոճակը՝ Դուք հաստատում եք, որ
+          ընդունում եք AUTO.am-ի Օգտագործման կանոնները
+        </Typography>
+      </Box>
       <Button
         disabled={per !== null && per < 100}
         onClick={() => {
           setIsMessageOpen(true);
           isEmptyMess && add();
         }}
-        sx={{ width: 350, mt: 5, ml: 5, mb: 10 }}
+        sx={{ width: 350, height: 50, mt: 5, mb: 10 }}
         variant="contained"
       >
         Տեղադրել հայտարարությունը

@@ -100,6 +100,11 @@ let useStyle = createUseStyles({
 });
 
 export default function MyOffers() {
+  const [isActive, setIsActive] = useState(true);
+  const [isNotActive, setIsNotActive] = useState(false);
+
+  console.log(isActive, isNotActive);
+
   let classes = useStyle();
   let sort = [
     "Ամենաթարմերը",
@@ -161,11 +166,19 @@ export default function MyOffers() {
           </Select>
         </FormControl>
         <label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isActive}
+            onChange={(e) => setIsActive(e.target.checked)}
+          />
           Ակտիվները
         </label>
         <label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isNotActive}
+            onChange={(e) => setIsNotActive(e.target.checked)}
+          />
           Ոչ ակտիվները
         </label>
       </div>
@@ -191,44 +204,58 @@ export default function MyOffers() {
         navigation
         speed={500}
       >
-        {post.map((item) => {
-          const curr =
-            item.price.slice(-1) === "€" ||
-            item.price.slice(-1) === "₽" ||
-            item.price.slice(-1) === "$" ||
-            item.price.slice(-1) === "֏";
-          return (
-            <div key={uuid()} className={classes.parentDiv}>
-              <SwiperSlide key={uuid()} className={classes.swiperSlide}>
-                <Link
-                  key={uuid()}
-                  style={{ textDecoration: "none" }}
-                  to={`../../${item.id}`}
-                >
-                  <div className={classes.childDiv}>
-                    <IconButton
-                      aria-label="delete"
-                      sx={{ ml: 20, mt: 0 }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDelete(item.id);
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                    <img src={item.img} alt={item.id} className={classes.img} />
-                    <div>
-                      <h3 className={classes.header}> {item.brand} </h3>
-                      <h4 className={classes.text}>
-                        Price: {curr ? item.price : item.price + "$"}
-                      </h4>
+        {post
+          .filter((item) =>
+            isActive && isNotActive
+              ? item
+              : isActive
+              ? item.isActive === true
+              : isNotActive
+              ? item.isActive === false
+              : null
+          )
+          .map((item) => {
+            const curr =
+              item.price.slice(-1) === "€" ||
+              item.price.slice(-1) === "₽" ||
+              item.price.slice(-1) === "$" ||
+              item.price.slice(-1) === "֏";
+            return (
+              <div key={uuid()} className={classes.parentDiv}>
+                <SwiperSlide key={uuid()} className={classes.swiperSlide}>
+                  <Link
+                    key={uuid()}
+                    style={{ textDecoration: "none" }}
+                    to={`../../${item.id}`}
+                  >
+                    <div className={classes.childDiv}>
+                      <IconButton
+                        aria-label="delete"
+                        sx={{ ml: 20, mt: 0 }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDelete(item.id);
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                      <img
+                        src={item.img}
+                        alt={item.id}
+                        className={classes.img}
+                      />
+                      <div>
+                        <h3 className={classes.header}> {item.brand} </h3>
+                        <h4 className={classes.text}>
+                          Price: {curr ? item.price : item.price + "$"}
+                        </h4>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            </div>
-          );
-        })}
+                  </Link>
+                </SwiperSlide>
+              </div>
+            );
+          })}
       </Swiper>
     </div>
   );

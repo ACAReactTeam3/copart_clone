@@ -104,7 +104,7 @@ export default function AllOffers(props) {
         console.log(error);
       });
   }, []); */
-
+  console.log(post);
   return (
     <div className={classes.parentDiv}>
       <Swiper
@@ -115,43 +115,75 @@ export default function AllOffers(props) {
         navigation
         speed={500}
       >
-        {post?.map((item) => {
-          const curr =
-            item.price?.slice(-1) === "€" ||
-            item.price?.slice(-1) === "₽" ||
-            item.price?.slice(-1) === "$" ||
-            item.price?.slice(-1) === "֏";
-          return (
-            <React.Fragment key={uuidv4()}>
-              <div key={uuidv4()} className={classes.parentDiv}>
-                <SwiperSlide key={uuidv4()} className={classes.swiperSlide}>
-                  <Link
-                    key={uuidv4()}
-                    style={{ textDecoration: "none" }}
-                    to={item.id}
-                  >
-                    <div className={classes.childDiv}>
-                      <div>
-                        <img
-                          //src="https://firebasestorage.googleapis.com/v0/b/copartclone-b2247.appspot.com/o/image%2Faadd%40gmail.com%2F4fdhIwDPs3UB9JnmrWXJ%2FMazda%20%20CX-7.jpeg?alt=media&token=3a3bade8-34e3-4977-bbe9-4d4dd630ab42"
-                          src={item.img}
-                          alt={item.id}
-                          className={classes.img}
-                        />
+        {/* // {post?.map((item) => {
+        //   const curr =
+        //     item.price?.slice(-1) === "€" ||
+        //     item.price?.slice(-1) === "₽" ||
+        //     item.price?.slice(-1) === "$" ||
+        //     item.price?.slice(-1) === "֏";
+        //   return (
+        //     <React.Fragment key={uuidv4()}>
+        //       <div key={uuidv4()} className={classes.parentDiv}>
+        //         <SwiperSlide key={uuidv4()} className={classes.swiperSlide}>
+        //           <Link
+        //             key={uuidv4()}
+        //             style={{ textDecoration: "none" }}
+        //             to={item.id}
+        //           >
+        //             <div className={classes.childDiv}>
+        //               <div>
+        //                 <img
+        //                   //src="https://firebasestorage.googleapis.com/v0/b/copartclone-b2247.appspot.com/o/image%2Faadd%40gmail.com%2F4fdhIwDPs3UB9JnmrWXJ%2FMazda%20%20CX-7.jpeg?alt=media&token=3a3bade8-34e3-4977-bbe9-4d4dd630ab42"
+        //                   src={item.img}
+        //                   alt={item.id}
+        //                   className={classes.img}
+        //                 />
+        //               </div>
+        //               <div>
+        //                 <h3 className={classes.header}> {item.brand} </h3>
+        //                 <h4 className={classes.text}>
+        //                   Price: {curr ? item.price : item.price + "$"}
+        //                 </h4> */}
+
+        {post
+          ?.filter((item) => item.isActive === true)
+          .map((item) => {
+            const curr =
+              item.price?.slice(-1) === "€" ||
+              item.price?.slice(-1) === "₽" ||
+              item.price?.slice(-1) === "$" ||
+              item.price?.slice(-1) === "֏";
+            return (
+              <React.Fragment key={uuidv4()}>
+                <div key={uuidv4()} className={classes.parentDiv}>
+                  <SwiperSlide key={uuidv4()} className={classes.swiperSlide}>
+                    <Link
+                      key={uuidv4()}
+                      style={{ textDecoration: "none" }}
+                      to={item.id}
+                    >
+                      <div className={classes.childDiv}>
+                        <div>
+                          <img
+                            //src="https://firebasestorage.googleapis.com/v0/b/copartclone-b2247.appspot.com/o/image%2Faadd%40gmail.com%2F4fdhIwDPs3UB9JnmrWXJ%2FMazda%20%20CX-7.jpeg?alt=media&token=3a3bade8-34e3-4977-bbe9-4d4dd630ab42"
+                            src={item.img}
+                            alt={item.id}
+                            className={classes.img}
+                          />
+                        </div>
+                        <div>
+                          <h3 className={classes.header}> {item.brand} </h3>
+                          <h4 className={classes.text}>
+                            Price: {curr ? item.price : item.price + "$"}
+                          </h4>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className={classes.header}> {item.brand} </h3>
-                        <h4 className={classes.text}>
-                          Price: {curr ? item.price : item.price + "$"}
-                        </h4>
-                      </div>
-                    </div>
-                  </Link>
-                </SwiperSlide>
-              </div>
-            </React.Fragment>
-          );
-        })}
+                    </Link>
+                  </SwiperSlide>
+                </div>
+              </React.Fragment>
+            );
+          })}
       </Swiper>
     </div>
   );

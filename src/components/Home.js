@@ -12,30 +12,62 @@ import CategoryPage from "./CategoryPage";
 import SignIn from "./registration/SignIn";
 import SignUp from "./registration/SignUp";
 import { v4 as uuid } from "uuid";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { dbStore } from "../firebase/firebase";
+import FilteredPage from "../FilteredPage";
 export default function Home(props) {
   const { search } = props;
   let [post, setPost] = useState([]);
   // all posts
   useEffect(() => {
-    (async () => {
-      const colRef = await collection(dbStore, "post");
-      const filtered = await query(
-        colRef,
-        search && where("brand".toLowerCase(), "==", search)
-      );
-      const snapshots = await getDocs(filtered);
+    // const fetchData = async () => {
+    //   const colRef = collection(dbStore, "post");
+    //   const filtered = query(
+    //     colRef,
+    //     search && where("brand".toLowerCase(), "==", search)
+    //   );
+    //   const snapshots = await getDocs(filtered);
 
-      const docs = snapshots.docs.map((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        return data;
-      });
-      setPost(docs);
-    })();
+    //   const docs = snapshots.docs.map((doc) => {
+    //     const data = doc.data();
+    //     data.id = doc.id;
+    //     return data;
+    //   });
+    //   setPost(docs);
+    // };
+    // fetchData();
+    // LISTEN (REALTIME)
+    const colRef = collection(dbStore, "post");
+    const filtered = query(
+      colRef,
+      search && where("brand".toLowerCase(), "==", search)
+    );
+    const fetchData = onSnapshot(
+      filtered,
+      (snapshot) => {
+        const docs = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          return data;
+        });
+        console.log(docs, "bbbbb");
+        setPost(docs);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    return () => {
+      fetchData();
+    };
   }, [search]);
-
+  let [selectFilter, setSelectFilter] = useState([]);
   let routes = useRoutes([
     {
       path: "/*",
@@ -44,8 +76,9 @@ export default function Home(props) {
           path: "/*",
           element: (
             <>
-              <CarTypes />
+              <CarTypes setSelectFilter={setSelectFilter} />
               <AllOffers post={post} />
+              <FilteredPage selectFilter={selectFilter} />
             </>
           ),
         },

@@ -77,7 +77,7 @@ let useStyles = createUseStyles({
     position: "absolute",
     right: 583,
     top: 24,
-    border: [1, "black", "solid"],
+    border: [1, "white", "solid"],
     borderRadius: "50%",
     cursor: "pointer",
   },
@@ -89,11 +89,7 @@ export default function Nav(props) {
   const auth = getAuth();
   const user = auth.currentUser;
   let [search, setSearch] = useState("");
-  let [show, setShow] = useState(false);
 
-  const isShow = () => {
-    setShow(!show);
-  };
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -161,8 +157,7 @@ export default function Nav(props) {
                 setSearch("");
               }}
             >
-              {" "}
-              X{" "}
+              X
             </button>
           </div>
         </Box>
@@ -224,16 +219,14 @@ export default function Nav(props) {
                   return handleClickOpen(), handleCloseMyPage();
                 }}
               >
-                {" "}
-                Մուտք{" "}
+                Մուտք
               </Button>
               <Button
                 onClick={() => {
                   return handleClickOpenSignUp(), handleCloseMyPage();
                 }}
               >
-                {" "}
-                Գրանցվել{" "}
+                Գրանցվել
               </Button>
             </div>
           )}
