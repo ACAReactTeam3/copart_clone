@@ -84,6 +84,7 @@ const SellPage = (props) => {
   const [additionalInfo, setAdditionalInfo] = useState({
     addInfo: "",
     phoneNum: "",
+    phone: [],
   });
 
   const [post, setPost] = useState({});
@@ -127,6 +128,7 @@ const SellPage = (props) => {
         selSalonColor: carDescription.selSalonColor,
         options: filterOptions(options),
         phoneNum: additionalInfo.phoneNum,
+        phone: additionalInfo.phone,
         additionalInfo: additionalInfo.addInfo,
         saved: [],
         isActive: isActive,
