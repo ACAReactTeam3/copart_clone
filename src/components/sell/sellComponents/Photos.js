@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Grid,
   Input,
   InputAdornment,
@@ -35,7 +36,7 @@ export const Photos = ({ setImg }) => {
         sx={{
           mt: 5,
           bgcolor: "Window",
-          height: "36vh",
+          height: "10vh",
           border: "ButtonFace",
         }}
       >

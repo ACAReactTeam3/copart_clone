@@ -12,9 +12,8 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { createUseStyles } from "react-jss";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useLocation } from "react-router-dom";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -27,9 +26,11 @@ import {
   arrayUnion,
   doc,
   getDoc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { Checkbox, FormControlLabel, Switch } from "@mui/material";
 
 let useStyles = createUseStyles({
   parentimgAndContent: {
@@ -108,6 +109,7 @@ export default function Post(props) {
     setIsShown((current) => !current);
   };
   useEffect(() => setIsShown(item.saved.includes(currentEmail)), []);
+
   useEffect(() => {
     const itemDoc = doc(dbStore, "post", item.id);
     if (isShown) {
@@ -122,6 +124,27 @@ export default function Post(props) {
         }))();
     }
   }, [isShown]);
+
+  // const handleActive = (e) => setIsActive(e.target.checked);
+
+  useEffect(() => {
+    (async () => {
+      const itemDoc = doc(dbStore, "post", item.id);
+      const docSnap = await getDoc(itemDoc);
+      setIsActive(docSnap.data().isActive);
+    })();
+  }, []);
+  const [firstStart, setFirstStart] = useState(false);
+  const [isActive, setIsActive] = useState(item.isActive);
+
+  useEffect(() => {
+    const itemDoc = doc(dbStore, "post", item.id);
+    firstStart &&
+      (async () => {
+        await updateDoc(itemDoc, { isActive: isActive });
+      })();
+    setFirstStart(true);
+  }, [isActive]);
 
   const rows = [
     createData("Գինը:", `${!item.price ? "x" : item.price}`),
@@ -154,6 +177,18 @@ export default function Post(props) {
           m: "auto",
         }}
       >
+        {item.userEmail === currentEmail ? (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isActive}
+                onChange={() => setIsActive(!isActive)}
+                name="activ"
+              />
+            }
+            label="Ակտիվացել"
+          />
+        ) : null}
         <IconButton
           size="large"
           aria-label="add to favorites"
