@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomizedAlert } from "./customized";
 
 export const AdditionalInformation = ({
@@ -15,6 +15,15 @@ export const AdditionalInformation = ({
 }) => {
   const { addInfo, phoneNum } = additionalInfo;
   const [additPhoneNum, setAdditPhoneNum] = useState("");
+  useEffect(() => {
+    setAdditionalInfo((prev) => ({
+      ...prev,
+      phoneNum: "(+374) " + additPhoneNum,
+      phone: ["(+374) " + additPhoneNum],
+    }));
+  }, [additPhoneNum]);
+
+  console.log(additPhoneNum, "add");
 
   return (
     <>
@@ -58,14 +67,7 @@ export const AdditionalInformation = ({
               value={additPhoneNum}
               sx={{ m: 0, width: 310, mt: 1 }}
               onChange={(e) => {
-                additPhoneNum.length < 8
-                  ? setAdditPhoneNum(e.target.value)
-                  : setAdditPhoneNum(e.target.value.slice(0, 7));
-                setAdditionalInfo((prev) => ({
-                  ...prev,
-                  phoneNum: "(+374) " + additPhoneNum,
-                  phone: ["(+374) " + additPhoneNum],
-                }));
+                e.target.value.length < 9 && setAdditPhoneNum(e.target.value);
               }}
               placeholder="91 123456"
               InputProps={{
@@ -74,7 +76,7 @@ export const AdditionalInformation = ({
                 ),
               }}
             />
-            {isMessageOpen && (!phoneNum || phoneNum.length < 14) && (
+            {isMessageOpen && (!phoneNum || phoneNum.length < 15) && (
               <CustomizedAlert sx={{ ml: 5, width: 238 }} />
             )}
             <Typography
