@@ -10,7 +10,11 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { signIn, signInWithGoogle } from "../../constants/constants";
+import {
+  signIn,
+  signInWithGoogle,
+  signInWithFacebook,
+} from "../../constants/constants";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import { currentuser } from "../../firebase/firebase";
@@ -80,7 +84,14 @@ export default function SignIn(props) {
         <DialogContentText className={classes.title}>
           Սոց. հաշիվներով
         </DialogContentText>
-        <Button variant="contained" sx={{ m: 1 }} className={classes.button}>
+        <Button
+          variant="contained"
+          sx={{ m: 1 }}
+          className={classes.button}
+          onClick={() => {
+            return signInWithFacebook(), handleClose();
+          }}
+        >
           {" "}
           Facebook <FacebookOutlinedIcon />{" "}
         </Button>
