@@ -19,9 +19,9 @@ let useStyles = createUseStyles({
     margin: [0, "auto"],
   },
   img: {
-    width: 270,
+    maxWidth: 270,
     height: 155,
-    objectFit: "cover",
+    objectFit: "contain",
     transform: "scale(.7)",
     transition: "1s",
     cursor: "pointer",

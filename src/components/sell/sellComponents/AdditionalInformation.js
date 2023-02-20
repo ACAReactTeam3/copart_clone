@@ -64,6 +64,7 @@ export const AdditionalInformation = ({
                 setAdditionalInfo((prev) => ({
                   ...prev,
                   phoneNum: "(+374) " + additPhoneNum,
+                  phone: ["(+374) " + additPhoneNum],
                 }));
               }}
               placeholder="91 123456"
