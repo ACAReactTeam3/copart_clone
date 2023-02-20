@@ -6,10 +6,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { CustomizedAlert } from "./customized";
 
 export const AdditionalInformation = ({
   additionalInfo,
   setAdditionalInfo,
+  isMessageOpen,
 }) => {
   const { addInfo, phoneNum } = additionalInfo;
   const [additPhoneNum, setAdditPhoneNum] = useState("");
@@ -47,7 +49,7 @@ export const AdditionalInformation = ({
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
-              Լրացուցիչ հեռախոսահամար
+              Հիմնական հեռախոսահամար
             </Typography>
             <TextField
               type={"number"}
@@ -58,7 +60,7 @@ export const AdditionalInformation = ({
               onChange={(e) => {
                 additPhoneNum.length < 8
                   ? setAdditPhoneNum(e.target.value)
-                  : setAdditPhoneNum(e.target.value.slice(0, 8));
+                  : setAdditPhoneNum(e.target.value.slice(0, 7));
                 setAdditionalInfo((prev) => ({
                   ...prev,
                   phoneNum: "(+374) " + additPhoneNum,
@@ -72,6 +74,9 @@ export const AdditionalInformation = ({
                 ),
               }}
             />
+            {isMessageOpen && (!phoneNum || phoneNum.length < 14) && (
+              <CustomizedAlert sx={{ ml: 5, width: 238 }} />
+            )}
             <Typography
               variant="body2"
               component="h2"

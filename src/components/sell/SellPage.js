@@ -27,13 +27,15 @@ import { Photos } from "./sellComponents/Photos";
 import { useNavigate } from "react-router-dom";
 import { checkEmptyFilds } from "./sellComponents/customized";
 import { Stack } from "@mui/system";
+import defaultPhoto from "../../images/defaultPhoto.jpg";
 
 const SellPage = (props) => {
   let [img, setImg] = useState(null);
+  //console.log(img, "img");
   let [url, setUrl] = useState([]);
   const [cId, setCId] = useState("");
   const [per, setPer] = useState(null);
-  //console.log(url);
+  //console.log(defaultPhoto);
   const getData = useSelector(function (state) {
     return state;
   });
@@ -88,7 +90,7 @@ const SellPage = (props) => {
   });
 
   const [post, setPost] = useState({});
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   const filterOptions = (obj) => {
     const keys = Object.keys(obj);
@@ -131,7 +133,7 @@ const SellPage = (props) => {
         phone: additionalInfo.phone,
         additionalInfo: additionalInfo.addInfo,
         saved: [],
-        isActive: isActive,
+        isActive: !isActive,
       })),
     [
       getData,
@@ -148,7 +150,8 @@ const SellPage = (props) => {
     catAndType,
     carDescription,
     priceList,
-    location
+    location,
+    additionalInfo
   );
 
   const navigate = useNavigate();
@@ -226,6 +229,7 @@ const SellPage = (props) => {
         setLocation={setLocation}
       />
       <AdditionalInformation
+        isMessageOpen={isMessageOpen}
         additionalInfo={additionalInfo}
         setAdditionalInfo={setAdditionalInfo}
       />
