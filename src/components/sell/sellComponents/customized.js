@@ -19,7 +19,8 @@ export function checkEmptyFilds(
   catAndType,
   carDescription,
   priceList,
-  location
+  location,
+  additionalInfo
 ) {
   const catType = ["Մարդատար", "Ավտոբուս", "Կցասայլ"].includes(
     catAndType.category
@@ -46,7 +47,9 @@ export function checkEmptyFilds(
     !!priceList.currency &&
     !!priceList.sellCustomsCleared &&
     !!priceList.sellCarState &&
-    !!location.country;
+    !!location.country &&
+    !!additionalInfo.phoneNum &&
+    additionalInfo.phoneNum.length >= 14;
   return isTrue;
 }
 

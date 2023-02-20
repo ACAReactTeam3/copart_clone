@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import { Button, TextField } from "@mui/material";
 import { createUseStyles } from "react-jss";
+import { useEffect } from "react";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { query } from "firebase/database";
+import { dbStore } from "../../firebase/firebase";
 
 let useStyle = createUseStyles({
   parent: {
@@ -37,8 +48,49 @@ export default function PersonalInfoData() {
       .catch((error) => {
         alert(error.message);
       });
+    updateSurname();
+    updatePhoneNumber();
   };
 
+  // my posts
+  let [post, setPost] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const colRef = collection(dbStore, "post");
+      const filterUser = query(colRef, where("userEmail", "==", email));
+      const snapshots = await getDocs(filterUser);
+
+      const docs = snapshots.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
+      });
+      setPost(docs);
+    })();
+  }, []);
+
+  const updateSurname = () => {
+    post.forEach((userPost) => {
+      const itemDoc = doc(dbStore, "post", userPost.id);
+      if (surname.length > 2) {
+        (async () =>
+          await updateDoc(itemDoc, {
+            surname: arrayUnion(surname),
+          }))();
+      }
+    });
+  };
+  const updatePhoneNumber = () => {
+    post.forEach((userPost) => {
+      const itemDoc = doc(dbStore, "post", userPost.id);
+      if (phone.length > 7) {
+        (async () =>
+          await updateDoc(itemDoc, {
+            phone: arrayUnion(`(+374) ${phone}`),
+          }))();
+      }
+    });
+  };
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -73,7 +125,7 @@ export default function PersonalInfoData() {
           sx={{ width: 250, m: 1 }}
           value={phone}
           onChange={(e) => {
-            setPhone(e.target.value.replace(/[^0-9,]/g, ""));
+            setPhone(e.target.value.replace(/[^0-9,]/g, "").substring(0, 8));
           }}
         />
         <Button variant="contained" sx={{ width: 300 }} onClick={onSave}>

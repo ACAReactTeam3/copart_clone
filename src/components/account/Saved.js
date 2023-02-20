@@ -67,9 +67,9 @@ let useStyle = createUseStyles({
   },
 
   img: {
-    width: 270,
+    maxWidth: 270,
     height: 220,
-    objectFit: "cover",
+    objectFit: "contain",
     transform: "scale(.7)",
     transition: "1s",
     cursor: "pointer",
@@ -140,7 +140,6 @@ export default function Saved() {
       setPost(docs);
     })();
   }, []);
-
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -174,7 +173,7 @@ export default function Saved() {
       <div className={classes.buttonParent}>
         {!post.length ? (
           <p>
-            <ErrorOutlineIcon /> Դուք դեռևս չունեք հիշված հայտարարություններ:{" "}
+            <ErrorOutlineIcon /> Դուք դեռևս չունեք հիշված հայտարարություններ:
           </p>
         ) : (
           <p> Դուք ունեք {post.length} հիշված հայտարարություն։ </p>
@@ -218,13 +217,5 @@ export default function Saved() {
         })}
       </Swiper>
     </div>
-
-    // <div className={classes.parent}>
-    //   <div className={classes.textParent}>
-    //     <p>
-    //       <ErrorOutlineIcon /> Հիշված հայտարարություններ չկան:
-    //     </p>
-    //   </div>
-    // </div>
   );
 }

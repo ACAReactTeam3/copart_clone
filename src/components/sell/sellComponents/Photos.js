@@ -25,8 +25,6 @@ export const Photos = ({ setImg }) => {
     }
   };
 
-  //console.log(selectedFile, "selectedFile");
-
   return (
     <>
       <Typography variant="h5" component="h2" sx={{ mt: 3, mb: 1 }}>
@@ -50,7 +48,7 @@ export const Photos = ({ setImg }) => {
             <input
               multiple={true}
               type="file"
-              accept="image/*, .png, .jpg, .gif, .web"
+              accept="image/*, .png, .jpg, .gif, .web, .webp, .jpeg"
               onChange={handleChange}
             />
             {/* <Button sx={{ mt: 2, ml: 1, width: 150 }} onClick={handleUpload}>
