@@ -54,10 +54,7 @@ export default function LeftSideBar(props) {
       link: "dealer",
       name: "Դիլերներ",
     },
-    {
-      link: "",
-      name: "Դառնալ ավտոդիլեր",
-    },
+
     {
       link: auth.currentUser ? "sell" : "signin",
       name: "Վաճառել",
