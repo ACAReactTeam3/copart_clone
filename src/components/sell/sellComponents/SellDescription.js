@@ -54,7 +54,7 @@ const SellDescription = ({
     selEngineType,
     selSalonColor,
   } = carDescription;
-  console.log(model, "model");
+
   const [btnMore, setBtnMore] = useState("+ Ավելին");
 
   const brands = carBrandModels.map((item) => item.brand);

@@ -103,8 +103,6 @@ export default function MyOffers() {
   const [isActive, setIsActive] = useState(true);
   const [isNotActive, setIsNotActive] = useState(false);
 
-  console.log(isActive, isNotActive);
-
   let classes = useStyle();
   let sort = [
     "Ամենաթարմերը",

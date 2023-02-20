@@ -104,7 +104,6 @@ export default function AllOffers(props) {
         console.log(error);
       });
   }, []); */
-  console.log(post);
   return (
     <div className={classes.parentDiv}>
       <Swiper
