@@ -97,6 +97,18 @@ export default function CategoryPage(props) {
     })();
   }, [search]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [windowWidth]);
+
   return (
     <div className={classes.parentDiv}>
       <div className={classes.arrow}>
@@ -107,7 +119,9 @@ export default function CategoryPage(props) {
         className={classes.swiper}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={
+          windowWidth < 650 ? 2 : post.length > 4 ? 4 : post.length
+        }
         navigation
         speed={500}
       >

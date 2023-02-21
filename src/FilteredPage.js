@@ -120,6 +120,18 @@ export default function FilteredPage(props) {
     selectFilter[0]?.maxYear,
   ]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [windowWidth]);
+
   return (
     <div className={classes.parent}>
       <div className={classes.parentDiv}>
@@ -128,7 +140,9 @@ export default function FilteredPage(props) {
             className={classes.swiper}
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={20}
-            slidesPerView={post?.length > 4 ? 4 : post?.length}
+            slidesPerView={
+              windowWidth < 650 ? 2 : post.length > 4 ? 4 : post.length
+            }
             navigation
             speed={500}
           >

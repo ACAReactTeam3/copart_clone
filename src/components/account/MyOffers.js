@@ -188,6 +188,17 @@ export default function MyOffers() {
     }
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [windowWidth]);
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
@@ -244,7 +255,9 @@ export default function MyOffers() {
         className={classes.swiper}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={
+          windowWidth < 650 ? 2 : post.length > 4 ? 4 : post.length
+        }
         navigation
         speed={500}
       >
@@ -275,7 +288,12 @@ export default function MyOffers() {
                     <div className={classes.childDiv}>
                       <IconButton
                         aria-label="delete"
-                        sx={{ ml: 20, mt: 0 }}
+                        sx={{
+                          mt: 0,
+                          position: "absolute",
+                          right: 5,
+                          zIndex: 100,
+                        }}
                         onClick={(e) => {
                           e.preventDefault();
                           handleDelete(item.id);
