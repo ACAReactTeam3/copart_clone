@@ -69,6 +69,10 @@ export default function Home(props) {
   let [selectFilter, setSelectFilter] = useState([]);
   let routes = useRoutes([
     {
+      path: "/filteredPage",
+      element: <FilteredPage selectFilter={selectFilter} />,
+    },
+    {
       path: "/*",
       children: [
         {
@@ -77,7 +81,6 @@ export default function Home(props) {
             <>
               <CarTypes setSelectFilter={setSelectFilter} />
               <AllOffers post={post} />
-              <FilteredPage selectFilter={selectFilter} />
             </>
           ),
         },

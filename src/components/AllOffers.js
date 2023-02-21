@@ -16,6 +16,7 @@ let useStyles = createUseStyles({
   parentDiv: {
     marginTop: "30px",
     width: "80%",
+    height: "65vh",
     margin: [0, "auto"],
   },
   img: {
