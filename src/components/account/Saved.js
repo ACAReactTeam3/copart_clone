@@ -88,14 +88,12 @@ let useStyle = createUseStyles({
   },
   header: {
     color: "#1172b6",
-    textAlign: "left",
-    marginLeft: "40px",
+    textAlign: "center",
   },
   text: {
     color: "black",
     fontSize: "15px",
-    textAlign: "left",
-    marginLeft: "40px",
+    textAlign: "center",
   },
   childDiv: {
     padding: "10px 0",
@@ -143,7 +141,7 @@ export default function Saved() {
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
-        <FormControl sx={{ m: 1, minWidth: 250 }}>
+        {/*  <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel id="demo-dialog-select-label"> Տեսակը </InputLabel>
           <Select
             labelId="demo-dialog-select-label"
@@ -160,15 +158,15 @@ export default function Saved() {
               );
             })}
           </Select>
-        </FormControl>
-        <label>
+        </FormControl> */}
+        {/*  <label>
           <input type="checkbox" />
           Ակտիվները
         </label>
         <label>
           <input type="checkbox" />
           Ոչ ակտիվները
-        </label>
+        </label> */}
       </div>
       <div className={classes.buttonParent}>
         {!post.length ? (
