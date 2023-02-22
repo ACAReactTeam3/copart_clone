@@ -49,7 +49,7 @@ export const AdditionalInformation = ({
               multiline
               rows={5}
               onChange={(e) =>
-                setAdditionalInfo((prev) => ({
+                setAdditPhoneNum((prev) => ({
                   ...prev,
                   addInfo: e.target.value,
                 }))
