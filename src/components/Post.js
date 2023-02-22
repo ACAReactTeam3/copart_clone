@@ -285,7 +285,7 @@ export default function Post(props) {
         <div className={classes.top}>
           <p
             style={{
-              marginTop: 280,
+              marginTop: 30,
               fontSize: "25px",
               marginLeft: "10px",
             }}
@@ -293,7 +293,7 @@ export default function Post(props) {
             Լրացուցիչ
           </p>
           <CardActions disableSpacing>
-            <IconButton onClick={handleExpandClick} style={{ marginTop: 270 }}>
+            <IconButton onClick={handleExpandClick} style={{ marginTop: 25 }}>
               {!expanded ? (
                 <ExpandMore
                   aria-expanded={expanded}

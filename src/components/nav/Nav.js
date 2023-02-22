@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     width: "100%",
     backgroundColor: "rgba(255,255,255,.95)",
     boxShadow: "0 2px 6px 0 rgb(0 0 0 / 7%) !important",
+    marginTop: 10,
   },
   parentDiv: {
     placeItems: "center",

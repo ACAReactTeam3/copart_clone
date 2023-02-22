@@ -76,8 +76,7 @@ export default function SignIn(props) {
       >
         {location.pathname === "/signin" ? (
           <Link to="/" onClick={handleClose}>
-            {" "}
-            <HouseIcon className={classes.house} />{" "}
+            <HouseIcon className={classes.house} />
           </Link>
         ) : null}
         <DialogTitle className={classes.title}> Մուտք </DialogTitle>
@@ -86,26 +85,24 @@ export default function SignIn(props) {
         </DialogContentText>
         <Button
           variant="contained"
-          sx={{ m: 1 }}
+          sx={{ m: "auto", mt: 1 }}
           className={classes.button}
           onClick={() => {
             return signInWithFacebook(), handleClose();
           }}
         >
-          {" "}
-          Facebook <FacebookOutlinedIcon />{" "}
+          Facebook <FacebookOutlinedIcon />
         </Button>
         <Button
           variant="contained"
-          sx={{ m: 1 }}
+          sx={{ m: "auto", mt: 1 }}
           color="success"
           className={classes.button}
           onClick={() => {
             return signInWithGoogle(), handleClose();
           }}
         >
-          {" "}
-          Google <GoogleIcon />{" "}
+          Google <GoogleIcon />
         </Button>
         <DialogContent>
           <hr />

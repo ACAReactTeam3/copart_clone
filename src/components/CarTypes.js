@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 });
 export default function CarTypes(props) {
   const classes = useStyles();
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
   const carsType = [
     {
       link: "passenger",
