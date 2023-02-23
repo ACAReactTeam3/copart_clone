@@ -16,6 +16,11 @@ let useStyle = createUseStyles({
     padding: 10,
     top: "50%",
   },
+  "@media only screen and (max-width: 935px)": {
+    parentPassword: {
+      margin: [0, "20%"],
+    },
+  },
 });
 
 export default function PersonalInfoPassword() {

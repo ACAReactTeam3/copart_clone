@@ -17,7 +17,7 @@ const useStyle = createUseStyles({
     position: "relative",
   },
   inputSearch: {
-    width: "80%",
+    width: "75%",
     display: "flex",
     flexWrap: "wrap",
     margin: [0, "auto"],
@@ -141,7 +141,7 @@ export default function Filter(props) {
         autoComplete="off"
       >
         <div className={classes.inputSearch}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 1, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մակնիշը </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -161,7 +161,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 1, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մոդելը </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -181,7 +181,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 2, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Տարին, սկս. </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -202,7 +202,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 2, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մինչև </InputLabel>
             <Select
               labelId="demo-dialog-select-label"

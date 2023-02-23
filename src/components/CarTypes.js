@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   ul: {
     display: "flex",
     flexDirection: "row",
-    paddingLeft: "10%",
+    justifyContent: "center",
     position: "relative",
     margin: [0, "auto"],
     "&": {
