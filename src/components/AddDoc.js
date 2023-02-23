@@ -95,7 +95,7 @@ export default function AddDoc() {
                       setImg(null);
                     })
                     .catch((error) => {
-                      console.log("err", error.message);
+                      console.log("err err", error.message);
                     });
                 });
               });

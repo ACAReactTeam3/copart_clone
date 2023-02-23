@@ -31,7 +31,7 @@ import defaultPhoto from "../../images/defaultPhoto.jpg";
 
 const SellPage = (props) => {
   let [img, setImg] = useState(null);
-  //console.log(img, "img");
+  console.log(img, "img");
   let [url, setUrl] = useState([]);
   const [cId, setCId] = useState("");
   const [per, setPer] = useState(null);
@@ -145,6 +145,7 @@ const SellPage = (props) => {
       additionalInfo,
     ]
   );
+  console.log(additionalInfo.phoneNum.length);
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const isEmptyMess = checkEmptyFilds(
     catAndType,

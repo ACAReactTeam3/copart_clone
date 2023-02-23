@@ -25,6 +25,11 @@ let useStyle = createUseStyles({
     margin: [0, "40%"],
     padding: 10,
   },
+  "@media only screen and (max-width: 935px)": {
+    inputParent: {
+      margin: [0, "20%"],
+    },
+  },
 });
 
 export default function PersonalInfoData() {

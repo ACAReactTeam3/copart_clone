@@ -78,14 +78,12 @@ let useStyle = createUseStyles({
   },
   header: {
     color: "#1172b6",
-    textAlign: "left",
-    marginLeft: "40px",
+    textAlign: "center",
   },
   text: {
     color: "black",
     fontSize: "15px",
-    textAlign: "left",
-    marginLeft: "40px",
+    textAlign: "center",
   },
   childDiv: {
     padding: "10px 0",
@@ -104,13 +102,13 @@ export default function MyOffers() {
   const [isNotActive, setIsNotActive] = useState(false);
 
   let classes = useStyle();
-  let sort = [
-    "Ամենաթարմերը",
-    "Գին՝ թանկից - էժան",
-    "Գին՝ էժանից-թանկ",
-    "Տարեթվերը՝ ամենահները",
-    "Տարեթվերը՝ ամենանորերը",
-  ];
+  // let sort = [
+  //   "Ամենաթարմերը",
+  //   "Գին՝ թանկից - էժան",
+  //   "Գին՝ էժանից-թանկ",
+  //   "Տարեթվերը՝ ամենահները",
+  //   "Տարեթվերը՝ ամենանորերը",
+  // ];
   let [selectedSort, setSelectedSort] = useState("");
   const handleChangeselectedType = (event) => {
     setSelectedSort(event.target.value);
@@ -133,6 +131,54 @@ export default function MyOffers() {
     })();
   }, []);
 
+  //   useEffect(() => {
+  // //    return () => {
+  //        if(selectedSort === 'Ամենաթարմերը') {
+  //      return setPost(() => {
+  //           return post.sort(((a, b) => {
+  //               return b?.year - a?.year
+  //             }))
+  //       })//,
+  //       //console.log('Ամենաթարմերը', post, selectedSort)
+  //       }
+  //       if( selectedSort === 'Գին՝ թանկից - էժան') {
+  //       return setPost(() => {
+  //           return post.sort(((a, b) => {
+  //               return b?.price - a?.price
+  //             }))
+  //       })//,
+  //       //console.log('Գին՝ թանկից - էժան', post)
+  //     }
+  //       else if( selectedSort === 'Գին՝ էժանից-թանկ') {
+  //       return setPost(() => {
+  //           return post.sort(((a, b) => {
+  //               return a?.price - b?.price
+  //             }))
+  //       })//,
+  //         //console.log('Գին՝ էժանից-թանկ', post)
+  //       }
+  //       else if('Տարեթվերը՝ ամենահները') {
+  //      return setPost(() => {
+  //           return post.sort(((a, b) => {
+  //               return a?.year - b?.year
+  //             }))
+  //       })//,
+  //         //console.log('Տարեթվերը՝ ամենահները', post, selectedSort)
+  //       }
+  //       else if(selectedSort === 'Տարեթվերը՝ ամենանորերը') {
+  //       return setPost(() => {
+  //           return post.sort(((a, b) => {
+  //               return b?.year - a?.year
+  //             }))
+  //       })//,
+  //        //console.log('Տարեթվերը՝ ամենանորերը', post)
+  //       }
+  //   //}
+  // /*   return () => {
+
+  //   } */
+  //   }, [selectedSort])
+
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(dbStore, "post", id));
@@ -142,10 +188,21 @@ export default function MyOffers() {
     }
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [windowWidth]);
   return (
     <div className={classes.parent}>
       <div className={classes.inputParent}>
-        <FormControl sx={{ m: 1, minWidth: 250 }}>
+        {/*  <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel id="demo-dialog-select-label"> Տեսակը </InputLabel>
           <Select
             labelId="demo-dialog-select-label"
@@ -162,7 +219,7 @@ export default function MyOffers() {
               );
             })}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <label>
           <input
             type="checkbox"
@@ -181,7 +238,7 @@ export default function MyOffers() {
         </label>
       </div>
       <div className={classes.buttonParent}>
-        {!post.length ? (
+        {!post?.length ? (
           <p>
             <ErrorOutlineIcon /> Դուք դեռևս չունեք հայտարարություններ:{" "}
           </p>
@@ -198,7 +255,9 @@ export default function MyOffers() {
         className={classes.swiper}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={
+          windowWidth < 650 ? 2 : post.length > 4 ? 4 : post.length
+        }
         navigation
         speed={500}
       >
@@ -229,7 +288,12 @@ export default function MyOffers() {
                     <div className={classes.childDiv}>
                       <IconButton
                         aria-label="delete"
-                        sx={{ ml: 20, mt: 0 }}
+                        sx={{
+                          mt: 0,
+                          position: "absolute",
+                          right: 5,
+                          zIndex: 100,
+                        }}
                         onClick={(e) => {
                           e.preventDefault();
                           handleDelete(item.id);

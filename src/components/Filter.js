@@ -17,7 +17,7 @@ const useStyle = createUseStyles({
     position: "relative",
   },
   inputSearch: {
-    width: "80%",
+    width: "75%",
     display: "flex",
     flexWrap: "wrap",
     margin: [0, "auto"],
@@ -36,9 +36,6 @@ const useStyle = createUseStyles({
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
-  allOffers: {
-    margin: [0, "auto"],
-  },
 });
 
 export default function Filter(props) {
@@ -49,10 +46,10 @@ export default function Filter(props) {
   let [modelName, setModelName] = useState([]);
   let [model, setModel] = useState("");
 
-  let [minYear, setMinYear] = useState("");
-  let [maxYear, setMaxYear] = useState("");
-  let [minPrice, setMinPrice] = useState("");
-  let [maxPrice, setMaxPrice] = useState("");
+  let [minYear, setMinYear] = useState("2000");
+  let [maxYear, setMaxYear] = useState("2024");
+  let [minPrice, setMinPrice] = useState("3000");
+  let [maxPrice, setMaxPrice] = useState("30000");
   let bodyType = [
     "Սեդան",
     "Հետչբեք",
@@ -65,7 +62,7 @@ export default function Filter(props) {
     "Ֆուրգոն",
     "Լիմուզին",
   ];
-  let [body, setBody] = useState("");
+  let [body, setBody] = useState("Սեդան");
   let [steeringWheel, setSteeringWheel] = useState("");
   let [gearbox, setGearbox] = useState("");
   let [engine, setEngine] = useState("");
@@ -100,7 +97,20 @@ export default function Filter(props) {
 
   useEffect(() => {
     if (brand) {
-      setModelName(carName.find((obj) => obj.brand == brand).models);
+      setModelName(carName.find((obj) => obj?.brand == brand).models);
+      props.setSelectFilter(() => {
+        return [
+          {
+            brand: brand,
+            model: "",
+            minYear: minYear,
+            maxYear: maxYear,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            body: body,
+          },
+        ];
+      });
     }
   }, [brand]);
 
@@ -114,6 +124,7 @@ export default function Filter(props) {
           maxYear: maxYear,
           minPrice: minPrice,
           maxPrice: maxPrice,
+          body: body,
         },
       ];
     });
@@ -130,7 +141,7 @@ export default function Filter(props) {
         autoComplete="off"
       >
         <div className={classes.inputSearch}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 1, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մակնիշը </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -150,7 +161,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 1, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մոդելը </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -170,7 +181,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 2, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Տարին, սկս. </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -191,7 +202,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, mt: 1, mb: 2, minWidth: 120, left: 30 }}>
             <InputLabel id="demo-dialog-select-label"> Մինչև </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -211,7 +222,7 @@ export default function Filter(props) {
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-dialog-select-label"> Գինը, սկս. </InputLabel>
             <Select
               labelId="demo-dialog-select-label"
@@ -250,7 +261,7 @@ export default function Filter(props) {
                 );
               })}
             </Select>
-          </FormControl>
+          </FormControl> */}
           <div className={!isShow ? classes.advancedSearch : null}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-dialog-select-label"> Թափքը </InputLabel>
@@ -318,7 +329,7 @@ export default function Filter(props) {
               </Select>
             </FormControl>
           </div>
-          <div className={classes.checkSearch}>
+          {/*  <div className={classes.checkSearch}>
             <label>
               <input type="checkbox" />
               Մաքսազերծված
@@ -342,10 +353,10 @@ export default function Filter(props) {
             >
               {isShow ? "հասարակ որոնում" : "Ընդլայնված որոնում"}
             </Button>
-          </div>
+          </div> */}
           <Button
             variant="contained"
-            className={classes.allOffers}
+            style={{ margin: "auto" }}
             onClick={() => {
               return navigate("/filteredPage");
             }}

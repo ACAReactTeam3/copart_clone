@@ -49,7 +49,7 @@ export function checkEmptyFilds(
     !!priceList.sellCarState &&
     !!location.country &&
     !!additionalInfo.phoneNum &&
-    additionalInfo.phoneNum.length >= 14;
+    additionalInfo.phoneNum.length === 15;
   return isTrue;
 }
 

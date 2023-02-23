@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Button from "@mui/material/Button";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -40,6 +38,33 @@ let useStyle = createUseStyles({
   },
   linkStyle: {
     textDecoration: "none",
+    paddingBottom: 10,
+    marginTop: 5,
+    textAlign: "center",
+    "&:hover": {
+      color: "white",
+      backgroundColor: "grey",
+    },
+  },
+  "@media only screen and (max-width: 935px)": {
+    columnDiv: {
+      display: "flex",
+      flexDirection: "column",
+      "&": {
+        display: "block",
+        textAlign: "center",
+      },
+    },
+    link: {
+      flexDirection: "column",
+      "&": {
+        margin: 15,
+      },
+    },
+    linkStyle: {
+      paddingBottom: 10,
+      marginTop: 15,
+    },
   },
 });
 
@@ -88,7 +113,6 @@ export default function Account(props) {
         </div>
         <div>
           <p> Հաշվի տիպը - անձնական</p>
-          <span> հայտարարություն 10-ից </span>
         </div>
         <div>
           <p> Հաշվի կապը սոց. հաշիվների հետ</p>
@@ -108,13 +132,13 @@ export default function Account(props) {
       </div>
       <nav className={classes.link}>
         <Link to="myOffers" className={classes.linkStyle}>
-          <h2> Իմ հայտարարությունները </h2>
+          <h2 className={classes.title}> Իմ հայտարարությունները </h2>
         </Link>
         <Link to="saved" className={classes.linkStyle}>
-          <h2> Հիշվածները </h2>
+          <h2 className={classes.title}> Հիշվածները </h2>
         </Link>
         <Link to="personalinfo" className={classes.linkStyle}>
-          <h2> Անձնական տվյալներ </h2>
+          <h2 className={classes.title}> Անձնական տվյալներ </h2>
         </Link>
       </nav>
       {routes}

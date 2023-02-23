@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   ul: {
     display: "flex",
     flexDirection: "row",
-    paddingLeft: "10%",
+    justifyContent: "center",
     position: "relative",
     margin: [0, "auto"],
     "&": {
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 });
 export default function CarTypes(props) {
   const classes = useStyles();
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
   const carsType = [
     {
       link: "passenger",

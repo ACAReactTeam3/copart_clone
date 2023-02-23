@@ -16,7 +16,8 @@ let useStyles = createUseStyles({
   parentDiv: {
     marginTop: "30px",
     width: "80%",
-    margin: [0, "auto"],
+    height: "65vh",
+    margin: [10, "auto"],
   },
   img: {
     maxWidth: 270,
@@ -65,7 +66,17 @@ export default function AllOffers(props) {
   /*   let [post, setPost] = useState([]); */
   let [img, setImg] = useState(null);
   let [url, setUrl] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, [windowWidth]);
   // img list
   /* useEffect(() => {
     listAll(listRef)
@@ -110,7 +121,9 @@ export default function AllOffers(props) {
         className={classes.swiper}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={20}
-        slidesPerView={post.length > 4 ? 4 : post.length}
+        slidesPerView={
+          windowWidth < 650 ? 2 : post.length > 4 ? 4 : post.length
+        }
         navigation
         speed={500}
       >

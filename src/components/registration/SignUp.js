@@ -91,26 +91,24 @@ export default function SignUp(props) {
           </DialogContentText>
           <Button
             variant="contained"
-            sx={{ m: 1 }}
+            sx={{ m: "auto", mt: 1, display: "block" }}
             className={classes.button}
             onClick={() => {
               return signInWithFacebook(), handleCloseSignUp();
             }}
           >
-            {" "}
-            Facebook <FacebookOutlinedIcon />{" "}
+            Facebook <FacebookOutlinedIcon />
           </Button>
           <Button
             variant="contained"
-            sx={{ m: 1 }}
+            sx={{ m: "auto", mt: 1, display: "block" }}
             color="success"
             className={classes.button}
             onClick={() => {
               return signInWithGoogle(), handleCloseSignUp();
             }}
           >
-            {" "}
-            Google <GoogleIcon />{" "}
+            Google <GoogleIcon />
           </Button>
           <hr />
           <DialogContentText className={classes.title}> Կամ </DialogContentText>
@@ -167,8 +165,7 @@ export default function SignUp(props) {
             }}
             sx={{ m: [0, "auto"] }}
           >
-            {" "}
-            Գրանցվել{" "}
+            Գրանցվել
           </Button>
         </DialogActions>
         {location.pathname === "/signup" ? (
