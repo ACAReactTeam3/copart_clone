@@ -140,7 +140,7 @@ export default function CategoryPage(props) {
                     </div>
                     <div>
                       <h3 className={classes.header}> {item.brand} </h3>
-                      <h4 className={classes.text}>Price: {item.price} $</h4>
+                      <h4 className={classes.text}>Price: {item.price}</h4>
                     </div>
                   </div>
                 </Link>
