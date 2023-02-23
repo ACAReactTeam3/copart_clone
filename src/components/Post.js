@@ -285,7 +285,7 @@ export default function Post(props) {
         <div className={classes.top}>
           <p
             style={{
-              marginTop: 280,
+              marginTop: 200,
               fontSize: "25px",
               marginLeft: "10px",
             }}
